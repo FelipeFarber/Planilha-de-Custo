@@ -1,0 +1,635 @@
+{
+  "recipes": [
+    {
+      "id": 10,
+      "name": "Bolo de chocolate 700g",
+      "ingredients": [
+        {
+          "id": 11,
+          "name": "Farinha",
+          "packagePrice": 2.99,
+          "packageQty": 1000,
+          "packageUnit": "g",
+          "recipeQty": 210,
+          "householdMeasure": "1 e 3/4 xícara de chá"
+        },
+        {
+          "id": 12,
+          "name": "Açucar",
+          "packagePrice": 4.1,
+          "packageQty": 1000,
+          "packageUnit": "g",
+          "recipeQty": 225,
+          "householdMeasure": "1 e 1/4 xícara de chá"
+        },
+        {
+          "id": 13,
+          "name": "Chocolate em pó 100%",
+          "packagePrice": 41.76,
+          "packageQty": 500,
+          "packageUnit": "g",
+          "recipeQty": 80,
+          "householdMeasure": "1 xícara de chá"
+        },
+        {
+          "id": 14,
+          "name": "Óleo",
+          "packagePrice": 7.15,
+          "packageQty": 900,
+          "packageUnit": "ml",
+          "recipeQty": 180,
+          "householdMeasure": "3/4 de xícara de chá"
+        },
+        {
+          "id": 15,
+          "name": "Leite",
+          "packagePrice": 5.29,
+          "packageQty": 1000,
+          "packageUnit": "ml",
+          "recipeQty": 180,
+          "householdMeasure": "3/4 de xícara de chá"
+        },
+        {
+          "id": 16,
+          "name": "Ovos",
+          "packagePrice": 18.9,
+          "packageQty": 20,
+          "packageUnit": "unid",
+          "recipeQty": 2,
+          "householdMeasure": "2 Ovos"
+        },
+        {
+          "id": 36,
+          "name": "Fermento",
+          "packagePrice": 3.69,
+          "packageQty": 100,
+          "packageUnit": "g",
+          "recipeQty": 12,
+          "householdMeasure": "1 Colher de Sopa"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "name": "Bolo de Cenoura 700g",
+      "ingredients": [
+        {
+          "id": 18,
+          "name": "Farinha",
+          "packagePrice": 2.99,
+          "packageQty": 1000,
+          "packageUnit": "g",
+          "recipeQty": 240,
+          "householdMeasure": "2 xícaras de chá"
+        },
+        {
+          "id": 19,
+          "name": "Cenouras",
+          "packagePrice": 3.34,
+          "packageQty": 6,
+          "packageUnit": "unid",
+          "recipeQty": 3,
+          "householdMeasure": "2 cenouras médias"
+        },
+        {
+          "id": 20,
+          "name": "Ovos",
+          "packagePrice": 18.9,
+          "packageQty": 20,
+          "packageUnit": "unid",
+          "recipeQty": 3,
+          "householdMeasure": "3 Ovos"
+        },
+        {
+          "id": 21,
+          "name": "Óleo",
+          "packagePrice": 7.15,
+          "packageQty": 900,
+          "packageUnit": "ml",
+          "recipeQty": 160,
+          "householdMeasure": "2/3 de xícara de chá"
+        },
+        {
+          "id": 22,
+          "name": "Fermento em Pó",
+          "packagePrice": 3.39,
+          "packageQty": 100,
+          "packageUnit": "g",
+          "recipeQty": 14,
+          "householdMeasure": "1 colher de sopa"
+        },
+        {
+          "id": 23,
+          "name": "Açucar",
+          "packagePrice": 4.1,
+          "packageQty": 1000,
+          "packageUnit": "g",
+          "recipeQty": 270,
+          "householdMeasure": "1 e 1/2 xícara de chá"
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "name": "Bolo de Banana 700g",
+      "ingredients": [
+        {
+          "id": 25,
+          "name": "Banana",
+          "packagePrice": 6,
+          "packageQty": 6,
+          "packageUnit": "unid",
+          "recipeQty": 3,
+          "householdMeasure": "aproximadamente 3 a 4 bananas"
+        },
+        {
+          "id": 26,
+          "name": "Ovos",
+          "packagePrice": 18.9,
+          "packageQty": 20,
+          "packageUnit": "unid",
+          "recipeQty": 2,
+          "householdMeasure": "2 Ovos"
+        },
+        {
+          "id": 27,
+          "name": "Óleo",
+          "packagePrice": 7.15,
+          "packageQty": 900,
+          "packageUnit": "ml",
+          "recipeQty": 120,
+          "householdMeasure": "1/2 xícara de chá"
+        },
+        {
+          "id": 28,
+          "name": "Farinha de Trigo",
+          "packagePrice": 5.49,
+          "packageQty": 1000,
+          "packageUnit": "g",
+          "recipeQty": 210,
+          "householdMeasure": "1 e 3/4 de xícara de chá"
+        },
+        {
+          "id": 29,
+          "name": "Fermento",
+          "packagePrice": 3.69,
+          "packageQty": 100,
+          "packageUnit": "g",
+          "recipeQty": 12,
+          "householdMeasure": "1 colher de sopa"
+        },
+        {
+          "id": 30,
+          "name": "Açucar",
+          "packagePrice": 4.1,
+          "packageQty": 1000,
+          "packageUnit": "g",
+          "recipeQty": 150,
+          "householdMeasure": "3/4 de xícara de chá"
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "name": "Bolo de Fubá com Goiabada 700g",
+      "ingredients": [
+        {
+          "id": 32,
+          "name": "Fubá Mimoso",
+          "packagePrice": 1.89,
+          "packageQty": 500,
+          "packageUnit": "g",
+          "recipeQty": 150,
+          "householdMeasure": "1 e 1/4 de xícara de chá"
+        },
+        {
+          "id": 33,
+          "name": "Farinha de Trigo",
+          "packagePrice": 5.49,
+          "packageQty": 1000,
+          "packageUnit": "g",
+          "recipeQty": 120,
+          "householdMeasure": "1 xícara de chá"
+        },
+        {
+          "id": 34,
+          "name": "Açucar",
+          "packagePrice": 4.1,
+          "packageQty": 1000,
+          "packageUnit": "g",
+          "recipeQty": 200,
+          "householdMeasure": "1 xícara de chá"
+        },
+        {
+          "id": 35,
+          "name": "Leite",
+          "packagePrice": 5.29,
+          "packageQty": 1000,
+          "packageUnit": "ml",
+          "recipeQty": 240,
+          "householdMeasure": "1 xícara de chá"
+        },
+        {
+          "id": 37,
+          "name": "Óleo",
+          "packagePrice": 7.15,
+          "packageQty": 900,
+          "packageUnit": "ml",
+          "recipeQty": 120,
+          "householdMeasure": "1/2 xícara de chá"
+        },
+        {
+          "id": 38,
+          "name": "Ovos",
+          "packagePrice": 18.9,
+          "packageQty": 20,
+          "packageUnit": "unid",
+          "recipeQty": 2,
+          "householdMeasure": "2 Ovos"
+        },
+        {
+          "id": 39,
+          "name": "Fermento em Pó",
+          "packagePrice": 5.16,
+          "packageQty": 100,
+          "packageUnit": "g",
+          "recipeQty": 14,
+          "householdMeasure": "1 colher de sopa"
+        },
+        {
+          "id": 40,
+          "name": "Goiabada em Cubos",
+          "packagePrice": 3.19,
+          "packageQty": 300,
+          "packageUnit": "g",
+          "recipeQty": 120,
+          "householdMeasure": "Em cubos"
+        },
+        {
+          "id": 41,
+          "name": "Farinha",
+          "packagePrice": 2.99,
+          "packageQty": 1000,
+          "packageUnit": "g",
+          "recipeQty": 7,
+          "householdMeasure": "1 colher de sopa (para envolver a goiabada)"
+        }
+      ]
+    },
+    {
+      "id": 58,
+      "name": "Bolo de Paçoca 700g",
+      "ingredients": [
+        {
+          "id": 59,
+          "name": "Farinha",
+          "packagePrice": 2.99,
+          "packageQty": 1000,
+          "packageUnit": "g",
+          "recipeQty": 200,
+          "householdMeasure": "1 e 2/3 de xícara de chá"
+        },
+        {
+          "id": 60,
+          "name": "Açucar",
+          "packagePrice": 4.1,
+          "packageQty": 1000,
+          "packageUnit": "g",
+          "recipeQty": 160,
+          "householdMeasure": "3/4 de xícara de chá"
+        },
+        {
+          "id": 61,
+          "name": "Ovos",
+          "packagePrice": 18.9,
+          "packageQty": 20,
+          "packageUnit": "unid",
+          "recipeQty": 3,
+          "householdMeasure": "3 Ovos"
+        },
+        {
+          "id": 62,
+          "name": "Leite",
+          "packagePrice": 5.29,
+          "packageQty": 1000,
+          "packageUnit": "ml",
+          "recipeQty": 180,
+          "householdMeasure": "3/4 de xícara de chá"
+        },
+        {
+          "id": 63,
+          "name": "Óleo",
+          "packagePrice": 7.15,
+          "packageQty": 900,
+          "packageUnit": "ml",
+          "recipeQty": 120,
+          "householdMeasure": "1/2 xícara de chá"
+        },
+        {
+          "id": 64,
+          "name": "Fermento",
+          "packagePrice": 3.69,
+          "packageQty": 100,
+          "packageUnit": "g",
+          "recipeQty": 12,
+          "householdMeasure": "1 colher de sopa"
+        },
+        {
+          "id": 65,
+          "name": "Paçoca",
+          "packagePrice": 17,
+          "packageQty": 40,
+          "packageUnit": "g",
+          "recipeQty": 6,
+          "householdMeasure": "4 na massa 2 enfeitar"
+        }
+      ]
+    },
+    {
+      "id": 42,
+      "name": "Bolo de Fubá 700g",
+      "ingredients": [
+        {
+          "id": 43,
+          "name": "Fubá Mimoso",
+          "packagePrice": 1.89,
+          "packageQty": 500,
+          "packageUnit": "g",
+          "recipeQty": 170,
+          "householdMeasure": "1 e 1/2 xícara de chá)"
+        },
+        {
+          "id": 44,
+          "name": "Farinha",
+          "packagePrice": 2.99,
+          "packageQty": 1000,
+          "packageUnit": "g",
+          "recipeQty": 120,
+          "householdMeasure": "1 xícara de chá"
+        },
+        {
+          "id": 45,
+          "name": "Açucar",
+          "packagePrice": 4.1,
+          "packageQty": 1000,
+          "packageUnit": "g",
+          "recipeQty": 250,
+          "householdMeasure": "1 e 1/4 de xícara de chá"
+        },
+        {
+          "id": 46,
+          "name": "Leite",
+          "packagePrice": 5.29,
+          "packageQty": 1000,
+          "packageUnit": "ml",
+          "recipeQty": 240,
+          "householdMeasure": "1 xícara de chá"
+        },
+        {
+          "id": 47,
+          "name": "Óleo",
+          "packagePrice": 7.15,
+          "packageQty": 900,
+          "packageUnit": "ml",
+          "recipeQty": 150,
+          "householdMeasure": "1 xícara de chá"
+        },
+        {
+          "id": 48,
+          "name": "Ovos",
+          "packagePrice": 18.9,
+          "packageQty": 20,
+          "packageUnit": "unid",
+          "recipeQty": 3,
+          "householdMeasure": "3 Ovos"
+        },
+        {
+          "id": 49,
+          "name": "Fermento",
+          "packagePrice": 3.69,
+          "packageQty": 100,
+          "packageUnit": "g",
+          "recipeQty": 14,
+          "householdMeasure": "1 colher de sopa"
+        }
+      ]
+    },
+    {
+      "id": 50,
+      "name": "Bolo de Milho 700g",
+      "ingredients": [
+        {
+          "id": 51,
+          "name": "Milho em lata",
+          "packagePrice": 2.99,
+          "packageQty": 170,
+          "packageUnit": "g",
+          "recipeQty": 170,
+          "householdMeasure": "1 Lata"
+        },
+        {
+          "id": 52,
+          "name": "Leite",
+          "packagePrice": 5.29,
+          "packageQty": 1000,
+          "packageUnit": "ml",
+          "recipeQty": 200,
+          "householdMeasure": "3/4 de xícara"
+        },
+        {
+          "id": 53,
+          "name": "Ovos",
+          "packagePrice": 18.9,
+          "packageQty": 20,
+          "packageUnit": "unid",
+          "recipeQty": 3,
+          "householdMeasure": "3 Ovos"
+        },
+        {
+          "id": 54,
+          "name": "Açucar",
+          "packagePrice": 4.1,
+          "packageQty": 1000,
+          "packageUnit": "g",
+          "recipeQty": 250,
+          "householdMeasure": "1 e 1/4 de xícara de chá"
+        },
+        {
+          "id": 55,
+          "name": "Flocão",
+          "packagePrice": 1.89,
+          "packageQty": 500,
+          "packageUnit": "g",
+          "recipeQty": 125,
+          "householdMeasure": "1 xícara de chá"
+        },
+        {
+          "id": 56,
+          "name": "Óleo",
+          "packagePrice": 7.15,
+          "packageQty": 900,
+          "packageUnit": "ml",
+          "recipeQty": 100,
+          "householdMeasure": "1/2 xícara de chá"
+        },
+        {
+          "id": 57,
+          "name": "Fermento",
+          "packagePrice": 3.69,
+          "packageQty": 100,
+          "packageUnit": "g",
+          "recipeQty": 14,
+          "householdMeasure": "1 colher de sopa"
+        }
+      ]
+    },
+    {
+      "id": 0,
+      "name": "Bolo de Cenoura com Cobertura",
+      "ingredients": [
+        {
+          "id": 1,
+          "name": "Cenoura",
+          "packagePrice": 3.75,
+          "packageQty": 1000,
+          "packageUnit": "g",
+          "recipeQty": 250
+        },
+        {
+          "id": 2,
+          "name": "Ovo Branco",
+          "packagePrice": 12.5,
+          "packageQty": 20,
+          "packageUnit": "unid",
+          "recipeQty": 3
+        },
+        {
+          "id": 3,
+          "name": "Óleo de Soja",
+          "packagePrice": 7,
+          "packageQty": 900,
+          "packageUnit": "ml",
+          "recipeQty": 120
+        },
+        {
+          "id": 4,
+          "name": "Açúcar Refinado",
+          "packagePrice": 4.75,
+          "packageQty": 1000,
+          "packageUnit": "g",
+          "recipeQty": 200
+        },
+        {
+          "id": 5,
+          "name": "Farinha de Trigo",
+          "packagePrice": 5.49,
+          "packageQty": 1000,
+          "packageUnit": "g",
+          "recipeQty": 280
+        },
+        {
+          "id": 6,
+          "name": "Fermento em Pó",
+          "packagePrice": 5.16,
+          "packageQty": 100,
+          "packageUnit": "g",
+          "recipeQty": 15
+        },
+        {
+          "id": 7,
+          "name": "Leite Condensado",
+          "packagePrice": 5.99,
+          "packageQty": 395,
+          "packageUnit": "g",
+          "recipeQty": 197
+        },
+        {
+          "id": 8,
+          "name": "Manteiga com Sal",
+          "packagePrice": 11,
+          "packageQty": 200,
+          "packageUnit": "g",
+          "recipeQty": 20
+        },
+        {
+          "id": 9,
+          "name": "Chocolate em Pó 50%",
+          "packagePrice": 14.9,
+          "packageQty": 200,
+          "packageUnit": "g",
+          "recipeQty": 30
+        }
+      ]
+    },
+    {
+      "id": 66,
+      "name": "Bolo de Arroz",
+      "ingredients": [
+        {
+          "id": 67,
+          "name": "Arroz",
+          "packagePrice": 27.9,
+          "packageQty": 5000,
+          "packageUnit": "g",
+          "recipeQty": 170,
+          "householdMeasure": "1 xícara de chá"
+        },
+        {
+          "id": 68,
+          "name": "Açucar",
+          "packagePrice": 4.1,
+          "packageQty": 1000,
+          "packageUnit": "g",
+          "recipeQty": 170,
+          "householdMeasure": "1 xícara de chá"
+        },
+        {
+          "id": 69,
+          "name": "Leite",
+          "packagePrice": 5.29,
+          "packageQty": 1000,
+          "packageUnit": "ml",
+          "recipeQty": 225,
+          "householdMeasure": "1 xícara de chá"
+        },
+        {
+          "id": 70,
+          "name": "Óleo",
+          "packagePrice": 7.15,
+          "packageQty": 900,
+          "packageUnit": "ml",
+          "recipeQty": 100,
+          "householdMeasure": "1/2 xícara de chá"
+        },
+        {
+          "id": 71,
+          "name": "Ovos",
+          "packagePrice": 18.9,
+          "packageQty": 20,
+          "packageUnit": "unid",
+          "recipeQty": 2,
+          "householdMeasure": "2 Ovos"
+        },
+        {
+          "id": 72,
+          "name": "Queijo Parmesão Ralado",
+          "packagePrice": 5.19,
+          "packageQty": 50,
+          "packageUnit": "unid",
+          "recipeQty": 50,
+          "householdMeasure": "1 Pacote"
+        },
+        {
+          "id": 73,
+          "name": "Fermento",
+          "packagePrice": 3.69,
+          "packageQty": 100,
+          "packageUnit": "g",
+          "recipeQty": 14,
+          "householdMeasure": "1 colher de sopa"
+        }
+      ]
+    }
+  ],
+  "nextId": 74
+}

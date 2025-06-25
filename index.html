@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Custo de Bolos por Receita</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .swal2-popup {
+            font-family: 'Inter', sans-serif;
+            border-radius: 0.75rem;
+        }
+        .editable {
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .editable:hover, .editable:focus {
+            background-color: #fef3c7;
+            outline: 1px solid #fcd34d;
+            border-radius: 4px;
+        }
+        /* Estilos para as abas de receita */
+        .recipe-tab {
+            cursor: grab;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .recipe-tab.active {
+            border-color: #ef4444; /* Vermelho-rosa */
+            background-color: #fecaca;
+            color: #b91c1c;
+            font-weight: 600;
+        }
+         .recipe-tab.hidden-recipe {
+            opacity: 0.6;
+            background-color: #e5e7eb;
+            border-style: dashed;
+        }
+        .recipe-tab.dragging {
+            opacity: 0.5;
+            cursor: grabbing;
+        }
+    </style>
+</head>
+<body class="bg-orange-100 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-pink-600">Calculadora de Custo por Receita</h1>
+            <p class="text-gray-600 mt-2">Crie, calcule e organize suas receitas. Exporte seus dados para um arquivo local!</p>
+        </header>
+
+        <main class="space-y-8">
+            <!-- Seção 1: Gerenciamento de Receitas -->
+            <section class="bg-white p-6 rounded-xl shadow-lg">
+                <div class="flex justify-between items-center border-b pb-2 mb-4">
+                    <h2 class="text-2xl font-semibold text-gray-700">1. Suas Receitas</h2>
+                    <div class="flex items-center">
+                        <label for="show-hidden-toggle" class="mr-2 text-sm font-medium text-gray-600">Mostrar Arquivadas</label>
+                        <input type="checkbox" id="show-hidden-toggle" onchange="App.toggleShowHidden()" class="h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500">
+                    </div>
+                </div>
+                <div id="recipe-list-container" class="flex items-center space-x-3 border-b-2 border-gray-200 pb-3 mb-4 overflow-x-auto">
+                    <!-- As abas de receita serão renderizadas aqui -->
+                </div>
+                <div class="mt-4">
+                     <h3 class="text-lg font-medium">Backup e Restauração</h3>
+                     <p class="text-sm text-gray-500 mb-2">Salve suas receitas em um arquivo no seu computador ou carregue um backup.</p>
+                     <div class="flex flex-wrap gap-2">
+                        <button onclick="App.manualSave()" class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition text-sm">Salvar Alterações</button>
+                        <button onclick="App.exportData()" class="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition text-sm">Exportar para Arquivo (.json)</button>
+                        <button onclick="App.importData()" class="bg-gray-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-gray-700 transition text-sm">Importar de Arquivo (.json)</button>
+                        <button onclick="App.resetApplication()" class="bg-slate-700 text-white font-bold py-2 px-4 rounded-lg hover:bg-slate-800 transition text-sm">Resetar Aplicação</button>
+                        <input type="file" id="import-file-input" class="hidden" accept=".json" onchange="App.handleFileSelect(event)">
+                     </div>
+                </div>
+            </section>
+
+            <!-- Seção 2: Detalhes da Receita -->
+            <section id="recipe-details-section" class="bg-white p-6 rounded-xl shadow-lg hidden">
+                <div class="flex items-center border-b pb-2 mb-4">
+                    <h2 class="text-2xl font-semibold text-gray-700">Ficha Técnica: <span id="current-recipe-name" class="text-pink-600"></span></h2>
+                    <div class="ml-auto flex space-x-2">
+                         <button id="rename-recipe-btn" onclick="App.promptRename()" class="bg-yellow-500 text-white font-bold p-2 rounded-lg hover:bg-yellow-600 transition disabled:bg-yellow-300 disabled:cursor-not-allowed" disabled title="Renomear Receita">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                         </button>
+                         <button id="delete-recipe-btn" onclick="App.deleteRecipe()" class="bg-red-500 text-white font-bold p-2 rounded-lg hover:bg-red-600 transition disabled:bg-red-300 disabled:cursor-not-allowed" disabled title="Excluir Receita">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                         </button>
+                    </div>
+                </div>
+                
+                <h3 class="text-lg font-semibold mb-2 mt-6">Adicionar Ingrediente à Receita</h3>
+                <div class="grid grid-cols-1 md:grid-cols-6 gap-4 items-end p-4 bg-gray-50 rounded-lg">
+                    <div>
+                        <label for="ing-name" class="block text-sm font-medium text-gray-600">Ingrediente</label>
+                        <input type="text" id="ing-name" list="ingredient-list" placeholder="Farinha" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500" oninput="App.handleIngredientNameInput(this.value)">
+                        <datalist id="ingredient-list"></datalist>
+                    </div>
+                    <div>
+                        <label for="ing-price" class="block text-sm font-medium text-gray-600">Preço Pacote (R$)</label>
+                        <input type="number" id="ing-price" placeholder="5.50" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500">
+                    </div>
+                    <div class="flex items-end space-x-2">
+                        <div class="flex-grow">
+                            <label for="ing-pkg-qty" class="block text-sm font-medium text-gray-600">Qtd. Pacote</label>
+                            <input type="number" id="ing-pkg-qty" placeholder="1000" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600">Un.</label>
+                            <select id="ing-pkg-unit" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500">
+                                <option value="g">g</option>
+                                <option value="ml">ml</option>
+                                <option value="unid">unid</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="ing-recipe-qty" class="block text-sm font-medium text-gray-600">Qtd. na Receita</label>
+                        <input type="number" id="ing-recipe-qty" placeholder="250" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500">
+                    </div>
+                    <div>
+                        <label for="ing-household" class="block text-sm font-medium text-gray-600">Medida Caseira</label>
+                        <input type="text" id="ing-household" placeholder="Ex: 1 xícara" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500">
+                    </div>
+                    <button onclick="App.addIngredientToRecipe()" class="w-full bg-pink-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-pink-600 transition duration-300 shadow-md h-10">Adicionar</button>
+                </div>
+
+                <div class="mt-6 overflow-x-auto">
+                    <h3 class="text-lg font-semibold mb-2">Ingredientes Cadastrados</h3>
+                    <table class="min-w-full bg-white"><thead class="bg-gray-50"><tr>
+                        <th class="py-2 px-4 border-b text-left text-sm font-semibold text-gray-600">Ingrediente</th>
+                        <th class="py-2 px-4 border-b text-left text-sm font-semibold text-gray-600">Preço Pacote</th>
+                        <th class="py-2 px-4 border-b text-left text-sm font-semibold text-gray-600">Qtd. Usada</th>
+                        <th class="py-2 px-4 border-b text-left text-sm font-semibold text-gray-600">Medida Caseira</th>
+                        <th class="py-2 px-4 border-b text-left text-sm font-semibold text-gray-600">Custo</th>
+                        <th class="py-2 px-4 border-b text-center text-sm font-semibold text-gray-600">Ação</th>
+                    </tr></thead><tbody id="recipe-table"></tbody></table>
+                </div>
+            </section>
+
+            <!-- Seção 3: Cálculo Final -->
+            <section id="cost-section" class="bg-white p-6 rounded-xl shadow-lg hidden">
+                 <h2 class="text-2xl font-semibold mb-4 text-gray-700 border-b pb-2">3. Calcule o Preço de Venda</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <div class="space-y-4">
+                            <div>
+                                <label for="gas-cost" class="block text-sm font-medium text-gray-600">Gasto com Gás (R$)</label>
+                                <input type="number" id="gas-cost" value="2.50" placeholder="Custo do gás por receita" oninput="App.updateFinalCalculation()" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500">
+                                <p class="text-xs text-gray-500 mt-1">Valor estimado do gás usado para assar o bolo.</p>
+                            </div>
+                             <div>
+                                <label for="other-costs" class="block text-sm font-medium text-gray-600">Outros Custos (R$)</label>
+                                <input type="number" id="other-costs" value="2.50" placeholder="Embalagem, luz, etc." oninput="App.updateFinalCalculation()" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500">
+                                <p class="text-xs text-gray-500 mt-1">Ex: embalagem, energia, transporte, mão de obra.</p>
+                            </div>
+                            <div>
+                                <label for="profit-margin" class="block text-sm font-medium text-gray-600">Margem de Lucro (%)</label>
+                                <input type="number" id="profit-margin" value="100" placeholder="100" oninput="App.updateFinalCalculation()" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500">
+                                 <p class="text-xs text-gray-500 mt-1">O percentual que você deseja lucrar sobre o custo total.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="text-lg font-semibold mb-4 text-gray-800">Resumo de Custos e Lucro</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center"><span class="text-gray-600">Custo dos Ingredientes:</span><span id="ingredients-cost" class="font-bold text-lg text-gray-800">R$ 0,00</span></div>
+                            <div class="flex justify-between items-center"><span class="text-gray-600">Gasto com Gás:</span><span id="gas-cost-summary" class="font-bold text-lg text-gray-800">R$ 0,00</span></div>
+                            <div class="flex justify-between items-center"><span class="text-gray-600">Outros Custos:</span><span id="other-costs-summary" class="font-bold text-lg text-gray-800">R$ 0,00</span></div>
+                            <div class="flex justify-between items-center border-t pt-2 mt-2"><span class="text-gray-600 font-semibold">Custo Total de Produção:</span><span id="total-cost" class="font-bold text-lg text-gray-800">R$ 0,00</span></div>
+                            <hr>
+                            <div class="flex justify-between items-center text-green-600"><span class="font-semibold">Lucro Previsto:</span><span id="profit-value" class="font-bold text-lg">R$ 0,00</span></div>
+                            <hr>
+                            <div class="flex justify-between items-center mt-4 p-4 bg-green-100 rounded-lg"><span class="text-green-800 font-bold text-lg">Preço de Venda Sugerido:</span><span id="final-price" class="font-bold text-2xl text-green-800">R$ 0,00</span></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Seção 4: Banco de Ingredientes -->
+            <section class="bg-white p-6 rounded-xl shadow-lg">
+                <h2 class="text-2xl font-semibold mb-4 text-gray-700 border-b pb-2">4. Banco de Ingredientes (Memória)</h2>
+                <p class="text-sm text-gray-500 mb-4">Veja e edite os preços dos ingredientes usados em todas as suas receitas. A alteração aqui atualiza o custo em todas as receitas que usam o item.</p>
+                <div class="mt-6 overflow-x-auto">
+                    <table class="min-w-full bg-white"><thead class="bg-gray-50"><tr>
+                        <th class="py-2 px-4 border-b text-left text-sm font-semibold text-gray-600">Ingrediente</th>
+                        <th class="py-2 px-4 border-b text-left text-sm font-semibold text-gray-600">Último Preço do Pacote</th>
+                        <th class="py-2 px-4 border-b text-center text-sm font-semibold text-gray-600">Ação</th>
+                    </tr></thead><tbody id="ingredient-memory-table"></tbody></table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const App = window.App = {};
+
+        let recipes = [];
+        let activeRecipeId = null;
+        let nextId = 0;
+        let ingredientMemory = [];
+        let showHidden = false;
+
+        const showAlert = (title, text, icon, confirmButtonText = 'Entendi') => Swal.fire({ title, text, icon, confirmButtonColor: '#EC4899', confirmButtonText });
+        const formatCurrency = (value) => `R$ ${value.toFixed(2).replace('.', ',')}`;
+        const getActiveRecipe = () => recipes.find(r => r.id === activeRecipeId);
+        
+        const saveData = () => {
+            localStorage.setItem('cakeRecipesData', JSON.stringify({ recipes, nextId, showHidden }));
+        };
+
+        const buildIngredientMemory = () => {
+            const knownIngredients = new Map();
+            recipes.forEach(recipe => {
+                recipe.ingredients.forEach(ing => {
+                    knownIngredients.set(ing.name.toLowerCase(), {
+                        name: ing.name,
+                        packagePrice: ing.packagePrice,
+                        packageQty: ing.packageQty,
+                        packageUnit: ing.packageUnit,
+                    });
+                });
+            });
+            ingredientMemory = Array.from(knownIngredients.values());
+        };
+
+        const renderIngredientMemoryDatalist = () => {
+            const datalist = document.getElementById('ingredient-list');
+            datalist.innerHTML = '';
+            ingredientMemory.forEach(ing => {
+                const option = document.createElement('option');
+                option.value = ing.name;
+                datalist.appendChild(option);
+            });
+        };
+
+        const renderIngredientMemoryTable = () => {
+            const tableBody = document.getElementById('ingredient-memory-table');
+            tableBody.innerHTML = '';
+            if (ingredientMemory.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="3" class="text-center py-4 text-gray-500">Nenhum ingrediente na memória.</td></tr>`;
+                return;
+            }
+            ingredientMemory.forEach(ing => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="py-2 px-4 border-b">${ing.name}</td>
+                    <td class="py-2 px-4 border-b">
+                        R$ <span class="editable" contenteditable="true" data-name="${ing.name}" onblur="App.editIngredientInMemory(this, '${ing.name}')">${ing.packagePrice.toFixed(2)}</span> / ${ing.packageQty} ${ing.packageUnit}
+                    </td>
+                    <td class="py-2 px-4 border-b text-center">
+                        <button onclick="App.removeIngredientFromMemory('${ing.name}')" class="text-red-500 hover:text-red-700 font-semibold text-sm">Remover da Memória</button>
+                    </td>`;
+                tableBody.appendChild(row);
+            });
+        };
+        
+        const loadData = () => {
+            const data = localStorage.getItem('cakeRecipesData');
+            if (data) {
+                const parsedData = JSON.parse(data);
+                recipes = (parsedData.recipes || []).map(r => ({...r, isHidden: r.isHidden || false}));
+                nextId = parsedData.nextId || 0;
+                showHidden = parsedData.showHidden || false;
+                document.getElementById('show-hidden-toggle').checked = showHidden;
+            } else {
+                loadInitialExampleData();
+            }
+            buildIngredientMemory();
+        };
+
+        const renderRecipeList = () => {
+            const container = document.getElementById('recipe-list-container');
+            container.innerHTML = '';
+            
+            const filteredRecipes = showHidden ? recipes : recipes.filter(r => !r.isHidden);
+
+            filteredRecipes.forEach(recipe => {
+                const tabContainer = document.createElement('div');
+                tabContainer.className = 'flex-shrink-0 relative';
+                tabContainer.draggable = true;
+                tabContainer.dataset.id = recipe.id;
+
+                const item = document.createElement('button');
+                item.className = `recipe-tab p-3 border-2 rounded-lg font-medium pr-10`;
+                if (recipe.id === activeRecipeId) item.classList.add('active');
+                else item.classList.add('border-gray-200', 'hover:bg-gray-100');
+                if (recipe.isHidden) item.classList.add('hidden-recipe');
+                item.textContent = recipe.name;
+                
+                item.addEventListener('click', () => App.selectRecipe(recipe.id));
+                
+                const hideButton = document.createElement('button');
+                hideButton.className = 'absolute top-1/2 right-2 -translate-y-1/2 text-gray-400 hover:text-gray-700';
+                hideButton.title = recipe.isHidden ? 'Mostrar Receita' : 'Arquivar Receita';
+                hideButton.innerHTML = recipe.isHidden ? 
+                    `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>` : 
+                    `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>`;
+                hideButton.onclick = (e) => {
+                    e.stopPropagation();
+                    App.toggleRecipeVisibility(recipe.id);
+                };
+                
+                tabContainer.addEventListener('dragstart', handleDragStart);
+                tabContainer.addEventListener('dragover', handleDragOver);
+                tabContainer.addEventListener('drop', handleDrop);
+                tabContainer.addEventListener('dragend', handleDragEnd);
+
+                tabContainer.appendChild(item);
+                tabContainer.appendChild(hideButton);
+                container.appendChild(tabContainer);
+            });
+            
+            const createButton = document.createElement('button');
+            createButton.className = 'flex-shrink-0 flex items-center justify-center p-3 border-2 border-dashed border-gray-400 rounded-lg text-gray-500 hover:bg-gray-100 hover:border-gray-500 transition';
+            createButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg><span class="ml-2">Criar Receita</span>`;
+            createButton.onclick = App.promptCreateRecipe;
+            container.appendChild(createButton);
+        };
+
+        const renderRecipeTable = () => {
+            const activeRecipe = getActiveRecipe();
+            const tableBody = document.getElementById('recipe-table');
+            
+            if (!activeRecipe) {
+                document.getElementById('recipe-details-section').classList.add('hidden');
+                document.getElementById('cost-section').classList.add('hidden');
+                return;
+            }
+
+            document.getElementById('recipe-details-section').classList.remove('hidden');
+            document.getElementById('cost-section').classList.remove('hidden');
+            document.getElementById('current-recipe-name').textContent = activeRecipe.name;
+            tableBody.innerHTML = activeRecipe.ingredients.length === 0 ? `<tr><td colspan="6" class="text-center py-4 text-gray-500">Nenhum ingrediente adicionado.</td></tr>` : '';
+            
+            activeRecipe.ingredients.forEach(ing => {
+                const cost = (ing.packagePrice / ing.packageQty) * ing.recipeQty;
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="py-2 px-4 border-b editable" contenteditable="true" data-id="${ing.id}" onblur="App.editIngredient(this, 'name')">${ing.name}</td>
+                    <td class="py-2 px-4 border-b">
+                        <span class="editable" contenteditable="true" data-id="${ing.id}" onblur="App.editIngredient(this, 'packagePrice')">${ing.packagePrice.toFixed(2)}</span> / 
+                        <span class="editable" contenteditable="true" data-id="${ing.id}" onblur="App.editIngredient(this, 'packageQty')">${ing.packageQty}</span> ${ing.packageUnit}
+                    </td>
+                    <td class="py-2 px-4 border-b editable" contenteditable="true" data-id="${ing.id}" onblur="App.editIngredient(this, 'recipeQty')">${ing.recipeQty} ${ing.packageUnit}</td>
+                    <td class="py-2 px-4 border-b editable" contenteditable="true" data-id="${ing.id}" onblur="App.editIngredient(this, 'householdMeasure')">${ing.householdMeasure || ''}</td>
+                    <td class="py-2 px-4 border-b font-semibold">${formatCurrency(cost)}</td>
+                    <td class="py-2 px-4 border-b text-center">
+                        <button onclick="App.removeIngredientFromRecipe(${ing.id})" class="text-red-500 hover:text-red-700 font-semibold">Excluir</button>
+                    </td>`;
+                tableBody.appendChild(row);
+            });
+        };
+
+        const updateFinalCalculation = () => {
+            const activeRecipe = getActiveRecipe();
+            if (!activeRecipe) return;
+            const ingredientsCost = activeRecipe.ingredients.reduce((total, ing) => total + (ing.packagePrice / ing.packageQty) * ing.recipeQty, 0);
+            const gasCost = parseFloat(document.getElementById('gas-cost').value.replace(',', '.')) || 0;
+            const otherCosts = parseFloat(document.getElementById('other-costs').value.replace(',', '.')) || 0;
+            const profitMargin = parseFloat(document.getElementById('profit-margin').value.replace(',', '.')) || 0;
+            const totalCost = ingredientsCost + gasCost + otherCosts;
+            const profitValue = totalCost * (profitMargin / 100);
+            const finalPrice = totalCost + profitValue;
+            
+            document.getElementById('ingredients-cost').textContent = formatCurrency(ingredientsCost);
+            document.getElementById('gas-cost-summary').textContent = formatCurrency(gasCost);
+            document.getElementById('other-costs-summary').textContent = formatCurrency(otherCosts);
+            document.getElementById('total-cost').textContent = formatCurrency(totalCost);
+            document.getElementById('profit-value').textContent = formatCurrency(profitValue);
+            document.getElementById('final-price').textContent = formatCurrency(finalPrice);
+        };
+        App.updateFinalCalculation = updateFinalCalculation;
+
+        const renderAll = () => {
+            renderRecipeList();
+            renderRecipeTable();
+            renderIngredientMemoryDatalist();
+            renderIngredientMemoryTable();
+            updateFinalCalculation();
+            const hasActiveRecipe = !!activeRecipeId;
+            document.getElementById('delete-recipe-btn').disabled = !hasActiveRecipe;
+            document.getElementById('rename-recipe-btn').disabled = !hasActiveRecipe;
+            saveData();
+        };
+
+        let draggedItem = null;
+        function handleDragStart(e) { draggedItem = this; setTimeout(() => this.classList.add('dragging'), 0); }
+        function handleDragEnd() { this.classList.remove('dragging'); draggedItem = null; }
+        function handleDragOver(e) { e.preventDefault(); }
+        function handleDrop(e) {
+            e.preventDefault();
+            if (draggedItem === this) return;
+            const draggedId = parseInt(draggedItem.dataset.id);
+            const targetId = parseInt(this.dataset.id);
+            const draggedIndex = recipes.findIndex(r => r.id === draggedId);
+            const targetIndex = recipes.findIndex(r => r.id === targetId);
+            const [reorderedItem] = recipes.splice(draggedIndex, 1);
+            recipes.splice(targetIndex, 0, reorderedItem);
+            renderAll();
+        }
+
+        App.promptCreateRecipe = async () => {
+             const { value: name } = await Swal.fire({
+                title: 'Criar Nova Receita',
+                input: 'text',
+                inputPlaceholder: 'Ex: Bolo de Chocolate',
+                showCancelButton: true,
+                confirmButtonText: 'Criar',
+                cancelButtonText: 'Cancelar',
+                inputValidator: (value) => {
+                    if (!value) return 'Você precisa escrever um nome!';
+                    if (recipes.some(r => r.name.toLowerCase() === value.trim().toLowerCase())) return 'Já existe uma receita com este nome.';
+                }
+            });
+
+             if (name) {
+                const newRecipe = { id: nextId++, name: name.trim(), ingredients: [], isHidden: false };
+                recipes.push(newRecipe);
+                activeRecipeId = newRecipe.id;
+                renderAll();
+             }
+        };
+        
+        App.deleteRecipe = () => {
+            const activeRecipe = getActiveRecipe();
+            if (!activeRecipe) return;
+            Swal.fire({
+                title: 'Tem a certeza?',
+                text: `Você está prestes a excluir a receita "${activeRecipe.name}". Esta ação não pode ser revertida!`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sim, excluir!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    recipes = recipes.filter(r => r.id !== activeRecipeId);
+                    activeRecipeId = null;
+                    buildIngredientMemory();
+                    renderAll();
+                    Swal.fire('Excluída!', 'A sua receita foi excluída.', 'success');
+                }
+            });
+        };
+
+        App.promptRename = async () => {
+            const activeRecipe = getActiveRecipe();
+            if (!activeRecipe) return;
+            const { value: newName } = await Swal.fire({
+                title: 'Renomear Receita',
+                input: 'text',
+                inputValue: activeRecipe.name,
+                showCancelButton: true,
+                confirmButtonText: 'Renomear',
+                cancelButtonText: 'Cancelar',
+                inputValidator: (value) => {
+                    if (!value) return 'Você precisa escrever um nome!';
+                    if (recipes.some(r => r.name.toLowerCase() === value.toLowerCase() && r.id !== activeRecipeId)) return 'Já existe uma receita com este nome.';
+                }
+            });
+            if (newName) { activeRecipe.name = newName.trim(); renderAll(); }
+        };
+
+        App.selectRecipe = (id) => { activeRecipeId = id; renderAll(); };
+
+        App.toggleShowHidden = () => {
+            showHidden = document.getElementById('show-hidden-toggle').checked;
+            renderAll();
+        };
+
+        App.toggleRecipeVisibility = (id) => {
+            const recipe = recipes.find(r => r.id === id);
+            if (recipe) {
+                recipe.isHidden = !recipe.isHidden;
+                if (recipe.isHidden && activeRecipeId === id) {
+                    activeRecipeId = null;
+                }
+                renderAll();
+            }
+        };
+
+        App.addIngredientToRecipe = () => {
+            const activeRecipe = getActiveRecipe();
+            if (!activeRecipe) { showAlert('Atenção!', 'Selecione uma receita antes de adicionar ingredientes.', 'warning'); return; }
+            const name = document.getElementById('ing-name').value.trim();
+            const packagePrice = parseFloat(document.getElementById('ing-price').value.replace(',', '.'));
+            const packageQty = parseFloat(document.getElementById('ing-pkg-qty').value.replace(',', '.'));
+            const packageUnit = document.getElementById('ing-pkg-unit').value;
+            const recipeQty = parseFloat(document.getElementById('ing-recipe-qty').value.replace(',', '.'));
+            const householdMeasure = document.getElementById('ing-household').value.trim();
+
+            if (!name || isNaN(packagePrice) || isNaN(packageQty) || isNaN(recipeQty) || packagePrice <= 0 || packageQty <= 0 || recipeQty <= 0) {
+                showAlert('Erro!', 'Preencha os campos obrigatórios do ingrediente corretamente.', 'error');
+                return;
+            }
+            activeRecipe.ingredients.push({ id: nextId++, name, packagePrice, packageQty, packageUnit, recipeQty, householdMeasure });
+            
+            buildIngredientMemory();
+            
+            ['ing-name', 'ing-price', 'ing-pkg-qty', 'ing-recipe-qty', 'ing-household'].forEach(id => document.getElementById(id).value = '');
+            renderAll();
+        };
+        
+        App.handleIngredientNameInput = (value) => {
+            const knownIngredient = ingredientMemory.find(ing => ing.name.toLowerCase() === value.toLowerCase());
+            if (knownIngredient) {
+                document.getElementById('ing-price').value = knownIngredient.packagePrice.toFixed(2);
+                document.getElementById('ing-pkg-qty').value = knownIngredient.packageQty;
+                document.getElementById('ing-pkg-unit').value = knownIngredient.packageUnit;
+            }
+        };
+
+        App.removeIngredientFromRecipe = (ingredientId) => {
+            const activeRecipe = getActiveRecipe();
+            if (activeRecipe) {
+                activeRecipe.ingredients = activeRecipe.ingredients.filter(i => i.id !== ingredientId);
+                buildIngredientMemory();
+                renderAll();
+            }
+        };
+        
+        App.editIngredient = (element, field) => {
+            const activeRecipe = getActiveRecipe();
+            const ingredientId = parseInt(element.dataset.id);
+            if (!activeRecipe || isNaN(ingredientId)) return;
+            const ingredient = activeRecipe.ingredients.find(i => i.id === ingredientId);
+            if (!ingredient) return;
+
+            const newValue = element.textContent.trim();
+            if (field === 'name') {
+                 if (newValue === "") { showAlert('Erro!', 'O nome do ingrediente não pode ser vazio.', 'error'); element.textContent = ingredient.name; return; }
+                 ingredient.name = newValue;
+            } else if (field === 'householdMeasure') {
+                ingredient.householdMeasure = newValue;
+            }
+            else {
+                const newNumericValue = parseFloat(newValue.replace(',', '.'));
+                if (isNaN(newNumericValue) || newNumericValue <= 0) { showAlert('Erro!', 'O valor deve ser um número positivo.', 'error'); element.textContent = ingredient[field]; return; }
+                ingredient[field] = newNumericValue;
+            }
+            buildIngredientMemory();
+            renderAll();
+        };
+        
+        App.editIngredientInMemory = (element, name) => {
+            const newPrice = parseFloat(element.textContent.replace(',', '.'));
+            if(isNaN(newPrice) || newPrice <= 0) {
+                 showAlert('Erro!', 'O preço deve ser um número positivo.', 'error');
+                 renderAll();
+                 return;
+            }
+
+            const memoryIng = ingredientMemory.find(ing => ing.name === name);
+            if(memoryIng) memoryIng.packagePrice = newPrice;
+            
+            recipes.forEach(recipe => {
+                recipe.ingredients.forEach(ing => {
+                    if(ing.name === name) {
+                        ing.packagePrice = newPrice;
+                    }
+                });
+            });
+
+            renderAll();
+        };
+
+        App.removeIngredientFromMemory = (name) => {
+            Swal.fire({
+                title: 'Remover da Memória?',
+                text: `Isso vai remover "${name}" da lista de sugestões. Não vai afetar as receitas que já o utilizam.`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sim, remover!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    ingredientMemory = ingredientMemory.filter(ing => ing.name !== name);
+                    renderAll();
+                    Swal.fire('Removido!', `"${name}" foi removido da memória.`, 'success');
+                }
+            });
+        };
+
+        App.manualSave = () => { saveData(); showAlert('Salvo!', 'Suas receitas foram salvas com sucesso no seu navegador.', 'success'); };
+        
+        App.exportData = () => {
+            if (recipes.length === 0) { showAlert('Atenção', 'Não há receitas para exportar.', 'warning'); return; }
+            const dataToExport = { recipes, nextId, showHidden };
+            const dataStr = JSON.stringify(dataToExport, null, 2);
+            const dataBlob = new Blob([dataStr], { type: "application/json" });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'minhas-receitas.json';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        };
+        
+        App.importData = () => { document.getElementById('import-file-input').click(); };
+        
+        App.handleFileSelect = (event) => {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (data && Array.isArray(data.recipes) && typeof data.nextId === 'number') {
+                        Swal.fire({
+                            title: 'Importar Dados?',
+                            text: "Isso substituirá todas as suas receitas atuais. Deseja continuar?",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Sim, importar!',
+                            cancelButtonText: 'Cancelar'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                recipes = data.recipes;
+                                nextId = data.nextId;
+                                showHidden = data.showHidden || false;
+                                activeRecipeId = null;
+                                buildIngredientMemory();
+                                renderAll();
+                                showAlert('Sucesso!', 'Seus dados foram importados.', 'success');
+                            }
+                        });
+                    } else { showAlert('Erro', 'O arquivo selecionado não parece ser um backup válido.', 'error'); }
+                } catch (error) { showAlert('Erro', 'Não foi possível ler o arquivo. Verifique se ele está no formato JSON correto.', 'error'); } 
+                finally { event.target.value = null; }
+            };
+            reader.readAsText(file);
+        };
+        
+        App.resetApplication = () => {
+             Swal.fire({
+                title: 'Resetar a Aplicação?',
+                text: "Isso irá apagar TODAS as suas receitas salvas no navegador. Esta ação é irreversível. Você pode exportar um backup antes.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sim, resetar!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    localStorage.removeItem('cakeRecipesData');
+                    loadInitialExampleData();
+                    buildIngredientMemory();
+                    renderAll();
+                    Swal.fire('Resetado!', 'A aplicação foi restaurada para o estado inicial.', 'success');
+                }
+            });
+        };
+
+        const loadInitialExampleData = () => {
+             recipes = [];
+             activeRecipeId = null;
+             nextId = 0;
+        };
+        
+        window.onload = () => {
+            loadData();
+            renderAll();
+        };
+
+    </script>
+</body>
+</html>
