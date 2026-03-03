@@ -162,7 +162,7 @@
         </nav>
     </header>
 
-    <!-- Main Content Area (Ajuste no padding bottom para mobile devido ao menu flutuante) -->
+    <!-- Main Content Area -->
     <main class="flex-1 overflow-y-auto p-4 md:p-8 lg:p-10 relative w-full pb-28 md:pb-10">
         <div class="max-w-7xl mx-auto w-full">
 
@@ -201,59 +201,113 @@
                     </button>
                 </div>
 
-                <!-- GRID: Ingredientes (Esquerda) | Preparo (Direita) -->
+                <!-- GRID: Esquerda (Ingredientes + Embalagens) | Direita (Preparo) -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     
-                    <!-- ESQUERDA: Ingredientes -->
-                    <section class="theme-card p-4 md:p-6 lg:col-span-2 flex flex-col">
-                        <h3 class="text-xl font-bold mb-4">Ingredientes & Custos</h3>
+                    <!-- ESQUERDA: Ingredientes e Embalagens -->
+                    <div class="lg:col-span-2 flex flex-col gap-6">
+                        
+                        <!-- SEÇÃO 1: Ingredientes -->
+                        <section class="theme-card p-4 md:p-6 flex flex-col">
+                            <h3 class="text-xl font-bold mb-4">Ingredientes & Custos</h3>
 
-                        <!-- Formulário Add Ingrediente (Otimizado Mobile) -->
-                        <div class="premium-form-container p-4 mb-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 items-end">
-                            <div class="sm:col-span-2 lg:col-span-2">
-                                <label class="block text-[11px] font-bold uppercase tracking-widest mb-1 opacity-70">Ingrediente</label>
-                                <input type="text" id="ing-name" list="ingredient-list" placeholder="Ex: Farinha" class="block w-full rounded-xl premium-input px-3 py-3" oninput="App.handleIngredientNameInput(this.value)">
-                                <datalist id="ingredient-list"></datalist>
-                            </div>
-                            <div class="lg:col-span-1">
-                                <label class="block text-[11px] font-bold uppercase tracking-widest mb-1 opacity-70">R$ Pacote</label>
-                                <input type="text" inputmode="decimal" id="ing-price" placeholder="5,50" class="block w-full rounded-xl premium-input px-3 py-3">
-                            </div>
-                            <div class="lg:col-span-1 flex items-end gap-1">
-                                <div class="flex-1">
-                                    <label class="block text-[11px] font-bold uppercase tracking-widest mb-1 opacity-70">Qtd. Pct</label>
-                                    <input type="text" inputmode="decimal" id="ing-pkg-qty" placeholder="1000" class="block w-full rounded-xl premium-input px-3 py-3">
+                            <!-- Formulário Add Ingrediente -->
+                            <div class="premium-form-container p-4 mb-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 items-end">
+                                <div class="sm:col-span-2 lg:col-span-2">
+                                    <label class="block text-[11px] font-bold uppercase tracking-widest mb-1 opacity-70">Ingrediente</label>
+                                    <input type="text" id="ing-name" list="ingredient-list" placeholder="Ex: Farinha" class="block w-full rounded-xl premium-input px-3 py-3" oninput="App.handleIngredientNameInput(this.value)">
+                                    <datalist id="ingredient-list"></datalist>
                                 </div>
-                                <div class="w-14 flex-shrink-0">
-                                    <select id="ing-pkg-unit" class="pill-select block w-full bg-transparent text-xs h-11 cursor-pointer outline-none px-1">
-                                        <option value="g">g</option>
-                                        <option value="ml">ml</option>
-                                        <option value="un">un</option>
-                                    </select>
+                                <div class="lg:col-span-1">
+                                    <label class="block text-[11px] font-bold uppercase tracking-widest mb-1 opacity-70">R$ Pacote</label>
+                                    <input type="text" inputmode="decimal" id="ing-price" placeholder="5,50" class="block w-full rounded-xl premium-input px-3 py-3">
+                                </div>
+                                <div class="lg:col-span-1 flex items-end gap-1">
+                                    <div class="flex-1">
+                                        <label class="block text-[11px] font-bold uppercase tracking-widest mb-1 opacity-70">Qtd. Pct</label>
+                                        <input type="text" inputmode="decimal" id="ing-pkg-qty" placeholder="1000" class="block w-full rounded-xl premium-input px-3 py-3">
+                                    </div>
+                                    <div class="w-14 flex-shrink-0">
+                                        <select id="ing-pkg-unit" class="pill-select block w-full bg-transparent text-xs h-11 cursor-pointer outline-none px-1">
+                                            <option value="g">g</option>
+                                            <option value="ml">ml</option>
+                                            <option value="un">un</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="lg:col-span-1">
+                                    <label class="block text-[11px] font-bold uppercase tracking-widest mb-1 opacity-70">Uso (Qtd)</label>
+                                    <input type="text" inputmode="decimal" id="ing-recipe-qty" placeholder="250" class="block w-full rounded-xl premium-input px-3 py-3">
+                                </div>
+                                <div class="lg:col-span-1">
+                                    <button onclick="App.addIngredientToRecipe()" class="w-full h-11 theme-primary-bg rounded-xl shadow-md transition flex items-center justify-center font-bold text-sm">
+                                        Adicionar
+                                    </button>
                                 </div>
                             </div>
-                            <div class="lg:col-span-1">
-                                <label class="block text-[11px] font-bold uppercase tracking-widest mb-1 opacity-70">Uso (Qtd)</label>
-                                <input type="text" inputmode="decimal" id="ing-recipe-qty" placeholder="250" class="block w-full rounded-xl premium-input px-3 py-3">
-                            </div>
-                            <div class="lg:col-span-1">
-                                <button onclick="App.addIngredientToRecipe()" class="w-full h-11 theme-primary-bg rounded-xl shadow-md transition flex items-center justify-center font-bold text-sm">
-                                    Adicionar
-                                </button>
-                            </div>
-                        </div>
 
-                        <!-- Tabela (Scroll Horizontal Suave) -->
-                        <div class="overflow-x-auto flex-1 w-full pb-2">
-                            <table class="min-w-full text-left border-collapse whitespace-nowrap"><thead class="text-xs font-semibold opacity-80"><tr>
-                                <th class="py-2 px-3 rounded-tl-lg">Ingrediente</th>
-                                <th class="py-2 px-3">Pct (R$)</th>
-                                <th class="py-2 px-3">Qtd Usada</th>
-                                <th class="py-2 px-3 text-right">Custo</th>
-                                <th class="py-2 px-2 text-center rounded-tr-lg">Ação</th>
-                            </tr></thead><tbody id="recipe-table"></tbody></table>
-                        </div>
-                    </section>
+                            <!-- Tabela Ingredientes -->
+                            <div class="overflow-x-auto flex-1 w-full pb-2">
+                                <table class="min-w-full text-left border-collapse whitespace-nowrap"><thead class="text-xs font-semibold opacity-80"><tr>
+                                    <th class="py-2 px-3 rounded-tl-lg">Ingrediente</th>
+                                    <th class="py-2 px-3">Pct (R$)</th>
+                                    <th class="py-2 px-3">Qtd Usada</th>
+                                    <th class="py-2 px-3 text-right">Custo</th>
+                                    <th class="py-2 px-2 text-center rounded-tr-lg">Ação</th>
+                                </tr></thead><tbody id="recipe-table"></tbody></table>
+                            </div>
+                        </section>
+
+                        <!-- SEÇÃO 2: Embalagens e Acessórios (Nova) -->
+                        <section class="theme-card p-4 md:p-6 flex flex-col">
+                            <h3 class="text-xl font-bold mb-4">Embalagens & Acessórios</h3>
+
+                            <!-- Formulário Add Embalagem -->
+                            <div class="premium-form-container p-4 mb-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 items-end">
+                                <div class="sm:col-span-2 lg:col-span-2">
+                                    <label class="block text-[11px] font-bold uppercase tracking-widest mb-1 opacity-70">Item (Ex: Caixa, Forminha)</label>
+                                    <input type="text" id="pkg-name" list="packaging-suggestions" placeholder="Ex: Forminha nº 4" class="block w-full rounded-xl premium-input px-3 py-3">
+                                    <datalist id="packaging-suggestions">
+                                        <option value="Caixa">
+                                        <option value="Forminha">
+                                        <option value="Copinho">
+                                        <option value="Forma de Doce">
+                                        <option value="Tapetinho">
+                                        <option value="Colher">
+                                    </datalist>
+                                </div>
+                                <div class="lg:col-span-1">
+                                    <label class="block text-[11px] font-bold uppercase tracking-widest mb-1 opacity-70">R$ Pacote</label>
+                                    <input type="text" inputmode="decimal" id="pkg-price" placeholder="10,50" class="block w-full rounded-xl premium-input px-3 py-3">
+                                </div>
+                                <div class="lg:col-span-1">
+                                    <label class="block text-[11px] font-bold uppercase tracking-widest mb-1 opacity-70">Unid. no Pct</label>
+                                    <input type="text" inputmode="decimal" id="pkg-qty" placeholder="100" class="block w-full rounded-xl premium-input px-3 py-3">
+                                </div>
+                                <div class="lg:col-span-1">
+                                    <label class="block text-[11px] font-bold uppercase tracking-widest mb-1 opacity-70">Uso (Unid)</label>
+                                    <input type="text" inputmode="decimal" id="pkg-recipe-qty" placeholder="25" class="block w-full rounded-xl premium-input px-3 py-3">
+                                </div>
+                                <div class="lg:col-span-1">
+                                    <button onclick="App.addPackagingToRecipe()" class="w-full h-11 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl shadow-md transition flex items-center justify-center font-bold text-sm">
+                                        Adicionar
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Tabela Embalagens -->
+                            <div class="overflow-x-auto flex-1 w-full pb-2">
+                                <table class="min-w-full text-left border-collapse whitespace-nowrap"><thead class="text-xs font-semibold opacity-80"><tr>
+                                    <th class="py-2 px-3 rounded-tl-lg">Item</th>
+                                    <th class="py-2 px-3">Pacote (R$)</th>
+                                    <th class="py-2 px-3">Qtd Usada</th>
+                                    <th class="py-2 px-3 text-right">Custo</th>
+                                    <th class="py-2 px-2 text-center rounded-tr-lg">Ação</th>
+                                </tr></thead><tbody id="packaging-table"></tbody></table>
+                            </div>
+                        </section>
+
+                    </div>
 
                     <!-- DIREITA: Modo de Preparo -->
                     <section class="theme-card p-4 md:p-6 lg:col-span-1 flex flex-col h-full">
@@ -269,43 +323,80 @@
                 <!-- Custos Adicionais e Resumo Final -->
                 <section class="grid grid-cols-1 lg:grid-cols-5 gap-6">
                     
-                    <!-- Custos Extras -->
-                    <div class="theme-card p-5 md:p-8 lg:col-span-2 space-y-6">
-                        <h3 class="text-2xl font-extrabold mb-4" style="color: var(--text-main)">Custos Extras & Lucro</h3>
-                        <div>
-                            <label class="block mb-2 flex justify-between gap-1">
-                                <span class="text-base font-bold">Gasto com Gás (R$)</span>
-                            </label>
-                            <input type="text" inputmode="decimal" id="gas-cost" value="2,50" onblur="App.updateFinalCalculation()" class="block w-full rounded-xl premium-input px-4 py-3 text-lg font-bold">
+                    <!-- Custos Extras, Rendimento & Precificação -->
+                    <div class="theme-card p-5 md:p-8 lg:col-span-2 space-y-5">
+                        <h3 class="text-2xl font-extrabold mb-2" style="color: var(--text-main)">Custos & Precificação</h3>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block mb-1 flex justify-between gap-1">
+                                    <span class="text-sm font-bold opacity-80">Gás (R$)</span>
+                                </label>
+                                <input type="text" inputmode="decimal" id="gas-cost" value="2,50" onblur="App.updateFinalCalculation()" class="block w-full rounded-xl premium-input px-3 py-2.5 text-base font-bold">
+                            </div>
+                            <div>
+                                <label class="block mb-1 flex justify-between gap-1">
+                                    <span class="text-sm font-bold opacity-80">Outros (R$)</span>
+                                </label>
+                                <input type="text" inputmode="decimal" id="other-costs" value="2,50" onblur="App.updateFinalCalculation()" class="block w-full rounded-xl premium-input px-3 py-2.5 text-base font-bold">
+                            </div>
                         </div>
+
                         <div>
-                            <label class="block mb-2 flex justify-between gap-1">
-                                <span class="text-base font-bold">Outros Custos (R$)</span>
+                            <label class="block mb-1 flex justify-between gap-1">
+                                <span class="text-base font-bold">Rendimento (Unidades)</span>
                             </label>
-                            <input type="text" inputmode="decimal" id="other-costs" value="2,50" onblur="App.updateFinalCalculation()" class="block w-full rounded-xl premium-input px-4 py-3 text-lg font-bold">
+                            <input type="text" inputmode="numeric" id="recipe-yield" value="1" onblur="App.updateFinalCalculation()" class="block w-full rounded-xl premium-input px-4 py-3 text-lg font-bold">
+                            <p class="text-[10px] mt-1 opacity-70">Quantos doces/fatias esta receita rende?</p>
                         </div>
+
                         <div class="pt-4 border-t border-opacity-30" style="border-color: var(--border-color)">
-                            <label class="block text-base font-bold mb-2 text-emerald-600 dark:text-emerald-400">Margem de Lucro (%)</label>
-                            <input type="text" inputmode="numeric" id="profit-margin" value="100" onblur="App.updateFinalCalculation()" class="block w-full rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 px-4 py-3 text-xl font-extrabold focus:ring-emerald-500 outline-none">
+                            <label class="block text-sm font-bold mb-3">Método de Precificação</label>
+                            <div class="flex gap-2 mb-4 bg-black/5 dark:bg-white/5 p-1 rounded-xl">
+                                <button id="btn-method-margin" onclick="App.setPricingMethod('margin')" class="flex-1 py-2 rounded-lg bg-[var(--primary)] text-white font-bold text-xs transition shadow-sm">Margem (%)</button>
+                                <button id="btn-method-multiplier" onclick="App.setPricingMethod('multiplier')" class="flex-1 py-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--text-main)] font-bold text-xs transition">Multiplicador (x3)</button>
+                            </div>
+                            
+                            <div id="div-profit-margin">
+                                <label class="block text-sm font-bold mb-2 text-emerald-600 dark:text-emerald-400">Margem de Lucro (%)</label>
+                                <input type="text" inputmode="numeric" id="profit-margin" value="100" onblur="App.updateFinalCalculation()" class="block w-full rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 px-4 py-3 text-xl font-extrabold focus:ring-emerald-500 outline-none">
+                            </div>
+
+                            <div id="div-multiplier" class="hidden">
+                                <label class="block text-sm font-bold mb-2 text-blue-600 dark:text-blue-400">Multiplicar Ingredientes por:</label>
+                                <input type="text" inputmode="numeric" id="recipe-multiplier" value="3" onblur="App.updateFinalCalculation()" class="block w-full rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-700 dark:text-blue-400 px-4 py-3 text-xl font-extrabold focus:ring-blue-500 outline-none">
+                                <p class="text-[10px] mt-2 opacity-80 text-blue-600 dark:text-blue-400">Ideal para doces: 1x custo, 1x despesas, 1x lucro.</p>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Resumo Final -->
-                    <div class="summary-box p-6 md:p-10 lg:col-span-3 flex flex-col justify-center relative overflow-hidden rounded-[2rem] shadow-xl">
+                    <div class="summary-box p-6 md:p-8 lg:col-span-3 flex flex-col justify-center relative overflow-hidden rounded-[2rem] shadow-xl">
                         <div class="relative z-10">
-                            <h3 class="text-2xl font-bold mb-6 tracking-tight">Resumo Financeiro</h3>
+                            <h3 class="text-2xl font-bold mb-5 tracking-tight">Resumo Financeiro</h3>
                             <div class="space-y-3 text-sm md:text-base">
                                 <div class="flex justify-between items-center"><span class="text-muted font-medium">Custo dos Ingredientes:</span><span id="ingredients-cost" class="font-semibold">R$ 0,00</span></div>
-                                <div class="flex justify-between items-center"><span class="text-muted font-medium">Custos Extras:</span><span id="extras-cost-summary" class="font-semibold">R$ 0,00</span></div>
+                                <div class="flex justify-between items-center"><span class="text-muted font-medium">Custo de Embalagens:</span><span id="packagings-cost-summary" class="font-semibold text-indigo-400">R$ 0,00</span></div>
+                                <div class="flex justify-between items-center"><span class="text-muted font-medium">Custos Extras (Gás + Outros):</span><span id="extras-cost-summary" class="font-semibold">R$ 0,00</span></div>
                                 
-                                <div class="flex justify-between items-center border-t border-white/20 pt-4 mt-2">
-                                    <span class="font-bold opacity-90">Custo Total:</span><span id="total-cost" class="font-bold text-lg">R$ 0,00</span>
+                                <div class="flex justify-between items-center border-t border-white/10 pt-3 mt-1">
+                                    <span class="font-bold opacity-90">Custo Total (Lote):</span><span id="total-cost" class="font-bold text-lg">R$ 0,00</span>
                                 </div>
-                                <div class="flex justify-between items-center"><span class="text-emerald-400 font-semibold">Lucro Previsto:</span><span id="profit-value" class="font-bold text-lg text-emerald-400">R$ 0,00</span></div>
+                                <div class="flex justify-between items-center border-b border-white/10 pb-3 mb-1">
+                                    <span class="font-bold text-blue-400">Custo por Unidade:</span><span id="unit-cost" class="font-bold text-xl text-blue-400">R$ 0,00</span>
+                                </div>
                                 
-                                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mt-6 p-5 rounded-2xl bg-white/10 border border-white/20 gap-2">
-                                    <span class="font-semibold text-white/90">Preço Sugerido:</span>
-                                    <span id="final-price" class="font-bold text-3xl md:text-4xl">R$ 0,00</span>
+                                <div class="flex justify-between items-center pt-2"><span class="text-emerald-400 font-semibold">Lucro Previsto (Lote):</span><span id="profit-value" class="font-bold text-lg text-emerald-400">R$ 0,00</span></div>
+                                
+                                <div class="flex flex-col mt-4 p-5 rounded-2xl bg-white/10 border border-white/20 gap-2">
+                                    <div class="flex justify-between items-center">
+                                        <span class="font-semibold text-white/90">Venda por Unidade:</span>
+                                        <span id="unit-price" class="font-bold text-3xl md:text-4xl text-emerald-400 tracking-tight">R$ 0,00</span>
+                                    </div>
+                                    <div class="flex justify-between items-center opacity-70">
+                                        <span class="text-xs uppercase tracking-wider font-bold">Venda do Lote Total:</span>
+                                        <span id="final-price" class="text-sm font-bold">R$ 0,00</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -321,7 +412,7 @@
                         Altere os preços aqui para atualizar todas as suas receitas instantaneamente ou adicione ingredientes avulsos para uso futuro.
                     </p>
 
-                    <!-- Formulário para adicionar ingrediente direto no banco (Mobile Ready) -->
+                    <!-- Formulário para adicionar ingrediente direto no banco -->
                     <div class="premium-form-container p-4 md:p-5 mb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 items-end">
                         <div class="lg:col-span-2">
                             <label class="block text-[11px] font-bold uppercase tracking-widest mb-1 opacity-70">Nome</label>
@@ -412,20 +503,51 @@
 
         const calculateRecipeFinancials = (recipe) => {
             const ingredientsCost = (recipe.ingredients || []).reduce((total, ing) => total + (ing.packagePrice / ing.packageQty) * ing.recipeQty, 0);
+            const packagingsCost = (recipe.packagings || []).reduce((total, pkg) => total + (pkg.packagePrice / pkg.packageQty) * pkg.recipeQty, 0);
+            
             const gasCost = recipe.gasCost !== undefined ? recipe.gasCost : 2.50;
             const otherCosts = recipe.otherCosts !== undefined ? recipe.otherCosts : 2.50;
             const profitMargin = recipe.profitMargin !== undefined ? recipe.profitMargin : 100;
-            const totalCost = ingredientsCost + gasCost + otherCosts;
-            return { ingredientsCost, totalCost, finalPrice: totalCost + (totalCost * (profitMargin / 100)) };
+            
+            const yieldQty = recipe.yield !== undefined ? recipe.yield : 1;
+            const pricingMethod = recipe.pricingMethod || 'margin';
+            const multiplier = recipe.multiplier !== undefined ? recipe.multiplier : 3;
+
+            const totalCost = ingredientsCost + packagingsCost + gasCost + otherCosts;
+            let finalPrice = 0;
+
+            if (pricingMethod === 'multiplier') {
+                finalPrice = (ingredientsCost + packagingsCost) * multiplier;
+            } else {
+                finalPrice = totalCost + (totalCost * (profitMargin / 100));
+            }
+
+            const profitValue = finalPrice - totalCost;
+            const unitCost = totalCost / (yieldQty > 0 ? yieldQty : 1);
+            const unitPrice = finalPrice / (yieldQty > 0 ? yieldQty : 1);
+
+            return { ingredientsCost, packagingsCost, totalCost, finalPrice, profitValue, unitCost, unitPrice };
         };
 
-        const saveData = () => { localStorage.setItem('cakeRecipesDataV12', JSON.stringify({ recipes, nextId, ingredientMemory, isDarkMode })); };
+        const saveData = () => { localStorage.setItem('cakeRecipesDataV16', JSON.stringify({ recipes, nextId, ingredientMemory, isDarkMode })); };
 
         const loadData = () => {
-            const data = localStorage.getItem('cakeRecipesDataV12') || localStorage.getItem('cakeRecipesDataV11');
+            const data = localStorage.getItem('cakeRecipesDataV16') || localStorage.getItem('cakeRecipesDataV14') || localStorage.getItem('cakeRecipesDataV13');
             if (data) {
                 const p = JSON.parse(data);
-                recipes = (p.recipes || []).map(r => ({ ...r, ingredients: r.ingredients || [], instructions: r.instructions || '', isHidden: !!r.isHidden, gasCost: r.gasCost ?? 2.50, otherCosts: r.otherCosts ?? 2.50, profitMargin: r.profitMargin ?? 100 }));
+                recipes = (p.recipes || []).map(r => ({ 
+                    ...r, 
+                    ingredients: r.ingredients || [], 
+                    packagings: r.packagings || [], 
+                    instructions: r.instructions || '', 
+                    isHidden: !!r.isHidden, 
+                    gasCost: r.gasCost ?? 2.50, 
+                    otherCosts: r.otherCosts ?? 2.50, 
+                    profitMargin: r.profitMargin ?? 100,
+                    yield: r.yield ?? 1,
+                    pricingMethod: r.pricingMethod ?? 'margin',
+                    multiplier: r.multiplier ?? 3
+                }));
                 nextId = p.nextId || 0;
                 ingredientMemory = p.ingredientMemory || [];
                 isDarkMode = p.isDarkMode || false;
@@ -444,7 +566,6 @@
                 if(el) el.classList.add('hidden');
             });
             
-            // Subir scroll para o topo ao trocar de aba no mobile
             window.scrollTo({ top: 0, behavior: 'smooth' });
             
             if(viewId === 'receitas') {
@@ -490,14 +611,39 @@
                 container.innerHTML += `
                     <div class="recipe-card theme-card p-6 flex flex-col min-h-[180px]" onclick="App.selectRecipe(${recipe.id})">
                         <div class="absolute top-4 right-4 z-10 delete-card-btn"><button onclick="event.stopPropagation(); App.deleteRecipe(${recipe.id})" class="p-2.5 bg-red-500/10 text-red-500 rounded-full hover:bg-red-500 hover:text-white transition shadow-sm">✖</button></div>
-                        <h3 class="font-bold text-xl pr-8 mb-3 leading-tight line-clamp-2">${recipe.name}</h3>
-                        <p class="text-xs font-semibold opacity-70 mb-auto">${recipe.ingredients.length} Ingredientes</p>
+                        <h3 class="font-bold text-xl pr-8 mb-2 leading-tight line-clamp-2">${recipe.name}</h3>
+                        <p class="text-xs font-semibold opacity-70 mb-auto">${recipe.ingredients.length} Ingredientes • ${recipe.packagings.length} Emb. • Rende ${recipe.yield || 1} un</p>
                         <div class="mt-4 pt-4 border-t border-opacity-30 border-gray-500 flex justify-between items-end">
-                            <div><p class="text-[10px] uppercase font-bold opacity-60">Custo</p><p class="font-semibold">${formatCurrency(fin.totalCost)}</p></div>
-                            <div class="text-right"><p class="text-[10px] uppercase font-bold opacity-60 text-emerald-500">Venda</p><p class="font-bold text-lg text-emerald-500">${formatCurrency(fin.finalPrice)}</p></div>
+                            <div><p class="text-[10px] uppercase font-bold opacity-60">Custo/Un</p><p class="font-semibold">${formatCurrency(fin.unitCost)}</p></div>
+                            <div class="text-right"><p class="text-[10px] uppercase font-bold opacity-60 text-emerald-500">Venda/Un</p><p class="font-bold text-lg text-emerald-500">${formatCurrency(fin.unitPrice)}</p></div>
                         </div>
                     </div>`;
             });
+        };
+
+        App.setPricingMethod = (method, skipUpdate = false) => {
+            const activeRecipe = getActiveRecipe();
+            if (!activeRecipe) return;
+            activeRecipe.pricingMethod = method;
+
+            const btnMargin = document.getElementById('btn-method-margin');
+            const btnMult = document.getElementById('btn-method-multiplier');
+            const divMargin = document.getElementById('div-profit-margin');
+            const divMult = document.getElementById('div-multiplier');
+
+            if (method === 'multiplier') {
+                btnMult.className = "flex-1 py-2 rounded-lg bg-[var(--primary)] text-white font-bold text-xs transition shadow-sm";
+                btnMargin.className = "flex-1 py-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--text-main)] font-bold text-xs transition";
+                divMargin.classList.add('hidden');
+                divMult.classList.remove('hidden');
+            } else {
+                btnMargin.className = "flex-1 py-2 rounded-lg bg-[var(--primary)] text-white font-bold text-xs transition shadow-sm";
+                btnMult.className = "flex-1 py-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--text-main)] font-bold text-xs transition";
+                divMult.classList.add('hidden');
+                divMargin.classList.remove('hidden');
+            }
+
+            if(!skipUpdate) App.updateFinalCalculation();
         };
 
         const renderRecipeDetails = () => {
@@ -509,7 +655,12 @@
             document.getElementById('gas-cost').value = activeRecipe.gasCost.toFixed(2).replace('.', ',');
             document.getElementById('other-costs').value = activeRecipe.otherCosts.toFixed(2).replace('.', ',');
             document.getElementById('profit-margin').value = activeRecipe.profitMargin;
+            document.getElementById('recipe-yield').value = activeRecipe.yield || 1;
+            document.getElementById('recipe-multiplier').value = activeRecipe.multiplier || 3;
+            
+            App.setPricingMethod(activeRecipe.pricingMethod || 'margin', true);
 
+            // Render Ingredientes
             const tableBody = document.getElementById('recipe-table');
             if (activeRecipe.ingredients.length === 0) {
                 tableBody.innerHTML = `<tr><td colspan="5" class="text-center py-8 opacity-60 text-sm italic">Nenhum ingrediente adicionado.</td></tr>`;
@@ -527,6 +678,26 @@
                         </tr>`;
                 });
             }
+
+            // Render Embalagens
+            const pkgTableBody = document.getElementById('packaging-table');
+            if (!activeRecipe.packagings || activeRecipe.packagings.length === 0) {
+                pkgTableBody.innerHTML = `<tr><td colspan="5" class="text-center py-8 opacity-60 text-sm italic">Nenhuma embalagem adicionada.</td></tr>`;
+            } else {
+                pkgTableBody.innerHTML = '';
+                activeRecipe.packagings.forEach(pkg => {
+                    const cost = (pkg.packagePrice / pkg.packageQty) * pkg.recipeQty;
+                    pkgTableBody.innerHTML += `
+                        <tr class="hover:bg-black/5 group ${pkg.packagePrice === 0 ? 'bg-red-500/10' : ''}">
+                            <td class="py-3 px-3 rounded-l-lg editable text-sm font-semibold" contenteditable="true" data-id="${pkg.id}" onblur="App.editRecipePackaging(this, 'name')">${pkg.name} ${pkg.packagePrice === 0 ? '<br><span class="text-[10px] text-red-500">Defina o preço!</span>' : ''}</td>
+                            <td class="py-3 px-3 text-sm font-medium"><span class="editable" contenteditable="true" data-id="${pkg.id}" onblur="App.editRecipePackaging(this, 'packagePrice')">${pkg.packagePrice.toFixed(2).replace('.', ',')}</span> <span class="opacity-60 text-xs">/ <span class="editable" contenteditable="true" data-id="${pkg.id}" onblur="App.editRecipePackaging(this, 'packageQty')">${pkg.packageQty}</span> un</span></td>
+                            <td class="py-3 px-3 text-sm font-medium"><span class="editable" contenteditable="true" data-id="${pkg.id}" onblur="App.editRecipePackaging(this, 'recipeQty')">${pkg.recipeQty}</span><span class="opacity-60 text-xs"> un</span></td>
+                            <td class="py-3 px-3 text-sm font-bold text-right">${formatCurrency(cost)}</td>
+                            <td class="py-3 px-2 text-center rounded-r-lg"><button onclick="App.removePackagingFromRecipe(${pkg.id})" class="text-red-500 text-xs font-bold hover:bg-red-500/10 px-3 py-1.5 rounded transition">Excluir</button></td>
+                        </tr>`;
+                });
+            }
+
             App.updateFinalCalculation();
             renderIngredientMemoryDatalist();
         };
@@ -543,20 +714,53 @@
         App.updateFinalCalculation = () => {
             const activeRecipe = getActiveRecipe();
             if (!activeRecipe) return;
-            const gC = parseInputFloat('gas-cost'); const oC = parseInputFloat('other-costs'); const pM = parseInputFloat('profit-margin');
-            if(!isNaN(gC)) activeRecipe.gasCost = gC; if(!isNaN(oC)) activeRecipe.otherCosts = oC; if(!isNaN(pM)) activeRecipe.profitMargin = pM;
+            
+            const gC = parseInputFloat('gas-cost'); 
+            const oC = parseInputFloat('other-costs'); 
+            const pM = parseInputFloat('profit-margin');
+            const yQty = parseInputFloat('recipe-yield');
+            const mult = parseInputFloat('recipe-multiplier');
+
+            if(!isNaN(gC)) activeRecipe.gasCost = gC; 
+            if(!isNaN(oC)) activeRecipe.otherCosts = oC; 
+            if(!isNaN(pM)) activeRecipe.profitMargin = pM;
+            if(!isNaN(yQty) && yQty > 0) activeRecipe.yield = yQty;
+            if(!isNaN(mult) && mult > 0) activeRecipe.multiplier = mult;
+
             const fin = calculateRecipeFinancials(activeRecipe);
+            
             document.getElementById('ingredients-cost').textContent = formatCurrency(fin.ingredientsCost);
+            document.getElementById('packagings-cost-summary').textContent = formatCurrency(fin.packagingsCost);
             document.getElementById('extras-cost-summary').textContent = formatCurrency(activeRecipe.gasCost + activeRecipe.otherCosts);
             document.getElementById('total-cost').textContent = formatCurrency(fin.totalCost);
-            document.getElementById('profit-value').textContent = formatCurrency(fin.totalCost * (activeRecipe.profitMargin / 100));
+            document.getElementById('unit-cost').textContent = formatCurrency(fin.unitCost);
+            document.getElementById('profit-value').textContent = formatCurrency(fin.profitValue);
             document.getElementById('final-price').textContent = formatCurrency(fin.finalPrice);
+            document.getElementById('unit-price').textContent = formatCurrency(fin.unitPrice);
+            
             saveData();
         };
 
         App.promptCreateRecipe = async () => {
             const { value: name } = await Swal.fire({ title: 'Nova Receita', input: 'text', showCancelButton: true, confirmButtonText: 'Criar', cancelButtonText: 'Cancelar' });
-            if (name) { recipes.push({ id: nextId++, name: name.trim(), ingredients: [], instructions: '', isHidden: false, gasCost: 2.50, otherCosts: 2.50, profitMargin: 100 }); saveData(); App.selectRecipe(nextId - 1); }
+            if (name) { 
+                recipes.push({ 
+                    id: nextId++, 
+                    name: name.trim(), 
+                    ingredients: [], 
+                    packagings: [],
+                    instructions: '', 
+                    isHidden: false, 
+                    gasCost: 2.50, 
+                    otherCosts: 2.50, 
+                    profitMargin: 100,
+                    yield: 1,
+                    pricingMethod: 'margin',
+                    multiplier: 3
+                }); 
+                saveData(); 
+                App.selectRecipe(nextId - 1); 
+            }
         };
 
         App.selectRecipe = (id) => { activeRecipeId = id; App.switchView('receitas'); };
@@ -576,7 +780,7 @@
             });
         };
 
-        // Adiciona à receita específica
+        // INGREDIENTES 
         App.addIngredientToRecipe = () => {
             const activeRecipe = getActiveRecipe();
             const name = document.getElementById('ing-name').value.trim();
@@ -586,7 +790,6 @@
             const unit = document.getElementById('ing-pkg-unit').value;
             activeRecipe.ingredients.push({ id: nextId++, name, packagePrice: pPrice, packageQty: pQty, packageUnit: unit, recipeQty: rQty });
             
-            // Adiciona ou atualiza no banco
             const knownIndex = ingredientMemory.findIndex(i => i.name.toLowerCase() === name.toLowerCase());
             if (knownIndex !== -1) {
                 ingredientMemory[knownIndex].packagePrice = pPrice;
@@ -600,6 +803,7 @@
         };
 
         App.removeIngredientFromRecipe = (id) => { getActiveRecipe().ingredients = getActiveRecipe().ingredients.filter(i => i.id !== id); saveData(); renderRecipeDetails(); };
+        
         App.editRecipeIngredient = (el, field) => {
             const ing = getActiveRecipe().ingredients.find(i => i.id === parseInt(el.dataset.id));
             if(!ing) return;
@@ -609,7 +813,41 @@
             saveData(); renderRecipeDetails();
         };
 
-        // Adiciona diretamente do Banco de Ingredientes
+        // EMBALAGENS
+        App.addPackagingToRecipe = () => {
+            const activeRecipe = getActiveRecipe();
+            const name = document.getElementById('pkg-name').value.trim();
+            const pPrice = parseInputFloat('pkg-price'); 
+            const pQty = parseInputFloat('pkg-qty'); 
+            const rQty = parseInputFloat('pkg-recipe-qty');
+            
+            if(!name || isNaN(pPrice) || isNaN(pQty) || isNaN(rQty)) return Swal.fire('Atenção', 'Preencha todos os campos da embalagem corretamente com números.', 'error');
+            
+            activeRecipe.packagings = activeRecipe.packagings || [];
+            activeRecipe.packagings.push({ id: nextId++, name, packagePrice: pPrice, packageQty: pQty, recipeQty: rQty });
+            
+            saveData(); 
+            ['pkg-name', 'pkg-price', 'pkg-qty', 'pkg-recipe-qty'].forEach(id => document.getElementById(id).value = ''); 
+            renderRecipeDetails();
+        };
+
+        App.removePackagingFromRecipe = (id) => { 
+            const recipe = getActiveRecipe();
+            recipe.packagings = recipe.packagings.filter(i => i.id !== id); 
+            saveData(); 
+            renderRecipeDetails(); 
+        };
+        
+        App.editRecipePackaging = (el, field) => {
+            const pkg = getActiveRecipe().packagings.find(i => i.id === parseInt(el.dataset.id));
+            if(!pkg) return;
+            const val = el.textContent.trim();
+            if(field === 'name') pkg.name = val;
+            else { const n = parseFloat(val.replace(',', '.')); if(!isNaN(n)) pkg[field] = n; }
+            saveData(); renderRecipeDetails();
+        };
+
+        // BANCO DE INGREDIENTES
         App.addIngredientToMemoryFromForm = () => {
             const name = document.getElementById('banco-ing-name').value.trim();
             const price = parseInputFloat('banco-ing-price');
@@ -627,7 +865,6 @@
                 ingredientMemory.push({ name, packagePrice: price, packageQty: qty, packageUnit: unit });
             }
 
-            // Atualiza nas receitas se já existir
             recipes.forEach(r => r.ingredients.filter(i => i.name.toLowerCase() === name.toLowerCase()).forEach(i => {
                 i.packagePrice = price; i.packageQty = qty; i.packageUnit = unit;
             }));
@@ -704,7 +941,7 @@
                 title: 'Tem a certeza?', text: "Irá apagar todas as receitas e o banco de ingredientes. Esta ação é irreversível!", icon: 'warning', showCancelButton: true, confirmButtonColor: '#ef4444', confirmButtonText: 'Sim, Apagar Tudo'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    localStorage.removeItem('cakeRecipesDataV12'); recipes = []; activeRecipeId = null; nextId = 0; ingredientMemory = [];
+                    localStorage.removeItem('cakeRecipesDataV16'); recipes = []; activeRecipeId = null; nextId = 0; ingredientMemory = [];
                     saveData(); App.switchView('receitas');
                 }
             });
@@ -729,8 +966,9 @@
             const steps = [
                 { title: '👋 Bem-vindo(a)!', text: 'Navegue pelo menu inferior (no telemóvel) ou lateral para controlar os seus custos com facilidade.' },
                 { title: '🍰 1. Receitas', text: 'Crie produtos e adicione ingredientes. O sistema soma os custos automaticamente.' },
-                { title: '💰 2. Custos e Lucro', text: 'Dentro da receita, defina os seus gastos com gás/embalagem e a Margem de Lucro ideal.' },
-                { title: '🛒 3. Banco (Estoque)', text: 'O preço de algo mudou? Atualize na aba Estoque e todas as receitas vão recalcular o preço sozinhas!' }
+                { title: '📦 2. Embalagens', text: 'Adicione caixas, forminhas e outros acessórios separados dos ingredientes!' },
+                { title: '💰 3. Custos e Lucro', text: 'Dentro da receita, defina os seus gastos extras e a Margem de Lucro ideal.' },
+                { title: '🛒 4. Banco (Estoque)', text: 'O preço de algo mudou? Atualize na aba Estoque e todas as receitas vão recalcular sozinhas!' }
             ];
             
             let currentStep = 0;
