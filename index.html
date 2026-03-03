@@ -104,8 +104,8 @@
         <div class="relative mb-10">
             <img src="assets/logo.png" alt="Logo" onerror="this.src='https://placehold.co/200x200/f97316/white?text=Logo'" class="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover animate-pulse-logo border-8 border-white shadow-2xl bg-white">
         </div>
-        <h1 class="font-black text-4xl md:text-5xl text-[var(--primary)] tracking-tighter">Cálculo de Receitas</h1>
-        <p class="mt-4 text-sm font-bold tracking-[0.3em] uppercase opacity-40" style="color: var(--text-muted)">Excelência na sua cozinha</p>
+        <h1 class="font-black text-4xl md:text-5xl text-[var(--primary)] tracking-tighter text-center">Cálculo de Receitas</h1>
+        <p class="mt-4 text-sm font-bold tracking-[0.3em] uppercase opacity-40 text-center" style="color: var(--text-muted)">Excelência na sua cozinha</p>
     </div>
 
     <!-- Drive Overlay Loader -->
@@ -135,15 +135,15 @@
         <nav class="fixed bottom-0 left-0 right-0 md:relative md:flex-1 md:px-6 flex flex-row md:flex-col bg-[var(--card-bg)] md:bg-transparent border-t md:border-none z-50 p-4 md:p-0 gap-3">
             <button onclick="App.switchView('receitas')" id="nav-receitas" class="nav-item active flex-1 md:flex-none flex flex-col md:flex-row items-center gap-3 md:gap-5 p-3 md:px-7 md:py-5">
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-                <span class="text-[10px] md:text-sm font-black uppercase tracking-widest">Receitas</span>
+                <span class="text-[10px] md:text-sm font-black uppercase tracking-widest text-center">Receitas</span>
             </button>
             <button onclick="App.switchView('banco')" id="nav-banco" class="nav-item flex-1 md:flex-none flex flex-col md:flex-row items-center gap-3 md:gap-5 p-3 md:px-7 md:py-5">
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
-                <span class="text-[10px] md:text-sm font-black uppercase tracking-widest">Estoque</span>
+                <span class="text-[10px] md:text-sm font-black uppercase tracking-widest text-center">Estoque</span>
             </button>
             <button onclick="App.switchView('personalizar')" id="nav-personalizar" class="nav-item flex-1 md:flex-none flex flex-col md:flex-row items-center gap-3 md:gap-5 p-3 md:px-7 md:py-5">
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1-2 2h-.09A1.65 1.65 0 0 0-1.51 1z"/></svg>
-                <span class="text-[10px] md:text-sm font-black uppercase tracking-widest">Ajustes</span>
+                <span class="text-[10px] md:text-sm font-black uppercase tracking-widest text-center">Ajustes</span>
             </button>
 
             <div class="hidden md:block flex-1"></div>
@@ -203,7 +203,6 @@
                                 <svg class="text-[var(--primary)]" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z"/></svg>
                                 Insumos & Ingredientes
                             </h3>
-                            <!-- Add Form -->
                             <div class="grid grid-cols-1 sm:grid-cols-5 gap-4 mb-10 items-end bg-slate-50 dark:bg-slate-900/40 p-5 rounded-3xl border border-[var(--border-color)]">
                                 <div class="sm:col-span-1">
                                     <label class="text-[10px] font-black uppercase tracking-[0.2em] block mb-2 opacity-40">Item</label>
@@ -250,7 +249,6 @@
                                 <svg class="text-indigo-500" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2"/><path d="M21 14v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-6"/><path d="M3 10h18"/><path d="M3 14h18"/></svg>
                                 Embalagens & Acessórios
                             </h3>
-                            <!-- Add Form -->
                             <div class="grid grid-cols-1 sm:grid-cols-5 gap-4 mb-10 items-end bg-slate-50 dark:bg-slate-900/40 p-5 rounded-3xl border border-[var(--border-color)]">
                                 <div class="sm:col-span-1">
                                     <label class="text-[10px] font-black uppercase tracking-[0.2em] block mb-2 opacity-40">Descrição</label>
@@ -288,7 +286,6 @@
 
                     <!-- Right Column: Settings & Preparation -->
                     <div class="space-y-10">
-                        <!-- PREPARAÇÃO -->
                         <section class="theme-card p-8 flex flex-col min-h-[450px]">
                             <div class="flex justify-between items-center mb-8">
                                 <h3 class="text-2xl font-black">Preparo</h3>
@@ -297,10 +294,8 @@
                             <textarea id="recipe-instructions" class="instruction-box flex-1 border-none focus:ring-0 outline-none resize-none" placeholder="Escreva o passo a passo da receita aqui..."></textarea>
                         </section>
 
-                        <!-- PRECIFICAÇÃO -->
                         <section class="theme-card p-8 space-y-8">
                             <h3 class="text-2xl font-black">Configuração</h3>
-                            
                             <div class="grid grid-cols-2 gap-5">
                                 <div class="space-y-3">
                                     <label class="text-[10px] font-black uppercase tracking-widest opacity-40">Gás / Energia (R$)</label>
@@ -311,24 +306,20 @@
                                     <input type="text" id="other-costs" onblur="App.updateFinalCalculation()" class="w-full premium-input p-4 font-bold">
                                 </div>
                             </div>
-
                             <div class="space-y-3">
-                                <label class="text-[10px] font-black uppercase tracking-widest opacity-40">Rendimento Total (Unidades)</label>
+                                <label class="text-[10px] font-black uppercase tracking-widest opacity-40 text-center block">Rendimento Total (Unidades)</label>
                                 <input type="text" id="recipe-yield" onblur="App.updateFinalCalculation()" class="w-full premium-input p-5 text-2xl font-black text-[var(--primary)] text-center">
                             </div>
-
                             <div class="pt-6 border-t border-[var(--border-color)] space-y-6">
                                 <div class="flex bg-slate-100 dark:bg-slate-800 p-1.5 rounded-2xl">
                                     <button id="btn-method-margin" onclick="App.setPricingMethod('margin')" class="flex-1 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition">Margem %</button>
                                     <button id="btn-method-multiplier" onclick="App.setPricingMethod('multiplier')" class="flex-1 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition">Markup x</button>
                                 </div>
-                                
-                                <div id="div-profit-margin" class="space-y-3">
+                                <div id="div-profit-margin" class="space-y-3 text-center">
                                     <label class="text-[10px] font-black uppercase tracking-widest opacity-40">Margem Desejada (%)</label>
                                     <input type="text" id="profit-margin" onblur="App.updateFinalCalculation()" class="w-full premium-input p-5 text-3xl font-black bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-center">
                                 </div>
-                                
-                                <div id="div-multiplier" class="hidden space-y-3">
+                                <div id="div-multiplier" class="hidden space-y-3 text-center">
                                     <label class="text-[10px] font-black uppercase tracking-widest opacity-40">Multiplicador (Custo x ?)</label>
                                     <input type="text" id="recipe-multiplier" onblur="App.updateFinalCalculation()" class="w-full premium-input p-5 text-3xl font-black bg-blue-500/10 text-blue-600 dark:text-blue-400 text-center">
                                 </div>
@@ -337,18 +328,13 @@
                     </div>
                 </div>
 
-                <!-- FOOTER SUMMARY -->
                 <section class="summary-box p-10 md:p-16 relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-                        <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 100 C 20 0 50 0 100 100 Z" fill="white"></path></svg>
-                    </div>
-                    
                     <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                        <div class="space-y-8">
+                        <div class="space-y-8 text-white">
                             <h4 class="text-xs font-black uppercase tracking-[0.4em] text-[var(--primary)]">Visão Financeira</h4>
                             <div class="space-y-4">
                                 <div class="flex justify-between items-center"><span class="font-bold opacity-50">Ingredientes</span><span id="ingredients-cost" class="font-black text-xl">R$ 0,00</span></div>
-                                <div class="flex justify-between items-center"><span class="font-bold opacity-50">Embalagens</span><span id="packagings-cost-summary" class="font-black text-xl text-indigo-400">R$ 0,00</span></div>
+                                <div class="flex justify-between items-center"><span class="font-bold opacity-50 text-indigo-300">Embalagens</span><span id="packagings-cost-summary" class="font-black text-xl text-indigo-400">R$ 0,00</span></div>
                                 <div class="flex justify-between items-center"><span class="font-bold opacity-50">Despesas Fixas</span><span id="extras-cost-summary" class="font-black text-xl">R$ 0,00</span></div>
                                 <div class="pt-6 border-t border-white/10 flex justify-between items-end">
                                     <span class="font-black text-2xl">Custo p/ Unid</span>
@@ -356,18 +342,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white/5 backdrop-blur-md p-10 rounded-[3rem] border border-white/10 flex flex-col items-center text-center shadow-2xl">
+                        <div class="bg-white/5 backdrop-blur-md p-10 rounded-[3rem] border border-white/10 flex flex-col items-center text-center shadow-2xl text-white">
                             <span class="text-xs font-black uppercase tracking-[0.3em] opacity-40 mb-4">Sugestão de Venda p/ Unidade</span>
                             <div id="unit-price" class="text-6xl md:text-8xl font-black tracking-tighter text-emerald-400 mb-4">R$ 0,00</div>
-                            <div class="flex gap-4 items-center">
-                                <span class="px-4 py-2 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-widest">Lucro Lote: <span id="profit-value">R$ 0,00</span></span>
-                            </div>
+                            <span class="px-4 py-2 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-widest">Lucro Lote: <span id="profit-value">R$ 0,00</span></span>
                         </div>
                     </div>
                 </section>
             </div>
 
-            <!-- VIEW: BANCO / ESTOQUE -->
             <div id="view-banco-content" class="hidden animate-view-enter space-y-10">
                 <header>
                     <h2 class="text-5xl md:text-6xl font-black tracking-tighter mb-4 text-transparent bg-clip-text bg-gradient-to-r from-[var(--text-main)] to-slate-400">Banco de Preços</h2>
@@ -406,13 +389,11 @@
                 </section>
             </div>
 
-            <!-- VIEW: AJUSTES (Drive) -->
             <div id="view-personalizar-content" class="hidden animate-view-enter space-y-10">
                 <header>
                     <h2 class="text-5xl md:text-6xl font-black tracking-tighter mb-4">Configurações</h2>
                     <p class="text-xl font-medium opacity-50">Nuvem e Armazenamento.</p>
                 </header>
-
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                     <section class="theme-card p-10 md:p-14 border-2 border-blue-500/20 shadow-blue-500/5">
                         <div class="flex items-center gap-6 mb-10">
@@ -426,54 +407,41 @@
                             </div>
                             <div>
                                 <h3 class="text-3xl font-black text-blue-600 dark:text-blue-400 leading-none mb-2">Google Drive</h3>
-                                <span class="text-[10px] font-black uppercase tracking-[0.3em] opacity-40">Auto-save System</span>
+                                <span class="text-[10px] font-black uppercase tracking-[0.3em] opacity-40">Auto-save Ativado</span>
                             </div>
                         </div>
-                        
                         <div class="space-y-8">
-                            <p class="text-sm font-medium leading-relaxed opacity-50">As suas receitas e banco de preços são salvos automaticamente a cada edição no seu Drive pessoal. Segurança total para os seus dados.</p>
-                            
+                            <p class="text-sm font-medium leading-relaxed opacity-50">Sincronize as suas receitas e estoque com a sua conta do Google de forma automática.</p>
                             <button id="btn-drive-auth" onclick="App.handleAuthClick()" class="w-full flex items-center justify-center gap-5 py-6 rounded-[2rem] bg-white dark:bg-slate-800 text-slate-800 dark:text-white border border-slate-200 dark:border-slate-700 font-black uppercase text-xs tracking-widest shadow-xl hover:translate-y-[-2px] transition-transform">
                                 <svg viewBox="0 0 48 48" width="28" height="28"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/></svg>
-                                Conectar Conta Google
+                                Conectar Google Drive
                             </button>
-
                             <div id="drive-actions" class="hidden flex flex-col gap-5">
                                 <div class="flex items-center justify-center gap-3 p-4 rounded-3xl bg-emerald-500/10 text-emerald-500">
                                     <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
-                                    <span class="text-xs font-black uppercase tracking-[0.3em]">Backup Ativo</span>
+                                    <span class="text-xs font-black uppercase tracking-[0.3em]">Sincronizado</span>
                                 </div>
                                 <button onclick="App.loadFromDrive()" class="w-full py-6 rounded-[2rem] bg-indigo-500 text-white font-black uppercase text-xs tracking-widest shadow-2xl shadow-indigo-500/30 hover:scale-[1.02] transition">Sincronizar Manualmente</button>
-                                <button onclick="App.handleSignoutClick()" class="text-xs font-bold text-slate-400 hover:text-red-500 transition-colors underline">Desconectar Drive</button>
+                                <button onclick="App.handleSignoutClick()" class="text-xs font-bold text-slate-400 hover:text-red-500 transition-colors underline text-center">Desconectar</button>
                             </div>
                         </div>
                     </section>
-
                     <section class="theme-card p-10 md:p-14 flex flex-col justify-between">
                         <div>
-                            <h3 class="text-3xl font-black mb-6">Database</h3>
-                            <p class="text-sm font-medium opacity-50 mb-10 leading-relaxed">Apagar o cache local limpará os dados temporários do navegador. Use esta opção se desejar redefinir a aplicação localmente sem afetar a nuvem.</p>
+                            <h3 class="text-3xl font-black mb-6">Sistema</h3>
+                            <p class="text-sm font-medium opacity-50 mb-10 leading-relaxed">Apague o histórico local caso deseje limpar todas as receitas do navegador atual.</p>
                         </div>
-                        <button onclick="App.resetApplication()" class="w-full py-6 rounded-[2rem] bg-red-500/10 text-red-500 border border-red-500/20 font-black uppercase text-xs tracking-widest hover:bg-red-500 hover:text-white transition shadow-sm">Resetar Cache Local</button>
+                        <button onclick="App.resetApplication()" class="w-full py-6 rounded-[2rem] bg-red-500/10 text-red-500 border border-red-500/20 font-black uppercase text-xs tracking-widest hover:bg-red-500 hover:text-white transition shadow-sm">Resetar Banco Local</button>
                     </section>
                 </div>
             </div>
-
         </div>
     </main>
 
     <script>
         const App = window.App = {};
 
-        // --- STATE ---
-        let recipes = [];
-        let activeRecipeId = null;
-        let nextId = 0;
-        let ingredientMemory = []; 
-        let isDarkMode = false;
-        let autoSaveTimer = null;
-
-        // --- GOOGLE CONFIG ---
+        // --- GOOGLE DRIVE API CONFIG ---
         const CLIENT_ID = '961795024997-bfq030uubshrfo35bjstif0ei0puj3ku.apps.googleusercontent.com'; 
         const API_KEY = 'AIzaSyDF4JdvAPo4tu126BYUl2n46kL8doKB14U';
         const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest';
@@ -483,10 +451,16 @@
         let tokenClient;
         let gapiInited = false;
         let gisInited = false;
+        let recipes = [];
+        let activeRecipeId = null;
+        let nextId = 0;
+        let ingredientMemory = []; 
+        let isDarkMode = false;
+        let autoSaveTimer = null;
 
+        // --- GOOGLE API INITIALIZATION ---
         App.gapiLoaded = () => { gapi.load('client', initializeGapiClient); };
         async function initializeGapiClient() {
-            if (API_KEY === 'COLE_SUA_API_KEY_AQUI' || !API_KEY.startsWith('AIza')) return;
             try {
                 await gapi.client.init({ apiKey: API_KEY, discoveryDocs: [DISCOVERY_DOC] });
                 gapiInited = true;
@@ -494,11 +468,10 @@
         }
 
         App.gisLoaded = () => {
-            if (CLIENT_ID === 'COLE_SEU_CLIENT_ID_AQUI') return;
             tokenClient = google.accounts.oauth2.initTokenClient({
                 client_id: CLIENT_ID,
                 scope: SCOPES,
-                callback: '',
+                callback: '', // defined at request time
             });
             gisInited = true;
             if (gapi.client?.getToken()) App.showDriveControls(true);
@@ -508,8 +481,8 @@
             tokenClient.callback = async (resp) => {
                 if (resp.error) throw (resp);
                 App.showDriveControls(true);
-                Swal.fire({toast:true, position:'top-end', icon:'success', title:'Cloud Conectado!', showConfirmButton:false, timer:2000});
                 App.saveToDrive(true);
+                Swal.fire({toast:true, position:'top-end', icon:'success', title:'Nuvem Conectada!', showConfirmButton:false, timer:2000});
             };
             tokenClient.requestAccessToken({prompt: gapi.client.getToken() === null ? 'consent' : ''});
         };
@@ -524,14 +497,10 @@
         };
 
         App.showDriveControls = (isConnected) => {
-            document.getElementById('btn-drive-auth').style.display = isConnected ? 'none' : 'flex';
-            document.getElementById('drive-actions').style.display = isConnected ? 'flex' : 'none';
-        };
-
-        const setLoader = (show, text="Sincronizando...") => {
-            const loader = document.getElementById('drive-loader');
-            document.getElementById('drive-loader-text').innerText = text;
-            loader.classList.toggle('active', show);
+            const authBtn = document.getElementById('btn-drive-auth');
+            const actions = document.getElementById('drive-actions');
+            if (authBtn) authBtn.style.display = isConnected ? 'none' : 'flex';
+            if (actions) actions.style.display = isConnected ? 'flex' : 'none';
         };
 
         async function findBackupFile() {
@@ -548,7 +517,9 @@
         App.saveToDrive = async (isAuto = false) => {
             const token = gapi.client.getToken();
             if(!token) return;
-            if(!isAuto) setLoader(true, "Salvando na Nuvem...");
+            const loader = document.getElementById('drive-loader');
+            if(!isAuto && loader) { loader.classList.add('active'); document.getElementById('drive-loader-text').innerText = "Salvando na Nuvem..."; }
+            
             try {
                 const dataStr = JSON.stringify({ recipes, nextId, ingredientMemory, isDarkMode });
                 const fileId = await findBackupFile();
@@ -556,32 +527,33 @@
                 const form = new FormData();
                 form.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }));
                 form.append('file', new Blob([dataStr], { type: 'application/json' }));
+                
                 const url = fileId ? `https://www.googleapis.com/upload/drive/v3/files/${fileId}?uploadType=multipart` : 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart';
                 const response = await fetch(url, {
                     method: fileId ? 'PATCH' : 'POST',
                     headers: new Headers({ 'Authorization': 'Bearer ' + token.access_token }),
                     body: form
                 });
-                if(response.ok && !isAuto) Swal.fire('Sucesso!', 'Dados atualizados no Drive.', 'success');
-            } catch (err) { console.error(err); } finally { if(!isAuto) setLoader(false); }
+                if(response.ok && !isAuto) Swal.fire('Sucesso!', 'Os dados foram guardados no seu Google Drive.', 'success');
+            } catch (err) { console.error(err); } finally { if(!isAuto && loader) loader.classList.remove('active'); }
         };
 
         App.loadFromDrive = async () => {
             if(!gapi.client.getToken()) return App.handleAuthClick();
-            const { isConfirmed } = await Swal.fire({ title: 'Baixar da Nuvem?', text: 'Seus dados locais serão substituídos pelos do Drive.', icon: 'question', showCancelButton: true });
+            const { isConfirmed } = await Swal.fire({ title: 'Carregar Nuvem?', text: 'Isso substituirá suas receitas atuais.', icon: 'question', showCancelButton: true });
             if(isConfirmed) {
-                setLoader(true, "Restaurando...");
+                const loader = document.getElementById('drive-loader');
+                if(loader) { loader.classList.add('active'); document.getElementById('drive-loader-text').innerText = "Baixando do Drive..."; }
                 try {
                     const fileId = await findBackupFile();
-                    if (!fileId) { setLoader(false); return Swal.fire('Vazio', 'Nenhum backup encontrado no Drive.', 'info'); }
+                    if (!fileId) { if(loader) loader.classList.remove('active'); return Swal.fire('Vazio', 'Backup não encontrado.', 'info'); }
                     const response = await gapi.client.drive.files.get({ fileId, alt: 'media' });
                     const data = response.result;
                     if (data && data.recipes) {
-                        recipes = data.recipes; nextId = data.nextId || 0; ingredientMemory = data.ingredientMemory || []; isDarkMode = data.isDarkMode || false; activeRecipeId = null;
-                        applyThemeToDOM(); localStorage.setItem('cakeRecipesDataV16', JSON.stringify({ recipes, nextId, ingredientMemory, isDarkMode }));
-                        App.switchView('receitas'); Swal.fire('Sincronizado!', 'Os seus dados foram carregados.', 'success');
+                        recipes = data.recipes; nextId = data.nextId || 0; ingredientMemory = data.ingredientMemory || []; isDarkMode = data.isDarkMode || false;
+                        saveData(); location.reload();
                     }
-                } catch { Swal.fire('Erro', 'Falha na conexão com o Drive.', 'error'); } finally { setLoader(false); }
+                } catch { Swal.fire('Erro', 'Falha ao sincronizar.', 'error'); } finally { if(loader) loader.classList.remove('active'); }
             }
         };
 
@@ -598,7 +570,6 @@
             const yieldQty = r.yield || 1;
             const method = r.pricingMethod || 'margin';
             const mult = r.multiplier ?? 3;
-            
             let final = method === 'multiplier' ? (ingCost + pkgCost) * mult : total + (total * ((r.profitMargin || 100) / 100));
             return { ingCost, pkgCost, fixed, total, final, profit: final - total, unitC: total / yieldQty, unitP: final / yieldQty };
         };
@@ -616,19 +587,11 @@
             if (d) {
                 const p = JSON.parse(d);
                 recipes = (p.recipes || []).map(r => ({ 
-                    ...r, 
-                    ingredients: r.ingredients || [], 
-                    packagings: r.packagings || [], 
-                    yield: r.yield || 1, 
-                    gasCost: r.gasCost ?? 2.5, 
-                    otherCosts: r.otherCosts ?? 2.5,
-                    profitMargin: r.profitMargin ?? 100,
-                    pricingMethod: r.pricingMethod ?? 'margin',
-                    multiplier: r.multiplier ?? 3
+                    ...r, ingredients: r.ingredients || [], packagings: r.packagings || [], yield: r.yield || 1, 
+                    gasCost: r.gasCost ?? 2.5, otherCosts: r.otherCosts ?? 2.5, profitMargin: r.profitMargin ?? 100, 
+                    pricingMethod: r.pricingMethod ?? 'margin', multiplier: r.multiplier ?? 3
                 }));
-                nextId = p.nextId || 0; 
-                ingredientMemory = p.ingredientMemory || []; 
-                isDarkMode = p.isDarkMode || false;
+                nextId = p.nextId || 0; ingredientMemory = p.ingredientMemory || []; isDarkMode = p.isDarkMode || false;
             }
             applyThemeToDOM();
         };
@@ -636,11 +599,17 @@
         App.switchView = (vId) => {
             document.querySelectorAll('.nav-item').forEach(e => e.classList.remove('active'));
             document.getElementById(`nav-${vId}`)?.classList.add('active');
-            ['receitas-list', 'recipe-details', 'banco-content', 'personalizar-content'].forEach(id => document.getElementById(`view-${id}`).classList.add('hidden'));
+            ['receitas-list', 'recipe-details', 'banco-content', 'personalizar-content'].forEach(id => {
+                const el = document.getElementById(`view-${id}`);
+                if(el) el.classList.add('hidden');
+            });
             if(vId === 'receitas') {
                 if(activeRecipeId !== null) { document.getElementById('view-recipe-details').classList.remove('hidden'); renderRecipeDetails(); }
                 else { document.getElementById('view-receitas-list').classList.remove('hidden'); renderRecipeList(); }
-            } else document.getElementById(`view-${vId}-content`).classList.remove('hidden');
+            } else {
+                const target = document.getElementById(`view-${vId}-content`);
+                if(target) target.classList.remove('hidden');
+            }
             if(vId === 'banco') renderIngredientMemoryTable();
         };
 
@@ -657,17 +626,18 @@
 
         const renderRecipeList = () => {
             const c = document.getElementById('recipe-grid-container');
+            if(!c) return;
             c.innerHTML = `<div class="theme-card border-2 border-dashed border-[var(--primary)] flex flex-col items-center justify-center p-10 cursor-pointer hover:bg-[var(--primary)]/5 transition-all" onclick="App.promptCreateRecipe()">
                 <div class="w-20 h-20 rounded-full bg-[var(--primary)] flex items-center justify-center mb-5 text-white shadow-xl"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4"><path d="M12 5v14M5 12h14"/></svg></div>
-                <h3 class="font-black text-xl uppercase tracking-widest text-[var(--primary)]">Nova Receita</h3></div>`;
+                <h3 class="font-black text-xl uppercase tracking-widest text-[var(--primary)] text-center">Nova Receita</h3></div>`;
             recipes.forEach(r => {
                 const fin = calculateRecipeFinancials(r);
                 c.innerHTML += `<div class="theme-card recipe-card p-8 cursor-pointer group relative" onclick="App.selectRecipe(${r.id})">
                     <button onclick="event.stopPropagation(); App.deleteRecipe(${r.id})" class="absolute top-5 right-5 p-3 bg-red-500/10 text-red-500 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity">✖</button>
-                    <h3 class="font-black text-2xl mb-2 line-clamp-1 leading-tight">${r.name}</h3>
-                    <p class="text-[10px] font-black opacity-30 uppercase tracking-[0.2em] mb-8">${r.ingredients.length} Insumos • ${r.yield} Unidades</p>
+                    <h3 class="font-black text-2xl mb-2 line-clamp-1 leading-tight text-center">${r.name}</h3>
+                    <p class="text-[10px] font-black opacity-30 uppercase tracking-[0.2em] mb-8 text-center">${r.ingredients.length} Insumos • ${r.yield} Unidades</p>
                     <div class="flex justify-between items-end border-t border-[var(--border-color)] pt-6">
-                        <div><span class="text-[10px] font-black uppercase opacity-40">Custo/Un</span><div class="font-black text-lg">${formatCurrency(fin.unitC)}</div></div>
+                        <div class="text-left"><span class="text-[10px] font-black uppercase opacity-40">Custo/Un</span><div class="font-black text-lg">${formatCurrency(fin.unitC)}</div></div>
                         <div class="text-right"><span class="text-[10px] font-black uppercase opacity-40 text-emerald-500">Venda/Un</span><div class="font-black text-2xl text-emerald-500 tracking-tighter">${formatCurrency(fin.unitP)}</div></div>
                     </div>
                 </div>`;
@@ -678,7 +648,7 @@
         App.backToRecipes = () => { activeRecipeId = null; App.switchView('receitas'); };
         
         App.promptCreateRecipe = async () => {
-            const { value: name } = await Swal.fire({ title: 'Criar Receita', input: 'text', placeholder: 'Ex: Bolo de Chocolate Belga', showCancelButton: true });
+            const { value: name } = await Swal.fire({ title: 'Criar Receita', input: 'text', placeholder: 'Ex: Bolo de Chocolate', showCancelButton: true });
             if (name) { 
                 recipes.push({ id: nextId++, name: name.trim(), ingredients: [], packagings: [], instructions: '', gasCost: 2.5, otherCosts: 2.5, profitMargin: 100, yield: 1, pricingMethod: 'margin', multiplier: 3 }); 
                 saveData(); App.selectRecipe(nextId - 1); 
@@ -701,9 +671,9 @@
                 <td><span class="editable font-black text-sm" contenteditable="true" onblur="App.editIng(this, ${i.id}, 'name')">${i.name}</span></td>
                 <td><span class="editable font-bold" contenteditable="true" onblur="App.editIng(this, ${i.id}, 'packagePrice')">${i.packagePrice.toFixed(2).replace('.',',')}</span> <span class="opacity-30 text-[10px]">/${i.packageQty}${i.packageUnit}</span></td>
                 <td><span class="editable font-bold" contenteditable="true" onblur="App.editIng(this, ${i.id}, 'recipeQty')">${i.recipeQty}</span> <span class="opacity-30 text-[10px]">${i.packageUnit}</span></td>
-                <td class="text-right font-black text-slate-700 dark:text-slate-300">${formatCurrency((i.packagePrice / i.packageQty) * i.recipeQty)}</td>
+                <td class="text-right font-black">${formatCurrency((i.packagePrice / i.packageQty) * i.recipeQty)}</td>
                 <td class="text-center"><button onclick="App.removeIng(${i.id})" class="text-red-500 opacity-0 group-hover:opacity-100 transition-opacity">✖</button></td></tr>`).join('') 
-                || '<tr><td colspan="5" class="text-center py-12 opacity-30 text-xs font-black uppercase tracking-[0.2em]">Sem insumos listados</td></tr>';
+                || '<tr><td colspan="5" class="text-center py-12 opacity-30 text-xs font-black uppercase tracking-[0.2em]">Sem insumos</td></tr>';
 
             const pT = document.getElementById('packaging-table');
             pT.innerHTML = (r.packagings || []).map(p => `<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
@@ -712,7 +682,7 @@
                 <td><span class="editable font-bold" contenteditable="true" onblur="App.editPkg(this, ${p.id}, 'recipeQty')">${p.recipeQty}</span> <span class="opacity-30 text-[10px]">un</span></td>
                 <td class="text-right font-black text-indigo-500">${formatCurrency((p.packagePrice / p.packageQty) * p.recipeQty)}</td>
                 <td class="text-center"><button onclick="App.removePkg(${p.id})" class="text-red-500 opacity-0 group-hover:opacity-100 transition-opacity">✖</button></td></tr>`).join('') 
-                || '<tr><td colspan="5" class="text-center py-12 opacity-30 text-xs font-black uppercase tracking-[0.2em]">Sem embalagens listadas</td></tr>';
+                || '<tr><td colspan="5" class="text-center py-12 opacity-30 text-xs font-black uppercase tracking-[0.2em]">Sem embalagens</td></tr>';
 
             App.updateFinalCalculation();
         };
@@ -734,10 +704,12 @@
         App.setPricingMethod = (m, skip = false) => {
             const r = getActiveRecipe(); if(!r) return; r.pricingMethod = m;
             const bM = document.getElementById('btn-method-margin'), bX = document.getElementById('btn-method-multiplier');
-            bM.className = m === 'margin' ? 'flex-1 py-3 rounded-xl text-xs font-black bg-white dark:bg-slate-700 shadow-lg text-[var(--primary)]' : 'flex-1 py-3 rounded-xl text-xs font-bold opacity-30';
-            bX.className = m === 'multiplier' ? 'flex-1 py-3 rounded-xl text-xs font-black bg-white dark:bg-slate-700 shadow-lg text-[var(--primary)]' : 'flex-1 py-3 rounded-xl text-xs font-bold opacity-30';
-            document.getElementById('div-profit-margin').classList.toggle('hidden', m !== 'margin');
-            document.getElementById('div-multiplier').classList.toggle('hidden', m !== 'multiplier');
+            if(bM && bX) {
+                bM.className = m === 'margin' ? 'flex-1 py-3 rounded-xl text-xs font-black bg-white dark:bg-slate-700 shadow-lg text-[var(--primary)]' : 'flex-1 py-3 rounded-xl text-xs font-bold opacity-30';
+                bX.className = m === 'multiplier' ? 'flex-1 py-3 rounded-xl text-xs font-black bg-white dark:bg-slate-700 shadow-lg text-[var(--primary)]' : 'flex-1 py-3 rounded-xl text-xs font-bold opacity-30';
+                document.getElementById('div-profit-margin').classList.toggle('hidden', m !== 'margin');
+                document.getElementById('div-multiplier').classList.toggle('hidden', m !== 'multiplier');
+            }
             if(!skip) App.updateFinalCalculation();
         };
 
@@ -760,24 +732,14 @@
 
         App.removeIng = (id) => { getActiveRecipe().ingredients = getActiveRecipe().ingredients.filter(i=>i.id!==id); renderRecipeDetails(); };
         App.removePkg = (id) => { getActiveRecipe().packagings = getActiveRecipe().packagings.filter(p=>p.id!==id); renderRecipeDetails(); };
-        
-        App.editIng = (el, id, field) => { 
-            const i = getActiveRecipe().ingredients.find(i=>i.id===id); 
-            if(field === 'name') i.name = el.textContent.trim(); else i[field] = parseFloat(el.textContent.replace(',','.')) || 0; 
-            renderRecipeDetails(); 
-        };
-        App.editPkg = (el, id, field) => { 
-            const p = getActiveRecipe().packagings.find(p=>p.id===id); 
-            if(field === 'name') p.name = el.textContent.trim(); else p[field] = parseFloat(el.textContent.replace(',','.')) || 0; 
-            renderRecipeDetails(); 
-        };
+        App.editIng = (el, id, field) => { const i = getActiveRecipe().ingredients.find(i=>i.id===id); if(field === 'name') i.name = el.textContent.trim(); else i[field] = parseFloat(el.textContent.replace(',','.')) || 0; renderRecipeDetails(); };
+        App.editPkg = (el, id, field) => { const p = getActiveRecipe().packagings.find(p=>p.id===id); if(field === 'name') p.name = el.textContent.trim(); else p[field] = parseFloat(el.textContent.replace(',','.')) || 0; renderRecipeDetails(); };
 
         App.addIngredientToMemoryFromForm = () => {
             const n = document.getElementById('banco-ing-name').value.trim(), p = parseInputFloat('banco-ing-price'), q = parseInputFloat('banco-ing-qty'), u = document.getElementById('banco-ing-unit').value;
             if(!n || isNaN(p) || isNaN(q)) return;
             const ex = ingredientMemory.find(i=>i.name.toLowerCase() === n.toLowerCase());
-            if(ex) Object.assign(ex, { packagePrice: p, packageQty: q, packageUnit: u }); 
-            else ingredientMemory.push({ name: n, packagePrice: p, packageQty: q, packageUnit: u });
+            if(ex) Object.assign(ex, { packagePrice: p, packageQty: q, packageUnit: u }); else ingredientMemory.push({ name: n, packagePrice: p, packageQty: q, packageUnit: u });
             recipes.forEach(r => r.ingredients.filter(i=>i.name.toLowerCase()===n.toLowerCase()).forEach(i=>Object.assign(i, {packagePrice: p, packageQty: q, packageUnit: u})));
             ['banco-ing-name', 'banco-ing-price', 'banco-ing-qty'].forEach(id => document.getElementById(id).value = '');
             renderIngredientMemoryTable();
@@ -788,7 +750,7 @@
                 <td class="font-black">${i.name}</td>
                 <td class="font-bold text-slate-600 dark:text-slate-400">${formatCurrency(i.packagePrice)} <span class="opacity-40 text-xs">/ ${i.packageQty}${i.packageUnit}</span></td>
                 <td class="text-right"><button onclick="ingredientMemory=ingredientMemory.filter(m=>m.name!=='${i.name}'); renderIngredientMemoryTable(); saveData();" class="text-red-500 font-black uppercase text-[10px] tracking-widest opacity-0 group-hover:opacity-100 transition-opacity px-5 py-2 rounded-xl bg-red-500/10">Remover</button></td></tr>`).join('') 
-                || '<tr><td colspan="3" class="text-center py-16 opacity-30 font-black uppercase tracking-[0.3em] text-xs">Banco de dados vazio</td></tr>';
+                || '<tr><td colspan="3" class="text-center py-16 opacity-30 font-black uppercase tracking-[0.3em] text-xs">Estoque vazio</td></tr>';
         };
 
         App.handleIngredientNameInput = (v) => {
@@ -796,34 +758,15 @@
             if(k) { document.getElementById('ing-price').value = k.packagePrice.toFixed(2).replace('.',','); document.getElementById('ing-pkg-qty').value = k.packageQty; document.getElementById('ing-pkg-unit').value = k.packageUnit; }
         };
 
-        App.saveInstructions = () => { if(getActiveRecipe()) { getActiveRecipe().instructions = document.getElementById('recipe-instructions').value; saveData(); Swal.fire({toast:true, position:'top-end', icon:'success', title:'Preparo Guardado!', showConfirmButton:false, timer:1500}); } };
-        
-        App.deleteRecipe = async (id) => { 
-            const {isConfirmed} = await Swal.fire({title:'Apagar Receita?', text:'Esta ação removerá todos os dados deste item permanentemente.', icon:'warning', showCancelButton:true, confirmButtonColor:'#ef4444', confirmButtonText:'Sim, Apagar'}); 
-            if(isConfirmed){ recipes=recipes.filter(r=>r.id!==id); activeRecipeId=null; saveData(); App.switchView('receitas'); } 
-        };
-
-        App.promptRename = async () => { 
-            const r = getActiveRecipe(); 
-            const {value: n} = await Swal.fire({title:'Renomear Receita', input:'text', inputValue:r.name, showCancelButton:true}); 
-            if(n){ r.name=n.trim(); renderRecipeDetails(); saveData(); } 
-        };
-
-        App.resetApplication = async () => { 
-            if((await Swal.fire({title:'Limpar Cache?', text:'Isto apagará o histórico local, mas não afetará o Drive.', icon:'warning', showCancelButton:true})).isConfirmed){ 
-                localStorage.clear(); location.reload(); 
-            } 
-        };
-
-        App.startTutorial = () => Swal.fire({ title: 'Central de Ajuda', html: '<div class="text-left space-y-4 text-sm"><p><b>1. Receitas:</b> Crie seus produtos clicando em "Nova Receita".</p><p><b>2. Insumos vs Embalagens:</b> Adicione ingredientes e acessórios separadamente para maior precisão.</p><p><b>3. Estoque:</b> Atualize o preço de um insumo uma vez e todas as receitas serão corrigidas.</p><p><b>4. Auto-save:</b> Conecte seu Drive para salvar tudo na nuvem automaticamente.</p></div>', icon: 'info' });
+        App.saveInstructions = () => { if(getActiveRecipe()) { getActiveRecipe().instructions = document.getElementById('recipe-instructions').value; saveData(); Swal.fire({toast:true, position:'top-end', icon:'success', title:'Guardado!', showConfirmButton:false, timer:1500}); } };
+        App.deleteRecipe = async (id) => { const {isConfirmed} = await Swal.fire({title:'Apagar?', icon:'warning', showCancelButton:true}); if(isConfirmed){ recipes=recipes.filter(r=>r.id!==id); activeRecipeId=null; saveData(); App.switchView('receitas'); } };
+        App.promptRename = async () => { const r = getActiveRecipe(); const {value: n} = await Swal.fire({title:'Nome', input:'text', inputValue:r.name, showCancelButton:true}); if(n){ r.name=n.trim(); renderRecipeDetails(); saveData(); } };
+        App.resetApplication = async () => { if((await Swal.fire({title:'Limpar Tudo?', icon:'warning', showCancelButton:true})).isConfirmed){ localStorage.clear(); location.reload(); } };
 
         window.onload = () => { 
             loadData(); 
             App.switchView('receitas'); 
-            setTimeout(() => { 
-                const l = document.getElementById('loading-screen'); 
-                if(l) { l.style.opacity = '0'; setTimeout(()=>l.remove(), 700); } 
-            }, 3000); 
+            setTimeout(() => { const l = document.getElementById('loading-screen'); if(l) { l.style.opacity = '0'; setTimeout(()=>l.remove(), 700); } }, 2500); 
         };
     </script>
 </body>
