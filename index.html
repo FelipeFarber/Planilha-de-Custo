@@ -7,6 +7,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <!-- Google API Scripts -->
+    <script async defer src="https://apis.google.com/js/api.js" onload="App.gapiLoaded()"></script>
+    <script async defer src="https://accounts.google.com/gsi/client" onload="App.gisLoaded()"></script>
+
     <style>
         :root {
             --bg-color: #f4f4f5;      
@@ -49,6 +54,16 @@
                 radial-gradient(circle at -10% 110%, color-mix(in srgb, var(--primary) 12%, transparent) 0%, transparent 40%);
             background-attachment: fixed;
             background-size: cover;
+        }
+
+        /* Animação do Loading Screen */
+        @keyframes pulseLogo {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 color-mix(in srgb, var(--primary) 70%, transparent); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 25px color-mix(in srgb, var(--primary) 0%, transparent); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 color-mix(in srgb, var(--primary) 0%, transparent); }
+        }
+        .animate-pulse-logo {
+            animation: pulseLogo 1.5s infinite cubic-bezier(0.66, 0, 0, 1);
         }
 
         .animate-view-enter { animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
@@ -112,9 +127,26 @@
         
         .summary-box { background-color: var(--summary-bg); border: 1px solid var(--border-color); color: var(--summary-text); }
         .summary-box .text-muted { color: var(--summary-text-muted); }
+        
+        /* Loading Overlay do Drive */
+        #drive-loader { display: none; }
+        #drive-loader.active { display: flex; }
     </style>
 </head>
 <body class="h-screen flex flex-col md:flex-row overflow-hidden bg-[var(--bg-color)]">
+
+    <!-- Loading Screen (Inicial) -->
+    <div id="loading-screen" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[var(--bg-color)] transition-opacity duration-700 ease-in-out">
+        <img src="assets/logo.png" alt="Logo" onerror="this.src='https://placehold.co/150x150/f97316/white?text=Logo'" class="w-28 h-28 md:w-36 md:h-36 rounded-full object-cover animate-pulse-logo mb-6 border-4 border-[var(--primary)] bg-white">
+        <h1 class="font-extrabold text-2xl md:text-3xl theme-primary-text tracking-tight animate-pulse">Cálculo de Receitas</h1>
+        <p class="mt-2 text-sm font-medium opacity-70 animate-pulse" style="color: var(--text-muted)">A carregar os seus dados...</p>
+    </div>
+
+    <!-- Drive Overlay Loader -->
+    <div id="drive-loader" class="fixed inset-0 z-[110] flex-col items-center justify-center bg-black/50 backdrop-blur-sm text-white">
+        <div class="w-16 h-16 border-4 border-white/20 border-t-[var(--primary)] rounded-full animate-spin mb-4"></div>
+        <p class="font-bold tracking-wider" id="drive-loader-text">A Sincronizar com o Drive...</p>
+    </div>
 
     <!-- Estrutura Híbrida: Topo no Mobile / Sidebar no Desktop -->
     <header class="w-full md:w-72 flex-shrink-0 theme-card rounded-none md:rounded-r-[2rem] flex flex-col border-b md:border-b-0 md:border-r border-[var(--border-color)] z-40 h-auto md:h-full relative shadow-sm">
@@ -122,9 +154,7 @@
         <!-- Cabeçalho (Fixo no topo em todos os ecrãs) -->
         <div class="p-4 md:p-8 flex justify-between items-center gap-4 bg-[var(--card-bg)]/90 backdrop-blur-xl border-b border-[var(--border-color)] md:border-none z-40">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 md:w-14 md:h-14 rounded-full theme-primary-bg flex items-center justify-center shadow-lg text-white flex-shrink-0">
-                    <span class="font-bold text-xl md:text-2xl">🍰</span>
-                </div>
+                <img src="assets/logo.png" alt="Logo" onerror="this.src='https://placehold.co/150x150/f97316/white?text=Logo'" class="w-10 h-10 md:w-14 md:h-14 rounded-full shadow-lg flex-shrink-0 object-cover bg-white">
                 <div><h1 class="font-bold text-lg md:text-xl leading-tight theme-primary-text tracking-tight">Cálculo de<br class="hidden md:block">Receitas</h1></div>
             </div>
             
@@ -145,7 +175,7 @@
                 <span class="text-[10px] md:text-base leading-none">Estoque</span>
             </button>
             <button onclick="App.switchView('personalizar')" id="nav-personalizar" class="nav-item flex flex-col md:flex-row items-center md:items-center justify-center md:justify-start gap-1 md:gap-3 p-2 md:px-5 md:py-3.5 flex-1 md:flex-none rounded-xl md:rounded-full">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-0.5 md:mb-0"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-0.5 md:mb-0"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1-2 2h-.09A1.65 1.65 0 0 0-1.51 1z"></path></svg>
                 <span class="text-[10px] md:text-base leading-none">Definições</span>
             </button>
             <button onclick="App.startTutorial()" id="nav-tutorial" class="nav-item flex flex-col md:flex-row items-center md:items-center justify-center md:justify-start gap-1 md:gap-3 p-2 md:px-5 md:py-3.5 flex-1 md:flex-none rounded-xl md:rounded-full">
@@ -452,27 +482,64 @@
 
             <!-- ================= VIEW 4: PERSONALIZAR (DEFINIÇÕES) ================= -->
             <div id="view-personalizar-content" class="hidden animate-view-enter space-y-6">
-                <section class="theme-card p-6 md:p-10 rounded-3xl max-w-2xl mx-auto">
-                    <h2 class="text-3xl font-bold mb-3 tracking-tight">Definições</h2>
+                
+                <!-- SEÇÃO NOVA: Google Drive Sync -->
+                <section class="theme-card p-6 md:p-10 rounded-3xl max-w-2xl mx-auto border-2 border-blue-500/20">
+                    <div class="flex items-center gap-3 mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.3a1 1 0 0 1 1.4 0l10 10a1 1 0 0 1 0 1.4l-10 10a1 1 0 0 1-1.4 0l-10-10a1 1 0 0 1 0-1.4l10-10z"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+                        <h2 class="text-3xl font-bold tracking-tight text-blue-600 dark:text-blue-400">Google Drive</h2>
+                    </div>
+                    <p class="text-sm md:text-base mb-6 border-b border-opacity-20 pb-6" style="color: var(--text-muted); border-color: var(--border-color)">
+                        Sincronize os seus dados de receitas e ingredientes diretamente na sua conta do Google Drive para nunca os perder.
+                    </p>
+
+                    <div class="space-y-4">
+                        <!-- Botão Autenticar -->
+                        <button id="btn-drive-auth" onclick="App.handleAuthClick()" class="w-full flex items-center justify-center gap-3 font-bold py-4 px-6 rounded-2xl bg-white dark:bg-zinc-800 text-gray-800 dark:text-white shadow-md hover:shadow-lg transition border border-gray-200 dark:border-gray-700 text-sm md:text-base">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24px" height="24px"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/></svg>
+                            Conectar ao Google Drive
+                        </button>
+
+                        <div id="drive-actions" class="hidden flex-col gap-3">
+                            <p class="text-xs text-center font-bold text-emerald-500 mb-2">✅ Conectado ao Google Drive</p>
+                            
+                            <button onclick="App.saveToDrive()" class="w-full flex items-center justify-center gap-3 font-bold py-4 px-6 rounded-2xl bg-blue-500 text-white shadow-md hover:bg-blue-600 transition text-sm md:text-base">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                                Guardar (Subir para o Drive)
+                            </button>
+                            
+                            <button onclick="App.loadFromDrive()" class="w-full flex items-center justify-center gap-3 font-bold py-4 px-6 rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-500 hover:text-white transition border border-indigo-500/20 text-sm md:text-base">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                Restaurar (Descarregar do Drive)
+                            </button>
+                            
+                            <button onclick="App.handleSignoutClick()" class="text-xs font-semibold text-[var(--text-muted)] underline text-center mt-2 hover:text-red-500">
+                                Desconectar conta do Google
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="theme-card p-6 md:p-10 rounded-3xl max-w-2xl mx-auto mt-6">
+                    <h2 class="text-2xl font-bold mb-3 tracking-tight">Backup Manual Local</h2>
                     <p class="text-sm md:text-base mb-8 border-b border-opacity-20 pb-8" style="color: var(--text-muted); border-color: var(--border-color)">
-                        Faça backup dos seus dados para não os perder, ou restaure de um ficheiro anterior.
+                        Se preferir, pode exportar o ficheiro para o seu computador/telemóvel.
                     </p>
                     
                     <div class="space-y-4">
-                        <button onclick="App.exportData()" class="w-full text-left flex items-center justify-center md:justify-start gap-3 font-bold py-4 px-6 rounded-2xl bg-blue-500/10 text-blue-600 hover:bg-blue-500 hover:text-white transition border border-blue-500/20 text-sm md:text-base">
+                        <button onclick="App.exportData()" class="w-full text-left flex items-center justify-center md:justify-start gap-3 font-bold py-4 px-6 rounded-2xl bg-gray-500/10 text-gray-600 dark:text-gray-300 hover:bg-gray-500 hover:text-white transition border border-gray-500/20 text-sm md:text-base">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                            Exportar Backup (.json)
+                            Exportar Ficheiro Local (.json)
                         </button>
                         
-                        <button onclick="document.getElementById('import-file-input-mobile').click()" class="w-full text-left flex items-center justify-center md:justify-start gap-3 font-bold py-4 px-6 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500 hover:text-white transition border border-emerald-500/20 text-sm md:text-base">
+                        <button onclick="document.getElementById('import-file-input-mobile').click()" class="w-full text-left flex items-center justify-center md:justify-start gap-3 font-bold py-4 px-6 rounded-2xl bg-gray-500/10 text-gray-600 dark:text-gray-300 hover:bg-gray-500 hover:text-white transition border border-gray-500/20 text-sm md:text-base">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                            Restaurar Backup Anterior
+                            Restaurar Ficheiro Local
                         </button>
                         <input type="file" id="import-file-input-mobile" class="hidden" accept=".json" onchange="App.handleFileSelect(event)">
                     </div>
 
                     <div class="mt-10 pt-8 border-t border-opacity-20" style="border-color: var(--border-color)">
-                        <h3 class="text-lg font-bold mb-4 text-red-500 text-center md:text-left">Zona de Perigo</h3>
                         <button onclick="App.resetApplication()" class="w-full text-left flex items-center justify-center md:justify-start gap-3 font-bold py-4 px-6 rounded-2xl bg-red-500/10 text-red-500 dark:text-red-400 hover:bg-red-500 hover:text-white transition border border-red-500/20 text-sm md:text-base">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
                             Apagar Todos os Dados
@@ -487,13 +554,195 @@
     <script>
         const App = window.App = {};
 
-        // --- STATE ---
+        // --- STATE BASE ---
         let recipes = [];
         let activeRecipeId = null;
         let nextId = 0;
         let ingredientMemory = []; 
         let isDarkMode = false;
         let primaryColor = '#f97316'; 
+
+        // ==========================================
+        //  CONFIGURAÇÃO GOOGLE DRIVE API
+        // ==========================================
+        // IMPORTANTE: Preencha as strings abaixo com as suas chaves geradas no Google Cloud Console.
+        const CLIENT_ID = '961795024997-bfq030uubshrfo35bjstif0ei0puj3ku.apps.googleusercontent.com'; 
+        const API_KEY = 'AIzaSyDF4JdvAPo4tu126BYUl2n46kL8doKB14U';
+        
+        const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest';
+        const SCOPES = 'https://www.googleapis.com/auth/drive.file';
+        const BACKUP_FILENAME = 'receitas_pro_backup.json';
+
+        let tokenClient;
+        let gapiInited = false;
+        let gisInited = false;
+
+        App.gapiLoaded = () => { gapi.load('client', initializeGapiClient); };
+        async function initializeGapiClient() {
+            if (API_KEY === 'COLE_SUA_API_KEY_AQUI' || !API_KEY.startsWith('AIza')) {
+                console.warn("Chave da API do Google Drive inválida. As Chaves de API começam sempre com 'AIza'. A integração estará inativa até adicionar a chave correta.");
+                return;
+            }
+            try {
+                await gapi.client.init({ apiKey: API_KEY, discoveryDocs: [DISCOVERY_DOC] });
+                gapiInited = true;
+            } catch (err) { console.error("Erro ao iniciar GAPI", err); }
+        }
+
+        App.gisLoaded = () => {
+            if (CLIENT_ID === 'COLE_SEU_CLIENT_ID_AQUI') return;
+            tokenClient = google.accounts.oauth2.initTokenClient({
+                client_id: CLIENT_ID,
+                scope: SCOPES,
+                callback: '', // Será sobreescrito nos botões
+            });
+            gisInited = true;
+            
+            // Verifica se tem token válido salvo para mostrar botões
+            const token = gapi.client?.getToken();
+            if (token) App.showDriveControls(true);
+        };
+
+        App.handleAuthClick = () => {
+            if (CLIENT_ID === 'COLE_SEU_CLIENT_ID_AQUI' || !API_KEY.startsWith('AIza')) {
+                return Swal.fire('Erro de Configuração', 'A API_KEY fornecida é inválida. Você colocou um "Client Secret" (começa com GOCSPX). Por favor, vá ao Google Cloud Console > Credenciais > Criar Credenciais > Chave de API (deve começar com "AIza...").', 'error');
+            }
+            tokenClient.callback = async (resp) => {
+                if (resp.error) throw (resp);
+                App.showDriveControls(true);
+                Swal.fire({toast:true, position:'top-end', icon:'success', title:'Conectado ao Drive!', showConfirmButton:false, timer:2000});
+            };
+            if (gapi.client.getToken() === null) {
+                tokenClient.requestAccessToken({prompt: 'consent'});
+            } else {
+                tokenClient.requestAccessToken({prompt: ''});
+            }
+        };
+
+        App.handleSignoutClick = () => {
+            const token = gapi.client.getToken();
+            if (token !== null) {
+                google.accounts.oauth2.revoke(token.access_token);
+                gapi.client.setToken('');
+                App.showDriveControls(false);
+            }
+        };
+
+        App.showDriveControls = (isConnected) => {
+            document.getElementById('btn-drive-auth').style.display = isConnected ? 'none' : 'flex';
+            document.getElementById('drive-actions').style.display = isConnected ? 'flex' : 'none';
+        };
+
+        const setLoader = (show, text="A sincronizar...") => {
+            const loader = document.getElementById('drive-loader');
+            document.getElementById('drive-loader-text').innerText = text;
+            if(show) loader.classList.add('active');
+            else loader.classList.remove('active');
+        };
+
+        async function findBackupFile() {
+            try {
+                const response = await gapi.client.drive.files.list({
+                    q: `name='${BACKUP_FILENAME}' and trashed=false`,
+                    fields: 'files(id, name)',
+                    spaces: 'drive'
+                });
+                const files = response.result.files;
+                if (files && files.length > 0) return files[0].id;
+                return null;
+            } catch (err) {
+                console.error(err);
+                return null;
+            }
+        }
+
+        App.saveToDrive = async () => {
+            if(!gapi.client.getToken()) return App.handleAuthClick();
+            setLoader(true, "A guardar no Drive...");
+            
+            try {
+                const dataStr = JSON.stringify({ recipes, nextId, ingredientMemory, isDarkMode });
+                const fileId = await findBackupFile();
+                
+                const metadata = { name: BACKUP_FILENAME, mimeType: 'application/json' };
+                const accessToken = gapi.client.getToken().access_token;
+                
+                const form = new FormData();
+                form.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }));
+                form.append('file', new Blob([dataStr], { type: 'application/json' }));
+
+                const url = fileId 
+                    ? `https://www.googleapis.com/upload/drive/v3/files/${fileId}?uploadType=multipart`
+                    : 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart';
+                const method = fileId ? 'PATCH' : 'POST';
+
+                const response = await fetch(url, {
+                    method: method,
+                    headers: new Headers({ 'Authorization': 'Bearer ' + accessToken }),
+                    body: form
+                });
+
+                if(response.ok) {
+                    Swal.fire('Sucesso!', 'Os seus dados foram guardados no Google Drive.', 'success');
+                } else {
+                    throw new Error("Falha no upload");
+                }
+            } catch (err) {
+                console.error(err);
+                Swal.fire('Erro', 'Não foi possível guardar no Drive.', 'error');
+            } finally {
+                setLoader(false);
+            }
+        };
+
+        App.loadFromDrive = async () => {
+            if(!gapi.client.getToken()) return App.handleAuthClick();
+            
+            Swal.fire({
+                title: 'Atenção',
+                text: 'Restaurar do Drive vai substituir todos os dados atuais na app. Deseja continuar?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sim, Restaurar'
+            }).then(async (result) => {
+                if(result.isConfirmed) {
+                    setLoader(true, "A descarregar do Drive...");
+                    try {
+                        const fileId = await findBackupFile();
+                        if (!fileId) {
+                            setLoader(false);
+                            return Swal.fire('Aviso', 'Nenhum backup encontrado no seu Drive.', 'info');
+                        }
+
+                        const response = await gapi.client.drive.files.get({
+                            fileId: fileId,
+                            alt: 'media'
+                        });
+
+                        const data = response.result;
+                        if (data && data.recipes) {
+                            recipes = data.recipes; 
+                            nextId = data.nextId || 0; 
+                            ingredientMemory = data.ingredientMemory || []; 
+                            isDarkMode = data.isDarkMode || false; 
+                            activeRecipeId = null;
+                            
+                            applyThemeToDOM(); 
+                            saveData(); 
+                            App.switchView('receitas');
+                            Swal.fire('Sucesso', 'Dados restaurados com sucesso do Drive!', 'success');
+                        }
+                    } catch (err) {
+                        console.error(err);
+                        Swal.fire('Erro', 'Não foi possível ler o ficheiro do Drive.', 'error');
+                    } finally {
+                        setLoader(false);
+                    }
+                }
+            });
+        };
+        // ==========================================
+
 
         // --- UTILITIES E RENDERIZADORES BASE ---
         const formatCurrency = (value) => `R$ ${value.toFixed(2).replace('.', ',')}`;
@@ -990,7 +1239,20 @@
             showStep();
         };
 
-        window.onload = () => { loadData(); App.switchView('receitas'); };
+        window.onload = () => { 
+            loadData(); 
+            App.switchView('receitas'); 
+            
+            // Lógica do Ecrã de Carregamento
+            setTimeout(() => {
+                const loader = document.getElementById('loading-screen');
+                if (loader) {
+                    loader.style.opacity = '0'; 
+                    loader.style.pointerEvents = 'none'; 
+                    setTimeout(() => loader.remove(), 700); 
+                }
+            }, 3000); 
+        };
     </script>
 </body>
 </html>
