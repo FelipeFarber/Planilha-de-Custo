@@ -14,33 +14,29 @@
 
     <style>
         :root {
-            --bg-color: #f4f4f5;      
-            --card-bg: rgba(255, 255, 255, 0.85); 
-            --text-main: #18181b;     
-            --text-muted: #71717a;    
+            --bg-color: #f8fafc;      
+            --card-bg: rgba(255, 255, 255, 0.95); 
+            --text-main: #0f172a;     
+            --text-muted: #64748b;    
             --primary: #f97316;       
             --primary-hover: #ea580c; 
-            --border-color: rgba(0, 0, 0, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.8);
-            --form-bg: rgba(24, 24, 27, 0.04); 
-            --summary-bg: #09090b;
+            --border-color: rgba(148, 163, 184, 0.2);
+            --form-bg: #f1f5f9; 
+            --summary-bg: #0f172a;
             --summary-text: #ffffff;
-            --summary-text-muted: #a1a1aa;
         }
 
         body.dark-mode {
-            --bg-color: #0f0f12;      
-            --card-bg: rgba(24, 24, 28, 0.95); 
-            --text-main: #f4f4f5;     
-            --text-muted: #a1a1aa;    
+            --bg-color: #020617;      
+            --card-bg: rgba(15, 23, 42, 0.98); 
+            --text-main: #f1f5f9;     
+            --text-muted: #94a3b8;    
             --primary: #f97316;       
             --primary-hover: #fb923c; 
-            --border-color: rgba(255, 255, 255, 0.15);
-            --glass-border: rgba(255, 255, 255, 0.05);
-            --form-bg: rgba(0, 0, 0, 0.4); 
-            --summary-bg: rgba(15, 15, 18, 1);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --form-bg: rgba(30, 41, 59, 0.6); 
+            --summary-bg: #000000;
             --summary-text: #ffffff;
-            --summary-text-muted: #a1a1aa;
         }
 
         body {
@@ -56,496 +52,411 @@
             background-size: cover;
         }
 
-        /* Animação do Loading Screen */
         @keyframes pulseLogo {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 color-mix(in srgb, var(--primary) 70%, transparent); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 25px color-mix(in srgb, var(--primary) 0%, transparent); }
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 color-mix(in srgb, var(--primary) 40%, transparent); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 35px color-mix(in srgb, var(--primary) 0%, transparent); }
             100% { transform: scale(0.95); box-shadow: 0 0 0 0 color-mix(in srgb, var(--primary) 0%, transparent); }
         }
-        .animate-pulse-logo {
-            animation: pulseLogo 1.5s infinite cubic-bezier(0.66, 0, 0, 1);
-        }
+        .animate-pulse-logo { animation: pulseLogo 2s infinite cubic-bezier(0.4, 0, 0.2, 1); }
 
-        .animate-view-enter { animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .animate-view-enter { animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes slideUpFade {
-            0% { opacity: 0; transform: translateY(20px) scale(0.98); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Estilos Base SweetAlert */
-        .swal2-popup { background-color: var(--card-bg) !important; backdrop-filter: blur(20px) !important; color: var(--text-main) !important; font-family: 'Poppins', sans-serif !important; border-radius: 1.5rem !important; border: 1px solid var(--border-color) !important; }
-        .swal2-title, .swal2-html-container { color: var(--text-main) !important; }
-        .swal2-input { background-color: var(--form-bg) !important; color: var(--text-main) !important; border-color: var(--border-color) !important; border-radius: 1rem !important; }
-        .swal2-confirm { border-radius: 9999px !important; font-weight: 600 !important; }
-        .swal2-cancel { border-radius: 9999px !important; font-weight: 600 !important; background-color: transparent !important; border: 1px solid var(--border-color) !important; color: var(--text-main) !important; }
-
-        .theme-card { background-color: var(--card-bg); backdrop-filter: blur(16px); border-radius: 1.5rem; box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.08); border: 1px solid var(--glass-border); transition: all 0.3s ease; }
-        body.dark-mode .theme-card { border: 1px solid var(--border-color); box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5); }
+        .theme-card { background-color: var(--card-bg); backdrop-filter: blur(12px); border-radius: 1.5rem; box-shadow: 0 4px 30px -4px rgba(0, 0, 0, 0.05); border: 1px solid var(--border-color); }
         
-        .theme-primary-bg { background-color: var(--primary); color: #ffffff; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
-        .theme-primary-bg:hover { background-color: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 10px 20px -5px color-mix(in srgb, var(--primary) 50%, transparent); }
-        .theme-primary-text { color: var(--primary); }
+        .premium-input { background-color: var(--form-bg); border: 1.5px solid transparent; border-radius: 0.85rem; transition: all 0.2s; color: var(--text-main); font-weight: 500; }
+        .premium-input:focus { border-color: var(--primary); background-color: var(--card-bg); outline: none; box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary) 15%, transparent); }
 
-        .premium-form-container { background-color: var(--form-bg); border: 1px solid var(--border-color); border-radius: 1.5rem; }
-        
-        .premium-input { background-color: var(--form-bg); color: var(--text-main); border: 1px solid var(--border-color); transition: all 0.2s ease; }
-        .premium-input:focus { border-color: var(--primary); background-color: var(--card-bg); outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent); }
+        .pill-select { appearance: none; border-radius: 0.85rem !important; border: 1.5px solid transparent !important; background-color: var(--form-bg); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23f97316' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 14px; padding-right: 36px; }
 
-        .pill-select { appearance: none; border-radius: 9999px !important; border: 1.5px solid var(--border-color) !important; padding-right: 24px !important; padding-left: 12px !important; text-align: center; font-weight: 600; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='gray' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; background-size: 14px; transition: all 0.2s ease; }
-        .pill-select:focus, .pill-select:hover { border-color: var(--primary) !important; box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary) 20%, transparent); }
-        select option { background-color: var(--card-bg); color: var(--text-main); } 
+        .nav-item { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); color: var(--text-muted); border-radius: 1.25rem; font-weight: 600; }
+        .nav-item:hover { color: var(--text-main); background: color-mix(in srgb, var(--text-main) 6%, transparent); }
+        .nav-item.active { background: var(--primary); color: white; box-shadow: 0 10px 20px -5px color-mix(in srgb, var(--primary) 40%, transparent); }
 
-        .editable { cursor: pointer; transition: all 0.2s ease; border-radius: 0.5rem; padding: 0.25rem 0.5rem; margin: -0.25rem -0.5rem; border: 1px dashed transparent; }
-        .editable:hover, .editable:focus { background-color: color-mix(in srgb, var(--primary) 15%, transparent); color: var(--primary); border-color: color-mix(in srgb, var(--primary) 40%, transparent); outline: none; }
+        .editable { cursor: text; border-radius: 0.5rem; padding: 4px 8px; transition: background 0.2s; border: 1px dashed transparent; }
+        .editable:hover { background: color-mix(in srgb, var(--primary) 12%, transparent); border-color: var(--primary); }
 
-        .recipe-card { cursor: pointer; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; border-radius: 1.5rem; }
-        .recipe-card:hover { border-color: var(--primary); transform: translateY(-5px) scale(1.01); box-shadow: 0 20px 40px -10px color-mix(in srgb, var(--primary) 20%, transparent); }
-        
-        /* Nav Menu (Flutuante Mobile & Sidebar Desktop) */
-        .nav-item { transition: all 0.2s ease; color: var(--text-muted); font-weight: 500; }
-        .nav-item:hover { background-color: color-mix(in srgb, var(--text-main) 5%, transparent); color: var(--text-main); }
-        .nav-item.active { background-color: color-mix(in srgb, var(--primary) 12%, transparent); color: var(--primary); font-weight: 700; }
+        th { font-size: 0.75rem; font-weight: 800; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; padding: 16px; border-bottom: 2px solid var(--border-color); }
+        td { padding: 16px; border-bottom: 1px solid var(--border-color); vertical-align: middle; }
 
-        th { border-bottom: 2px solid var(--border-color); font-weight: 600; color: var(--text-muted); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em; }
-        td { border-bottom: 1px solid var(--border-color); }
-        tr:last-child td { border-bottom: none; }
-        
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--text-main) 20%, transparent); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: color-mix(in srgb, var(--text-main) 40%, transparent); }
+        .summary-box { background: var(--summary-bg); color: var(--summary-text); border-radius: 2.5rem; box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.3); }
 
-        .delete-card-btn { opacity: 1; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
-        @media (min-width: 768px) {
-            .delete-card-btn { opacity: 0; transform: scale(0.8) translateY(-10px); }
-            .recipe-card:hover .delete-card-btn { opacity: 1; transform: scale(1) translateY(0); }
-        }
+        .recipe-card { transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); border: 1.5px solid transparent; }
+        .recipe-card:hover { border-color: var(--primary); transform: translateY(-8px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); }
 
-        .instruction-box { background-color: var(--form-bg); border: 1px solid var(--border-color); border-radius: 1rem; padding: 1rem; font-size: 0.95rem; line-height: 1.6; white-space: pre-wrap; min-height: 180px; color: var(--text-main); }
-        
-        .summary-box { background-color: var(--summary-bg); border: 1px solid var(--border-color); color: var(--summary-text); }
-        .summary-box .text-muted { color: var(--summary-text-muted); }
-        
-        /* Loading Overlay do Drive */
+        .instruction-box { background-color: var(--form-bg); border-radius: 1.25rem; padding: 1.25rem; font-size: 0.95rem; line-height: 1.7; min-height: 250px; border: 1.5px solid transparent; transition: all 0.2s; }
+        .instruction-box:focus { border-color: var(--primary); background-color: var(--card-bg); outline: none; }
+
         #drive-loader { display: none; }
         #drive-loader.active { display: flex; }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 10px; opacity: 0.2; }
     </style>
 </head>
-<body class="h-screen flex flex-col md:flex-row overflow-hidden bg-[var(--bg-color)]">
+<body class="h-screen flex flex-col md:flex-row overflow-hidden">
 
-    <!-- Loading Screen (Inicial) -->
+    <!-- Loading Screen -->
     <div id="loading-screen" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[var(--bg-color)] transition-opacity duration-700 ease-in-out">
-        <img src="assets/logo.png" alt="Logo" onerror="this.src='https://placehold.co/150x150/f97316/white?text=Logo'" class="w-28 h-28 md:w-36 md:h-36 rounded-full object-cover animate-pulse-logo mb-6 border-4 border-[var(--primary)] bg-white">
-        <h1 class="font-extrabold text-2xl md:text-3xl theme-primary-text tracking-tight animate-pulse">Cálculo de Receitas</h1>
-        <p class="mt-2 text-sm font-medium opacity-70 animate-pulse" style="color: var(--text-muted)">A carregar os seus dados...</p>
+        <div class="relative mb-10">
+            <img src="assets/logo.png" alt="Logo" onerror="this.src='https://placehold.co/200x200/f97316/white?text=Logo'" class="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover animate-pulse-logo border-8 border-white shadow-2xl bg-white">
+        </div>
+        <h1 class="font-black text-4xl md:text-5xl text-[var(--primary)] tracking-tighter">Cálculo de Receitas</h1>
+        <p class="mt-4 text-sm font-bold tracking-[0.3em] uppercase opacity-40" style="color: var(--text-muted)">Excelência na sua cozinha</p>
     </div>
 
     <!-- Drive Overlay Loader -->
-    <div id="drive-loader" class="fixed inset-0 z-[110] flex-col items-center justify-center bg-black/50 backdrop-blur-sm text-white">
-        <div class="w-16 h-16 border-4 border-white/20 border-t-[var(--primary)] rounded-full animate-spin mb-4"></div>
-        <p class="font-bold tracking-wider" id="drive-loader-text">A Sincronizar com o Drive...</p>
+    <div id="drive-loader" class="fixed inset-0 z-[110] flex-col items-center justify-center bg-slate-900/70 backdrop-blur-lg text-white">
+        <div class="w-14 h-14 border-4 border-white/20 border-t-[var(--primary)] rounded-full animate-spin mb-6"></div>
+        <p class="font-black tracking-widest uppercase text-xs" id="drive-loader-text">Sincronizando com a Nuvem...</p>
     </div>
 
-    <!-- Estrutura Híbrida: Topo no Mobile / Sidebar no Desktop -->
-    <header class="w-full md:w-72 flex-shrink-0 theme-card rounded-none md:rounded-r-[2rem] flex flex-col border-b md:border-b-0 md:border-r border-[var(--border-color)] z-40 h-auto md:h-full relative shadow-sm">
+    <!-- Sidebar / Navigation -->
+    <header class="w-full md:w-80 flex-shrink-0 theme-card rounded-none md:rounded-r-[3rem] flex flex-col border-b md:border-b-0 md:border-r z-40 h-auto md:h-full relative shadow-xl">
         
-        <!-- Cabeçalho (Fixo no topo em todos os ecrãs) -->
-        <div class="p-4 md:p-8 flex justify-between items-center gap-4 bg-[var(--card-bg)]/90 backdrop-blur-xl border-b border-[var(--border-color)] md:border-none z-40">
-            <div class="flex items-center gap-3">
-                <img src="assets/logo.png" alt="Logo" onerror="this.src='https://placehold.co/150x150/f97316/white?text=Logo'" class="w-10 h-10 md:w-14 md:h-14 rounded-full shadow-lg flex-shrink-0 object-cover bg-white">
-                <div><h1 class="font-bold text-lg md:text-xl leading-tight theme-primary-text tracking-tight">Cálculo de<br class="hidden md:block">Receitas</h1></div>
+        <!-- Sidebar Header -->
+        <div class="p-8 md:p-12 flex flex-row md:flex-col justify-between md:justify-center items-center gap-6">
+            <div class="flex flex-row md:flex-col items-center gap-5 text-center">
+                <img src="assets/logo.png" alt="Logo" onerror="this.src='https://placehold.co/150x150/f97316/white?text=Logo'" class="w-16 h-16 md:w-28 md:h-28 rounded-[2rem] shadow-2xl object-cover bg-white p-1 border-2 border-slate-50">
+                <div class="text-left md:text-center">
+                    <h1 class="font-black text-2xl md:text-3xl leading-none text-[var(--primary)] tracking-tighter">RECEITAS<br><span class="text-slate-400 dark:text-slate-500 text-lg md:text-xl font-extrabold">PRO</span></h1>
+                </div>
             </div>
             
-            <!-- Botão Tema (Apenas visível no mobile no topo) -->
-            <button onclick="App.toggleTheme()" class="md:hidden p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition border border-[var(--border-color)]">
-                <svg class="theme-icon-svg" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <button onclick="App.toggleTheme()" class="md:hidden p-4 rounded-2xl bg-slate-100 dark:bg-slate-800 transition shadow-inner">
+                <svg class="theme-icon-svg w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></svg>
             </button>
         </div>
 
-        <!-- Menu de Navegação (Flutuante no Mobile, Lista no Desktop) -->
-        <nav class="fixed bottom-4 left-4 right-4 md:relative md:bottom-auto md:left-auto md:right-auto md:flex-1 md:px-4 md:py-2 flex flex-row md:flex-col bg-[var(--card-bg)]/95 md:bg-transparent backdrop-blur-xl md:backdrop-blur-none border border-[var(--border-color)] md:border-none z-50 justify-between md:justify-start gap-1 rounded-[1.5rem] md:rounded-none shadow-[0_15px_40px_rgba(0,0,0,0.15)] md:shadow-none p-2 md:p-0">
-            <button onclick="App.switchView('receitas')" id="nav-receitas" class="nav-item active flex flex-col md:flex-row items-center md:items-center justify-center md:justify-start gap-1 md:gap-3 p-2 md:px-5 md:py-3.5 flex-1 md:flex-none rounded-xl md:rounded-full">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-0.5 md:mb-0"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-                <span class="text-[10px] md:text-base leading-none">Receitas</span>
+        <!-- Sidebar Menu -->
+        <nav class="fixed bottom-0 left-0 right-0 md:relative md:flex-1 md:px-6 flex flex-row md:flex-col bg-[var(--card-bg)] md:bg-transparent border-t md:border-none z-50 p-4 md:p-0 gap-3">
+            <button onclick="App.switchView('receitas')" id="nav-receitas" class="nav-item active flex-1 md:flex-none flex flex-col md:flex-row items-center gap-3 md:gap-5 p-3 md:px-7 md:py-5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                <span class="text-[10px] md:text-sm font-black uppercase tracking-widest">Receitas</span>
             </button>
-            <button onclick="App.switchView('banco')" id="nav-banco" class="nav-item flex flex-col md:flex-row items-center md:items-center justify-center md:justify-start gap-1 md:gap-3 p-2 md:px-5 md:py-3.5 flex-1 md:flex-none rounded-xl md:rounded-full">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-0.5 md:mb-0"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
-                <span class="text-[10px] md:text-base leading-none">Estoque</span>
+            <button onclick="App.switchView('banco')" id="nav-banco" class="nav-item flex-1 md:flex-none flex flex-col md:flex-row items-center gap-3 md:gap-5 p-3 md:px-7 md:py-5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+                <span class="text-[10px] md:text-sm font-black uppercase tracking-widest">Estoque</span>
             </button>
-            <button onclick="App.switchView('personalizar')" id="nav-personalizar" class="nav-item flex flex-col md:flex-row items-center md:items-center justify-center md:justify-start gap-1 md:gap-3 p-2 md:px-5 md:py-3.5 flex-1 md:flex-none rounded-xl md:rounded-full">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-0.5 md:mb-0"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1-2 2h-.09A1.65 1.65 0 0 0-1.51 1z"></path></svg>
-                <span class="text-[10px] md:text-base leading-none">Definições</span>
-            </button>
-            <button onclick="App.startTutorial()" id="nav-tutorial" class="nav-item flex flex-col md:flex-row items-center md:items-center justify-center md:justify-start gap-1 md:gap-3 p-2 md:px-5 md:py-3.5 flex-1 md:flex-none rounded-xl md:rounded-full">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-0.5 md:mb-0"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                <span class="text-[10px] md:text-base leading-none">Ajuda</span>
+            <button onclick="App.switchView('personalizar')" id="nav-personalizar" class="nav-item flex-1 md:flex-none flex flex-col md:flex-row items-center gap-3 md:gap-5 p-3 md:px-7 md:py-5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1-2 2h-.09A1.65 1.65 0 0 0-1.51 1z"/></svg>
+                <span class="text-[10px] md:text-sm font-black uppercase tracking-widest">Ajustes</span>
             </button>
 
-            <!-- Separador e Tema Desktop -->
-            <div class="hidden md:block w-full border-t border-opacity-50 my-4" style="border-color: var(--border-color)"></div>
-            <button onclick="App.toggleTheme()" class="nav-item hidden md:flex items-center gap-3 px-5 py-3.5 text-left md:min-w-0 mt-auto bg-black/5 dark:bg-white/5 border border-transparent rounded-full">
-                <svg class="theme-icon-svg" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                <span id="theme-text" class="font-medium">Modo Escuro</span>
+            <div class="hidden md:block flex-1"></div>
+            
+            <button onclick="App.toggleTheme()" class="hidden md:flex items-center gap-5 px-8 py-8 border-t border-[var(--border-color)] group">
+                <div class="p-3 rounded-2xl bg-slate-100 dark:bg-slate-800 group-hover:rotate-12 transition-transform shadow-sm">
+                    <svg class="theme-icon-svg w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></svg>
+                </div>
+                <span id="theme-text" class="font-black text-xs uppercase tracking-[0.2em] opacity-50">Modo Escuro</span>
             </button>
         </nav>
     </header>
 
-    <!-- Main Content Area -->
-    <main class="flex-1 overflow-y-auto p-4 md:p-8 lg:p-10 relative w-full pb-28 md:pb-10">
-        <div class="max-w-7xl mx-auto w-full">
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto p-5 md:p-14 relative pb-32 md:pb-14">
+        <div class="max-w-7xl mx-auto space-y-12">
 
-            <!-- ================= VIEW 1: MENU DE RECEITAS ================= -->
-            <div id="view-receitas-list" class="animate-view-enter space-y-6 md:space-y-8">
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
+            <!-- VIEW: RECEITAS LIST -->
+            <div id="view-receitas-list" class="animate-view-enter space-y-10">
+                <header class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6">
                     <div>
-                        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-2">As Minhas Receitas</h2>
-                        <p class="text-sm md:text-base font-medium" style="color: var(--text-muted)">Faça a gestão dos seus custos e calcule o lucro ideal.</p>
+                        <h2 class="text-5xl md:text-6xl font-black tracking-tighter mb-4">Suas Receitas</h2>
+                        <p class="text-xl font-medium opacity-50">Gestão profissional de custos e lucros.</p>
                     </div>
-                </div>
-                <div id="recipe-grid-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"></div>
+                </header>
+                <div id="recipe-grid-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
             </div>
 
-            <!-- ================= VIEW 2: DETALHES DA RECEITA ================= -->
-            <div id="view-recipe-details" class="hidden space-y-6 md:space-y-8">
-                
-                <!-- Cabeçalho de Ações da Receita -->
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                    <div class="w-full sm:w-auto">
-                        <button onclick="App.backToRecipes()" class="flex items-center gap-2 text-sm font-semibold mb-2 md:mb-3 hover:text-primary transition" style="color: var(--text-muted)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                            Voltar
+            <!-- VIEW: RECIPE DETAILS -->
+            <div id="view-recipe-details" class="hidden space-y-10">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-8">
+                    <div class="flex-1">
+                        <button onclick="App.backToRecipes()" class="flex items-center gap-3 text-xs font-black uppercase tracking-[0.2em] text-[var(--primary)] mb-5 hover:translate-x-[-5px] transition-transform">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                            Voltar ao Painel
                         </button>
-                        <div class="flex items-center gap-2 md:gap-3">
-                            <h2 id="current-recipe-name" class="text-3xl md:text-4xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[var(--text-main)] to-[var(--primary)] break-words line-clamp-2 w-full">Nome</h2>
-                            <button onclick="App.promptRename()" class="p-2.5 rounded-full hover:bg-black/10 transition text-gray-400 hover:text-gray-800 dark:hover:text-white flex-shrink-0" title="Renomear">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                        <div class="flex items-center gap-5">
+                            <h2 id="current-recipe-name" class="text-4xl md:text-6xl font-black tracking-tighter leading-tight">Nome da Receita</h2>
+                            <button onclick="App.promptRename()" class="p-4 rounded-3xl bg-slate-100 dark:bg-slate-800 hover:scale-110 transition shadow-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
                             </button>
                         </div>
                     </div>
-                    
-                    <button onclick="App.deleteRecipe(App.getActiveRecipeId())" class="w-full sm:w-auto flex items-center justify-center gap-2 p-3 rounded-xl bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white transition border border-red-500/20 font-bold text-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                        Excluir Receita
+                    <button onclick="App.deleteRecipe(App.getActiveRecipeId())" class="flex items-center gap-3 px-8 py-5 rounded-[1.5rem] bg-red-500/10 text-red-500 font-black text-xs uppercase tracking-widest hover:bg-red-500 hover:text-white transition shadow-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+                        Remover Receita
                     </button>
                 </div>
 
-                <!-- GRID: Esquerda (Ingredientes + Embalagens) | Direita (Preparo) -->
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    
-                    <!-- ESQUERDA: Ingredientes e Embalagens -->
-                    <div class="lg:col-span-2 flex flex-col gap-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+                    <!-- Left Column: Tables -->
+                    <div class="lg:col-span-2 space-y-10">
                         
-                        <!-- SEÇÃO 1: Ingredientes -->
-                        <section class="theme-card p-4 md:p-6 flex flex-col">
-                            <h3 class="text-xl font-bold mb-4">Ingredientes & Custos</h3>
-
-                            <!-- Formulário Add Ingrediente -->
-                            <div class="premium-form-container p-4 mb-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 items-end">
-                                <div class="sm:col-span-2 lg:col-span-2">
-                                    <label class="block text-[11px] font-bold uppercase tracking-widest mb-1 opacity-70">Ingrediente</label>
-                                    <input type="text" id="ing-name" list="ingredient-list" placeholder="Ex: Farinha" class="block w-full rounded-xl premium-input px-3 py-3" oninput="App.handleIngredientNameInput(this.value)">
+                        <!-- SECTION: INGREDIENTES -->
+                        <section class="theme-card p-8 md:p-10">
+                            <h3 class="text-2xl font-black mb-8 flex items-center gap-3">
+                                <svg class="text-[var(--primary)]" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z"/></svg>
+                                Insumos & Ingredientes
+                            </h3>
+                            <!-- Add Form -->
+                            <div class="grid grid-cols-1 sm:grid-cols-5 gap-4 mb-10 items-end bg-slate-50 dark:bg-slate-900/40 p-5 rounded-3xl border border-[var(--border-color)]">
+                                <div class="sm:col-span-1">
+                                    <label class="text-[10px] font-black uppercase tracking-[0.2em] block mb-2 opacity-40">Item</label>
+                                    <input type="text" id="ing-name" list="ingredient-list" placeholder="Ex: Farinha" class="w-full premium-input p-3.5 text-sm" oninput="App.handleIngredientNameInput(this.value)">
                                     <datalist id="ingredient-list"></datalist>
                                 </div>
-                                <div class="lg:col-span-1">
-                                    <label class="block text-[11px] font-bold uppercase tracking-widest mb-1 opacity-70">R$ Pacote</label>
-                                    <input type="text" inputmode="decimal" id="ing-price" placeholder="5,50" class="block w-full rounded-xl premium-input px-3 py-3">
+                                <div>
+                                    <label class="text-[10px] font-black uppercase tracking-[0.2em] block mb-2 opacity-40">Preço Pct</label>
+                                    <input type="text" inputmode="decimal" id="ing-price" placeholder="0,00" class="w-full premium-input p-3.5 text-sm">
                                 </div>
-                                <div class="lg:col-span-1 flex items-end gap-1">
+                                <div class="flex gap-1.5">
                                     <div class="flex-1">
-                                        <label class="block text-[11px] font-bold uppercase tracking-widest mb-1 opacity-70">Qtd. Pct</label>
-                                        <input type="text" inputmode="decimal" id="ing-pkg-qty" placeholder="1000" class="block w-full rounded-xl premium-input px-3 py-3">
+                                        <label class="text-[10px] font-black uppercase tracking-[0.2em] block mb-2 opacity-40">Qtd Pct</label>
+                                        <input type="text" id="ing-pkg-qty" placeholder="1000" class="w-full premium-input p-3.5 text-sm">
                                     </div>
-                                    <div class="w-14 flex-shrink-0">
-                                        <select id="ing-pkg-unit" class="pill-select block w-full bg-transparent text-xs h-11 cursor-pointer outline-none px-1">
-                                            <option value="g">g</option>
-                                            <option value="ml">ml</option>
-                                            <option value="un">un</option>
+                                    <div class="w-16">
+                                        <label class="text-[10px] font-black uppercase tracking-[0.2em] block mb-2 opacity-40">Un</label>
+                                        <select id="ing-pkg-unit" class="w-full pill-select p-3.5 text-sm font-bold">
+                                            <option value="g">g</option><option value="ml">ml</option><option value="un">un</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="lg:col-span-1">
-                                    <label class="block text-[11px] font-bold uppercase tracking-widest mb-1 opacity-70">Uso (Qtd)</label>
-                                    <input type="text" inputmode="decimal" id="ing-recipe-qty" placeholder="250" class="block w-full rounded-xl premium-input px-3 py-3">
+                                <div>
+                                    <label class="text-[10px] font-black uppercase tracking-[0.2em] block mb-2 opacity-40">Uso</label>
+                                    <input type="text" id="ing-recipe-qty" placeholder="250" class="w-full premium-input p-3.5 text-sm">
                                 </div>
-                                <div class="lg:col-span-1">
-                                    <button onclick="App.addIngredientToRecipe()" class="w-full h-11 theme-primary-bg rounded-xl shadow-md transition flex items-center justify-center font-bold text-sm">
-                                        Adicionar
+                                <div class="flex justify-center">
+                                    <button onclick="App.addIngredientToRecipe()" class="w-full sm:w-14 h-14 bg-[var(--primary)] text-white rounded-2xl shadow-lg shadow-orange-500/30 hover:scale-105 active:scale-95 transition-all flex items-center justify-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14m-7-7h14"/></svg>
                                     </button>
                                 </div>
                             </div>
-
-                            <!-- Tabela Ingredientes -->
-                            <div class="overflow-x-auto flex-1 w-full pb-2">
-                                <table class="min-w-full text-left border-collapse whitespace-nowrap"><thead class="text-xs font-semibold opacity-80"><tr>
-                                    <th class="py-2 px-3 rounded-tl-lg">Ingrediente</th>
-                                    <th class="py-2 px-3">Pct (R$)</th>
-                                    <th class="py-2 px-3">Qtd Usada</th>
-                                    <th class="py-2 px-3 text-right">Custo</th>
-                                    <th class="py-2 px-2 text-center rounded-tr-lg">Ação</th>
-                                </tr></thead><tbody id="recipe-table"></tbody></table>
+                            <div class="overflow-x-auto">
+                                <table class="w-full border-separate border-spacing-0">
+                                    <thead><tr><th>Insumo</th><th>Custo Pct</th><th>Qtd Uso</th><th class="text-right">Subtotal</th><th class="w-12"></th></tr></thead>
+                                    <tbody id="recipe-table"></tbody>
+                                </table>
                             </div>
                         </section>
 
-                        <!-- SEÇÃO 2: Embalagens e Acessórios (Nova) -->
-                        <section class="theme-card p-4 md:p-6 flex flex-col">
-                            <h3 class="text-xl font-bold mb-4">Embalagens & Acessórios</h3>
-
-                            <!-- Formulário Add Embalagem -->
-                            <div class="premium-form-container p-4 mb-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 items-end">
-                                <div class="sm:col-span-2 lg:col-span-2">
-                                    <label class="block text-[11px] font-bold uppercase tracking-widest mb-1 opacity-70">Item (Ex: Caixa, Forminha)</label>
-                                    <input type="text" id="pkg-name" list="packaging-suggestions" placeholder="Ex: Forminha nº 4" class="block w-full rounded-xl premium-input px-3 py-3">
+                        <!-- SECTION: EMBALAGENS -->
+                        <section class="theme-card p-8 md:p-10">
+                            <h3 class="text-2xl font-black mb-8 flex items-center gap-3">
+                                <svg class="text-indigo-500" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2"/><path d="M21 14v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-6"/><path d="M3 10h18"/><path d="M3 14h18"/></svg>
+                                Embalagens & Acessórios
+                            </h3>
+                            <!-- Add Form -->
+                            <div class="grid grid-cols-1 sm:grid-cols-5 gap-4 mb-10 items-end bg-slate-50 dark:bg-slate-900/40 p-5 rounded-3xl border border-[var(--border-color)]">
+                                <div class="sm:col-span-1">
+                                    <label class="text-[10px] font-black uppercase tracking-[0.2em] block mb-2 opacity-40">Descrição</label>
+                                    <input type="text" id="pkg-name" list="packaging-suggestions" placeholder="Ex: Caixa P" class="w-full premium-input p-3.5 text-sm">
                                     <datalist id="packaging-suggestions">
-                                        <option value="Caixa">
-                                        <option value="Forminha">
-                                        <option value="Copinho">
-                                        <option value="Forma de Doce">
-                                        <option value="Tapetinho">
-                                        <option value="Colher">
+                                        <option value="Caixa"><option value="Forminha"><option value="Colher"><option value="Etiqueta">
                                     </datalist>
                                 </div>
-                                <div class="lg:col-span-1">
-                                    <label class="block text-[11px] font-bold uppercase tracking-widest mb-1 opacity-70">R$ Pacote</label>
-                                    <input type="text" inputmode="decimal" id="pkg-price" placeholder="10,50" class="block w-full rounded-xl premium-input px-3 py-3">
+                                <div>
+                                    <label class="text-[10px] font-black uppercase tracking-[0.2em] block mb-2 opacity-40">R$ Pct</label>
+                                    <input type="text" id="pkg-price" placeholder="0,00" class="w-full premium-input p-3.5 text-sm">
                                 </div>
-                                <div class="lg:col-span-1">
-                                    <label class="block text-[11px] font-bold uppercase tracking-widest mb-1 opacity-70">Unid. no Pct</label>
-                                    <input type="text" inputmode="decimal" id="pkg-qty" placeholder="100" class="block w-full rounded-xl premium-input px-3 py-3">
+                                <div>
+                                    <label class="text-[10px] font-black uppercase tracking-[0.2em] block mb-2 opacity-40">Unid. Pct</label>
+                                    <input type="text" id="pkg-qty" placeholder="50" class="w-full premium-input p-3.5 text-sm">
                                 </div>
-                                <div class="lg:col-span-1">
-                                    <label class="block text-[11px] font-bold uppercase tracking-widest mb-1 opacity-70">Uso (Unid)</label>
-                                    <input type="text" inputmode="decimal" id="pkg-recipe-qty" placeholder="25" class="block w-full rounded-xl premium-input px-3 py-3">
+                                <div>
+                                    <label class="text-[10px] font-black uppercase tracking-[0.2em] block mb-2 opacity-40">Uso</label>
+                                    <input type="text" id="pkg-recipe-qty" placeholder="1" class="w-full premium-input p-3.5 text-sm">
                                 </div>
-                                <div class="lg:col-span-1">
-                                    <button onclick="App.addPackagingToRecipe()" class="w-full h-11 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl shadow-md transition flex items-center justify-center font-bold text-sm">
-                                        Adicionar
+                                <div class="flex justify-center">
+                                    <button onclick="App.addPackagingToRecipe()" class="w-full sm:w-14 h-14 bg-indigo-500 text-white rounded-2xl shadow-xl shadow-indigo-500/30 hover:scale-105 active:scale-95 transition-all flex items-center justify-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14m-7-7h14"/></svg>
                                     </button>
                                 </div>
                             </div>
-
-                            <!-- Tabela Embalagens -->
-                            <div class="overflow-x-auto flex-1 w-full pb-2">
-                                <table class="min-w-full text-left border-collapse whitespace-nowrap"><thead class="text-xs font-semibold opacity-80"><tr>
-                                    <th class="py-2 px-3 rounded-tl-lg">Item</th>
-                                    <th class="py-2 px-3">Pacote (R$)</th>
-                                    <th class="py-2 px-3">Qtd Usada</th>
-                                    <th class="py-2 px-3 text-right">Custo</th>
-                                    <th class="py-2 px-2 text-center rounded-tr-lg">Ação</th>
-                                </tr></thead><tbody id="packaging-table"></tbody></table>
+                            <div class="overflow-x-auto">
+                                <table class="w-full border-separate border-spacing-0">
+                                    <thead><tr><th>Item</th><th>Custo Pct</th><th>Qtd Uso</th><th class="text-right">Subtotal</th><th class="w-12"></th></tr></thead>
+                                    <tbody id="packaging-table"></tbody>
+                                </table>
                             </div>
                         </section>
-
                     </div>
 
-                    <!-- DIREITA: Modo de Preparo -->
-                    <section class="theme-card p-4 md:p-6 lg:col-span-1 flex flex-col h-full">
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-xl font-bold">Modo de Preparo</h3>
-                            <button onclick="App.saveInstructions()" class="text-xs theme-primary-bg px-4 py-2 rounded-full font-bold text-white shadow hover:scale-105 transition">Guardar</button>
-                        </div>
-                        <p class="text-[11px] opacity-70 mb-3 uppercase tracking-wider font-bold">Instruções passo-a-passo:</p>
-                        <textarea id="recipe-instructions" class="instruction-box w-full flex-1 resize-none focus:outline-none focus:border-primary transition" placeholder="Escreva aqui o modo de preparo da sua receita...&#10;&#10;1. Misture os ingredientes secos...&#10;2. Adicione os ovos..."></textarea>
-                    </section>
+                    <!-- Right Column: Settings & Preparation -->
+                    <div class="space-y-10">
+                        <!-- PREPARAÇÃO -->
+                        <section class="theme-card p-8 flex flex-col min-h-[450px]">
+                            <div class="flex justify-between items-center mb-8">
+                                <h3 class="text-2xl font-black">Preparo</h3>
+                                <button onclick="App.saveInstructions()" class="text-[10px] font-black uppercase tracking-widest bg-slate-900 text-white dark:bg-white dark:text-slate-900 px-5 py-2.5 rounded-xl hover:scale-105 transition shadow-md">Salvar</button>
+                            </div>
+                            <textarea id="recipe-instructions" class="instruction-box flex-1 border-none focus:ring-0 outline-none resize-none" placeholder="Escreva o passo a passo da receita aqui..."></textarea>
+                        </section>
+
+                        <!-- PRECIFICAÇÃO -->
+                        <section class="theme-card p-8 space-y-8">
+                            <h3 class="text-2xl font-black">Configuração</h3>
+                            
+                            <div class="grid grid-cols-2 gap-5">
+                                <div class="space-y-3">
+                                    <label class="text-[10px] font-black uppercase tracking-widest opacity-40">Gás / Energia (R$)</label>
+                                    <input type="text" id="gas-cost" onblur="App.updateFinalCalculation()" class="w-full premium-input p-4 font-bold">
+                                </div>
+                                <div class="space-y-3">
+                                    <label class="text-[10px] font-black uppercase tracking-widest opacity-40">Outros (R$)</label>
+                                    <input type="text" id="other-costs" onblur="App.updateFinalCalculation()" class="w-full premium-input p-4 font-bold">
+                                </div>
+                            </div>
+
+                            <div class="space-y-3">
+                                <label class="text-[10px] font-black uppercase tracking-widest opacity-40">Rendimento Total (Unidades)</label>
+                                <input type="text" id="recipe-yield" onblur="App.updateFinalCalculation()" class="w-full premium-input p-5 text-2xl font-black text-[var(--primary)] text-center">
+                            </div>
+
+                            <div class="pt-6 border-t border-[var(--border-color)] space-y-6">
+                                <div class="flex bg-slate-100 dark:bg-slate-800 p-1.5 rounded-2xl">
+                                    <button id="btn-method-margin" onclick="App.setPricingMethod('margin')" class="flex-1 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition">Margem %</button>
+                                    <button id="btn-method-multiplier" onclick="App.setPricingMethod('multiplier')" class="flex-1 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition">Markup x</button>
+                                </div>
+                                
+                                <div id="div-profit-margin" class="space-y-3">
+                                    <label class="text-[10px] font-black uppercase tracking-widest opacity-40">Margem Desejada (%)</label>
+                                    <input type="text" id="profit-margin" onblur="App.updateFinalCalculation()" class="w-full premium-input p-5 text-3xl font-black bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-center">
+                                </div>
+                                
+                                <div id="div-multiplier" class="hidden space-y-3">
+                                    <label class="text-[10px] font-black uppercase tracking-widest opacity-40">Multiplicador (Custo x ?)</label>
+                                    <input type="text" id="recipe-multiplier" onblur="App.updateFinalCalculation()" class="w-full premium-input p-5 text-3xl font-black bg-blue-500/10 text-blue-600 dark:text-blue-400 text-center">
+                                </div>
+                            </div>
+                        </section>
+                    </div>
                 </div>
 
-                <!-- Custos Adicionais e Resumo Final -->
-                <section class="grid grid-cols-1 lg:grid-cols-5 gap-6">
-                    
-                    <!-- Custos Extras, Rendimento & Precificação -->
-                    <div class="theme-card p-5 md:p-8 lg:col-span-2 space-y-5">
-                        <h3 class="text-2xl font-extrabold mb-2" style="color: var(--text-main)">Custos & Precificação</h3>
-                        
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block mb-1 flex justify-between gap-1">
-                                    <span class="text-sm font-bold opacity-80">Gás (R$)</span>
-                                </label>
-                                <input type="text" inputmode="decimal" id="gas-cost" value="2,50" onblur="App.updateFinalCalculation()" class="block w-full rounded-xl premium-input px-3 py-2.5 text-base font-bold">
-                            </div>
-                            <div>
-                                <label class="block mb-1 flex justify-between gap-1">
-                                    <span class="text-sm font-bold opacity-80">Outros (R$)</span>
-                                </label>
-                                <input type="text" inputmode="decimal" id="other-costs" value="2,50" onblur="App.updateFinalCalculation()" class="block w-full rounded-xl premium-input px-3 py-2.5 text-base font-bold">
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="block mb-1 flex justify-between gap-1">
-                                <span class="text-base font-bold">Rendimento (Unidades)</span>
-                            </label>
-                            <input type="text" inputmode="numeric" id="recipe-yield" value="1" onblur="App.updateFinalCalculation()" class="block w-full rounded-xl premium-input px-4 py-3 text-lg font-bold">
-                            <p class="text-[10px] mt-1 opacity-70">Quantos doces/fatias esta receita rende?</p>
-                        </div>
-
-                        <div class="pt-4 border-t border-opacity-30" style="border-color: var(--border-color)">
-                            <label class="block text-sm font-bold mb-3">Método de Precificação</label>
-                            <div class="flex gap-2 mb-4 bg-black/5 dark:bg-white/5 p-1 rounded-xl">
-                                <button id="btn-method-margin" onclick="App.setPricingMethod('margin')" class="flex-1 py-2 rounded-lg bg-[var(--primary)] text-white font-bold text-xs transition shadow-sm">Margem (%)</button>
-                                <button id="btn-method-multiplier" onclick="App.setPricingMethod('multiplier')" class="flex-1 py-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--text-main)] font-bold text-xs transition">Multiplicador (x3)</button>
-                            </div>
-                            
-                            <div id="div-profit-margin">
-                                <label class="block text-sm font-bold mb-2 text-emerald-600 dark:text-emerald-400">Margem de Lucro (%)</label>
-                                <input type="text" inputmode="numeric" id="profit-margin" value="100" onblur="App.updateFinalCalculation()" class="block w-full rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 px-4 py-3 text-xl font-extrabold focus:ring-emerald-500 outline-none">
-                            </div>
-
-                            <div id="div-multiplier" class="hidden">
-                                <label class="block text-sm font-bold mb-2 text-blue-600 dark:text-blue-400">Multiplicar Ingredientes por:</label>
-                                <input type="text" inputmode="numeric" id="recipe-multiplier" value="3" onblur="App.updateFinalCalculation()" class="block w-full rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-700 dark:text-blue-400 px-4 py-3 text-xl font-extrabold focus:ring-blue-500 outline-none">
-                                <p class="text-[10px] mt-2 opacity-80 text-blue-600 dark:text-blue-400">Ideal para doces: 1x custo, 1x despesas, 1x lucro.</p>
-                            </div>
-                        </div>
+                <!-- FOOTER SUMMARY -->
+                <section class="summary-box p-10 md:p-16 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+                        <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 100 C 20 0 50 0 100 100 Z" fill="white"></path></svg>
                     </div>
-
-                    <!-- Resumo Final -->
-                    <div class="summary-box p-6 md:p-8 lg:col-span-3 flex flex-col justify-center relative overflow-hidden rounded-[2rem] shadow-xl">
-                        <div class="relative z-10">
-                            <h3 class="text-2xl font-bold mb-5 tracking-tight">Resumo Financeiro</h3>
-                            <div class="space-y-3 text-sm md:text-base">
-                                <div class="flex justify-between items-center"><span class="text-muted font-medium">Custo dos Ingredientes:</span><span id="ingredients-cost" class="font-semibold">R$ 0,00</span></div>
-                                <div class="flex justify-between items-center"><span class="text-muted font-medium">Custo de Embalagens:</span><span id="packagings-cost-summary" class="font-semibold text-indigo-400">R$ 0,00</span></div>
-                                <div class="flex justify-between items-center"><span class="text-muted font-medium">Custos Extras (Gás + Outros):</span><span id="extras-cost-summary" class="font-semibold">R$ 0,00</span></div>
-                                
-                                <div class="flex justify-between items-center border-t border-white/10 pt-3 mt-1">
-                                    <span class="font-bold opacity-90">Custo Total (Lote):</span><span id="total-cost" class="font-bold text-lg">R$ 0,00</span>
+                    
+                    <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                        <div class="space-y-8">
+                            <h4 class="text-xs font-black uppercase tracking-[0.4em] text-[var(--primary)]">Visão Financeira</h4>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center"><span class="font-bold opacity-50">Ingredientes</span><span id="ingredients-cost" class="font-black text-xl">R$ 0,00</span></div>
+                                <div class="flex justify-between items-center"><span class="font-bold opacity-50">Embalagens</span><span id="packagings-cost-summary" class="font-black text-xl text-indigo-400">R$ 0,00</span></div>
+                                <div class="flex justify-between items-center"><span class="font-bold opacity-50">Despesas Fixas</span><span id="extras-cost-summary" class="font-black text-xl">R$ 0,00</span></div>
+                                <div class="pt-6 border-t border-white/10 flex justify-between items-end">
+                                    <span class="font-black text-2xl">Custo p/ Unid</span>
+                                    <span id="unit-cost" class="font-black text-4xl text-[var(--primary)]">R$ 0,00</span>
                                 </div>
-                                <div class="flex justify-between items-center border-b border-white/10 pb-3 mb-1">
-                                    <span class="font-bold text-blue-400">Custo por Unidade:</span><span id="unit-cost" class="font-bold text-xl text-blue-400">R$ 0,00</span>
-                                </div>
-                                
-                                <div class="flex justify-between items-center pt-2"><span class="text-emerald-400 font-semibold">Lucro Previsto (Lote):</span><span id="profit-value" class="font-bold text-lg text-emerald-400">R$ 0,00</span></div>
-                                
-                                <div class="flex flex-col mt-4 p-5 rounded-2xl bg-white/10 border border-white/20 gap-2">
-                                    <div class="flex justify-between items-center">
-                                        <span class="font-semibold text-white/90">Venda por Unidade:</span>
-                                        <span id="unit-price" class="font-bold text-3xl md:text-4xl text-emerald-400 tracking-tight">R$ 0,00</span>
-                                    </div>
-                                    <div class="flex justify-between items-center opacity-70">
-                                        <span class="text-xs uppercase tracking-wider font-bold">Venda do Lote Total:</span>
-                                        <span id="final-price" class="text-sm font-bold">R$ 0,00</span>
-                                    </div>
-                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white/5 backdrop-blur-md p-10 rounded-[3rem] border border-white/10 flex flex-col items-center text-center shadow-2xl">
+                            <span class="text-xs font-black uppercase tracking-[0.3em] opacity-40 mb-4">Sugestão de Venda p/ Unidade</span>
+                            <div id="unit-price" class="text-6xl md:text-8xl font-black tracking-tighter text-emerald-400 mb-4">R$ 0,00</div>
+                            <div class="flex gap-4 items-center">
+                                <span class="px-4 py-2 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-widest">Lucro Lote: <span id="profit-value">R$ 0,00</span></span>
                             </div>
                         </div>
                     </div>
                 </section>
             </div>
 
-            <!-- ================= VIEW 3: BANCO DE INGREDIENTES ================= -->
-            <div id="view-banco-content" class="hidden animate-view-enter space-y-6">
-                <section class="theme-card p-5 md:p-10">
-                    <h2 class="text-2xl md:text-3xl font-bold mb-3 tracking-tight">Banco de Ingredientes</h2>
-                    <p class="text-sm md:text-base mb-6 border-b border-opacity-20 pb-6" style="color: var(--text-muted); border-color: var(--border-color)">
-                        Altere os preços aqui para atualizar todas as suas receitas instantaneamente ou adicione ingredientes avulsos para uso futuro.
-                    </p>
-
-                    <!-- Formulário para adicionar ingrediente direto no banco -->
-                    <div class="premium-form-container p-4 md:p-5 mb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 items-end">
-                        <div class="lg:col-span-2">
-                            <label class="block text-[11px] font-bold uppercase tracking-widest mb-1 opacity-70">Nome</label>
-                            <input type="text" id="banco-ing-name" placeholder="Ex: Chocolate 50%" class="block w-full rounded-xl premium-input px-3 py-3">
+            <!-- VIEW: BANCO / ESTOQUE -->
+            <div id="view-banco-content" class="hidden animate-view-enter space-y-10">
+                <header>
+                    <h2 class="text-5xl md:text-6xl font-black tracking-tighter mb-4 text-transparent bg-clip-text bg-gradient-to-r from-[var(--text-main)] to-slate-400">Banco de Preços</h2>
+                    <p class="text-xl font-medium opacity-50">Gerencie seu estoque global.</p>
+                </header>
+                <section class="theme-card p-10">
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-5 mb-12 items-end bg-slate-50 dark:bg-slate-900/40 p-8 rounded-[2rem] border border-[var(--border-color)] shadow-inner">
+                        <div class="md:col-span-2">
+                            <label class="text-[10px] font-black uppercase block mb-3 opacity-40">Insumo</label>
+                            <input type="text" id="banco-ing-name" placeholder="Ex: Chocolate Callebaut" class="w-full premium-input p-5 font-bold">
                         </div>
                         <div>
-                            <label class="block text-[11px] font-bold uppercase tracking-widest mb-1 opacity-70">Preço (R$)</label>
-                            <input type="text" inputmode="decimal" id="banco-ing-price" placeholder="12,50" class="block w-full rounded-xl premium-input px-3 py-3">
+                            <label class="text-[10px] font-black uppercase block mb-3 opacity-40">R$ Pacote</label>
+                            <input type="text" id="banco-ing-price" placeholder="0,00" class="w-full premium-input p-5 font-bold">
                         </div>
-                        <div class="flex items-end gap-1">
+                        <div class="flex gap-2">
                             <div class="flex-1">
-                                <label class="block text-[11px] font-bold uppercase tracking-widest mb-1 opacity-70">Quantidade</label>
-                                <input type="text" inputmode="decimal" id="banco-ing-qty" placeholder="500" class="block w-full rounded-xl premium-input px-3 py-3">
+                                <label class="text-[10px] font-black uppercase block mb-3 opacity-40">Qtd</label>
+                                <input type="text" id="banco-ing-qty" placeholder="1000" class="w-full premium-input p-5 font-bold">
                             </div>
-                            <div class="w-14 flex-shrink-0">
-                                <select id="banco-ing-unit" class="pill-select block w-full bg-transparent text-xs h-11 cursor-pointer outline-none px-1">
-                                    <option value="g">g</option>
-                                    <option value="ml">ml</option>
-                                    <option value="un">un</option>
+                            <div class="w-24">
+                                <label class="text-[10px] font-black uppercase block mb-3 opacity-40">Un</label>
+                                <select id="banco-ing-unit" class="w-full pill-select p-5 font-black">
+                                    <option value="g">g</option><option value="ml">ml</option><option value="un">un</option>
                                 </select>
                             </div>
                         </div>
-                        <button onclick="App.addIngredientToMemoryFromForm()" class="w-full h-11 theme-primary-bg rounded-xl shadow-md transition flex items-center justify-center font-bold text-sm">
-                            Guardar
-                        </button>
+                        <button onclick="App.addIngredientToMemoryFromForm()" class="w-full py-5 bg-[var(--primary)] text-white font-black rounded-2xl shadow-2xl shadow-orange-500/20 hover:scale-[1.03] transition-transform uppercase text-xs tracking-widest">Atualizar Estoque</button>
                     </div>
-
-                    <div class="overflow-x-auto w-full pb-2">
-                        <table class="min-w-full text-left border-collapse whitespace-nowrap"><thead class="text-xs md:text-sm font-semibold opacity-80"><tr>
-                            <th class="py-3 px-3">Ingrediente</th>
-                            <th class="py-3 px-3">Preço do Pacote</th>
-                            <th class="py-3 px-2 text-center">Ação</th>
-                        </tr></thead><tbody id="ingredient-memory-table"></tbody></table>
+                    <div class="overflow-x-auto">
+                        <table class="w-full border-separate border-spacing-0">
+                            <thead><tr><th>Insumo</th><th>Custo do Pacote</th><th class="w-24"></th></tr></thead>
+                            <tbody id="ingredient-memory-table"></tbody>
+                        </table>
                     </div>
                 </section>
             </div>
 
-            <!-- ================= VIEW 4: PERSONALIZAR (DEFINIÇÕES) ================= -->
-            <div id="view-personalizar-content" class="hidden animate-view-enter space-y-6">
-                
-                <!-- SEÇÃO NOVA: Google Drive Sync -->
-                <section class="theme-card p-6 md:p-10 rounded-3xl max-w-2xl mx-auto border-2 border-blue-500/20">
-                    <div class="flex items-center gap-3 mb-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.3a1 1 0 0 1 1.4 0l10 10a1 1 0 0 1 0 1.4l-10 10a1 1 0 0 1-1.4 0l-10-10a1 1 0 0 1 0-1.4l10-10z"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
-                        <h2 class="text-3xl font-bold tracking-tight text-blue-600 dark:text-blue-400">Google Drive</h2>
-                    </div>
-                    <p class="text-sm md:text-base mb-6 border-b border-opacity-20 pb-6" style="color: var(--text-muted); border-color: var(--border-color)">
-                        Sincronize os seus dados de receitas e ingredientes diretamente na sua conta do Google Drive para nunca os perder.
-                    </p>
+            <!-- VIEW: AJUSTES (Drive) -->
+            <div id="view-personalizar-content" class="hidden animate-view-enter space-y-10">
+                <header>
+                    <h2 class="text-5xl md:text-6xl font-black tracking-tighter mb-4">Configurações</h2>
+                    <p class="text-xl font-medium opacity-50">Nuvem e Armazenamento.</p>
+                </header>
 
-                    <div class="space-y-4">
-                        <!-- Botão Autenticar -->
-                        <button id="btn-drive-auth" onclick="App.handleAuthClick()" class="w-full flex items-center justify-center gap-3 font-bold py-4 px-6 rounded-2xl bg-white dark:bg-zinc-800 text-gray-800 dark:text-white shadow-md hover:shadow-lg transition border border-gray-200 dark:border-gray-700 text-sm md:text-base">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24px" height="24px"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/></svg>
-                            Conectar ao Google Drive
-                        </button>
-
-                        <div id="drive-actions" class="hidden flex-col gap-3">
-                            <p class="text-xs text-center font-bold text-emerald-500 mb-2">✅ Conectado ao Google Drive</p>
-                            
-                            <button onclick="App.saveToDrive()" class="w-full flex items-center justify-center gap-3 font-bold py-4 px-6 rounded-2xl bg-blue-500 text-white shadow-md hover:bg-blue-600 transition text-sm md:text-base">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                                Guardar (Subir para o Drive)
-                            </button>
-                            
-                            <button onclick="App.loadFromDrive()" class="w-full flex items-center justify-center gap-3 font-bold py-4 px-6 rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-500 hover:text-white transition border border-indigo-500/20 text-sm md:text-base">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                                Restaurar (Descarregar do Drive)
-                            </button>
-                            
-                            <button onclick="App.handleSignoutClick()" class="text-xs font-semibold text-[var(--text-muted)] underline text-center mt-2 hover:text-red-500">
-                                Desconectar conta do Google
-                            </button>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <section class="theme-card p-10 md:p-14 border-2 border-blue-500/20 shadow-blue-500/5">
+                        <div class="flex items-center gap-6 mb-10">
+                            <div class="w-20 h-20 rounded-[2rem] bg-blue-500/10 flex items-center justify-center shadow-lg">
+                                <svg width="45" height="45" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 3H15L22 15L19 21H5L2 15L9 3Z" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M15 3L9 15" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M9 3L19 21" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M2 15H22" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-3xl font-black text-blue-600 dark:text-blue-400 leading-none mb-2">Google Drive</h3>
+                                <span class="text-[10px] font-black uppercase tracking-[0.3em] opacity-40">Auto-save System</span>
+                            </div>
                         </div>
-                    </div>
-                </section>
-
-                <section class="theme-card p-6 md:p-10 rounded-3xl max-w-2xl mx-auto mt-6">
-                    <h2 class="text-2xl font-bold mb-3 tracking-tight">Backup Manual Local</h2>
-                    <p class="text-sm md:text-base mb-8 border-b border-opacity-20 pb-8" style="color: var(--text-muted); border-color: var(--border-color)">
-                        Se preferir, pode exportar o ficheiro para o seu computador/telemóvel.
-                    </p>
-                    
-                    <div class="space-y-4">
-                        <button onclick="App.exportData()" class="w-full text-left flex items-center justify-center md:justify-start gap-3 font-bold py-4 px-6 rounded-2xl bg-gray-500/10 text-gray-600 dark:text-gray-300 hover:bg-gray-500 hover:text-white transition border border-gray-500/20 text-sm md:text-base">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                            Exportar Ficheiro Local (.json)
-                        </button>
                         
-                        <button onclick="document.getElementById('import-file-input-mobile').click()" class="w-full text-left flex items-center justify-center md:justify-start gap-3 font-bold py-4 px-6 rounded-2xl bg-gray-500/10 text-gray-600 dark:text-gray-300 hover:bg-gray-500 hover:text-white transition border border-gray-500/20 text-sm md:text-base">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                            Restaurar Ficheiro Local
-                        </button>
-                        <input type="file" id="import-file-input-mobile" class="hidden" accept=".json" onchange="App.handleFileSelect(event)">
-                    </div>
+                        <div class="space-y-8">
+                            <p class="text-sm font-medium leading-relaxed opacity-50">As suas receitas e banco de preços são salvos automaticamente a cada edição no seu Drive pessoal. Segurança total para os seus dados.</p>
+                            
+                            <button id="btn-drive-auth" onclick="App.handleAuthClick()" class="w-full flex items-center justify-center gap-5 py-6 rounded-[2rem] bg-white dark:bg-slate-800 text-slate-800 dark:text-white border border-slate-200 dark:border-slate-700 font-black uppercase text-xs tracking-widest shadow-xl hover:translate-y-[-2px] transition-transform">
+                                <svg viewBox="0 0 48 48" width="28" height="28"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/></svg>
+                                Conectar Conta Google
+                            </button>
 
-                    <div class="mt-10 pt-8 border-t border-opacity-20" style="border-color: var(--border-color)">
-                        <button onclick="App.resetApplication()" class="w-full text-left flex items-center justify-center md:justify-start gap-3 font-bold py-4 px-6 rounded-2xl bg-red-500/10 text-red-500 dark:text-red-400 hover:bg-red-500 hover:text-white transition border border-red-500/20 text-sm md:text-base">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                            Apagar Todos os Dados
-                        </button>
-                    </div>
-                </section>
+                            <div id="drive-actions" class="hidden flex flex-col gap-5">
+                                <div class="flex items-center justify-center gap-3 p-4 rounded-3xl bg-emerald-500/10 text-emerald-500">
+                                    <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+                                    <span class="text-xs font-black uppercase tracking-[0.3em]">Backup Ativo</span>
+                                </div>
+                                <button onclick="App.loadFromDrive()" class="w-full py-6 rounded-[2rem] bg-indigo-500 text-white font-black uppercase text-xs tracking-widest shadow-2xl shadow-indigo-500/30 hover:scale-[1.02] transition">Sincronizar Manualmente</button>
+                                <button onclick="App.handleSignoutClick()" class="text-xs font-bold text-slate-400 hover:text-red-500 transition-colors underline">Desconectar Drive</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="theme-card p-10 md:p-14 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-3xl font-black mb-6">Database</h3>
+                            <p class="text-sm font-medium opacity-50 mb-10 leading-relaxed">Apagar o cache local limpará os dados temporários do navegador. Use esta opção se desejar redefinir a aplicação localmente sem afetar a nuvem.</p>
+                        </div>
+                        <button onclick="App.resetApplication()" class="w-full py-6 rounded-[2rem] bg-red-500/10 text-red-500 border border-red-500/20 font-black uppercase text-xs tracking-widest hover:bg-red-500 hover:text-white transition shadow-sm">Resetar Cache Local</button>
+                    </section>
+                </div>
             </div>
 
         </div>
@@ -554,21 +465,17 @@
     <script>
         const App = window.App = {};
 
-        // --- STATE BASE ---
+        // --- STATE ---
         let recipes = [];
         let activeRecipeId = null;
         let nextId = 0;
         let ingredientMemory = []; 
         let isDarkMode = false;
-        let primaryColor = '#f97316'; 
+        let autoSaveTimer = null;
 
-        // ==========================================
-        //  CONFIGURAÇÃO GOOGLE DRIVE API
-        // ==========================================
-        // IMPORTANTE: Preencha as strings abaixo com as suas chaves geradas no Google Cloud Console.
+        // --- GOOGLE CONFIG ---
         const CLIENT_ID = '961795024997-bfq030uubshrfo35bjstif0ei0puj3ku.apps.googleusercontent.com'; 
         const API_KEY = 'AIzaSyDF4JdvAPo4tu126BYUl2n46kL8doKB14U';
-        
         const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest';
         const SCOPES = 'https://www.googleapis.com/auth/drive.file';
         const BACKUP_FILENAME = 'receitas_pro_backup.json';
@@ -579,14 +486,11 @@
 
         App.gapiLoaded = () => { gapi.load('client', initializeGapiClient); };
         async function initializeGapiClient() {
-            if (API_KEY === 'COLE_SUA_API_KEY_AQUI' || !API_KEY.startsWith('AIza')) {
-                console.warn("Chave da API do Google Drive inválida. As Chaves de API começam sempre com 'AIza'. A integração estará inativa até adicionar a chave correta.");
-                return;
-            }
+            if (API_KEY === 'COLE_SUA_API_KEY_AQUI' || !API_KEY.startsWith('AIza')) return;
             try {
                 await gapi.client.init({ apiKey: API_KEY, discoveryDocs: [DISCOVERY_DOC] });
                 gapiInited = true;
-            } catch (err) { console.error("Erro ao iniciar GAPI", err); }
+            } catch (err) { console.error("GAPI Init Error", err); }
         }
 
         App.gisLoaded = () => {
@@ -594,34 +498,25 @@
             tokenClient = google.accounts.oauth2.initTokenClient({
                 client_id: CLIENT_ID,
                 scope: SCOPES,
-                callback: '', // Será sobreescrito nos botões
+                callback: '',
             });
             gisInited = true;
-            
-            // Verifica se tem token válido salvo para mostrar botões
-            const token = gapi.client?.getToken();
-            if (token) App.showDriveControls(true);
+            if (gapi.client?.getToken()) App.showDriveControls(true);
         };
 
         App.handleAuthClick = () => {
-            if (CLIENT_ID === 'COLE_SEU_CLIENT_ID_AQUI' || !API_KEY.startsWith('AIza')) {
-                return Swal.fire('Erro de Configuração', 'A API_KEY fornecida é inválida. Você colocou um "Client Secret" (começa com GOCSPX). Por favor, vá ao Google Cloud Console > Credenciais > Criar Credenciais > Chave de API (deve começar com "AIza...").', 'error');
-            }
             tokenClient.callback = async (resp) => {
                 if (resp.error) throw (resp);
                 App.showDriveControls(true);
-                Swal.fire({toast:true, position:'top-end', icon:'success', title:'Conectado ao Drive!', showConfirmButton:false, timer:2000});
+                Swal.fire({toast:true, position:'top-end', icon:'success', title:'Cloud Conectado!', showConfirmButton:false, timer:2000});
+                App.saveToDrive(true);
             };
-            if (gapi.client.getToken() === null) {
-                tokenClient.requestAccessToken({prompt: 'consent'});
-            } else {
-                tokenClient.requestAccessToken({prompt: ''});
-            }
+            tokenClient.requestAccessToken({prompt: gapi.client.getToken() === null ? 'consent' : ''});
         };
 
         App.handleSignoutClick = () => {
             const token = gapi.client.getToken();
-            if (token !== null) {
+            if (token) {
                 google.accounts.oauth2.revoke(token.access_token);
                 gapi.client.setToken('');
                 App.showDriveControls(false);
@@ -633,624 +528,301 @@
             document.getElementById('drive-actions').style.display = isConnected ? 'flex' : 'none';
         };
 
-        const setLoader = (show, text="A sincronizar...") => {
+        const setLoader = (show, text="Sincronizando...") => {
             const loader = document.getElementById('drive-loader');
             document.getElementById('drive-loader-text').innerText = text;
-            if(show) loader.classList.add('active');
-            else loader.classList.remove('active');
+            loader.classList.toggle('active', show);
         };
 
         async function findBackupFile() {
             try {
                 const response = await gapi.client.drive.files.list({
                     q: `name='${BACKUP_FILENAME}' and trashed=false`,
-                    fields: 'files(id, name)',
+                    fields: 'files(id)',
                     spaces: 'drive'
                 });
-                const files = response.result.files;
-                if (files && files.length > 0) return files[0].id;
-                return null;
-            } catch (err) {
-                console.error(err);
-                return null;
-            }
+                return response.result.files?.[0]?.id || null;
+            } catch { return null; }
         }
 
-        App.saveToDrive = async () => {
-            if(!gapi.client.getToken()) return App.handleAuthClick();
-            setLoader(true, "A guardar no Drive...");
-            
+        App.saveToDrive = async (isAuto = false) => {
+            const token = gapi.client.getToken();
+            if(!token) return;
+            if(!isAuto) setLoader(true, "Salvando na Nuvem...");
             try {
                 const dataStr = JSON.stringify({ recipes, nextId, ingredientMemory, isDarkMode });
                 const fileId = await findBackupFile();
-                
                 const metadata = { name: BACKUP_FILENAME, mimeType: 'application/json' };
-                const accessToken = gapi.client.getToken().access_token;
-                
                 const form = new FormData();
                 form.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }));
                 form.append('file', new Blob([dataStr], { type: 'application/json' }));
-
-                const url = fileId 
-                    ? `https://www.googleapis.com/upload/drive/v3/files/${fileId}?uploadType=multipart`
-                    : 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart';
-                const method = fileId ? 'PATCH' : 'POST';
-
+                const url = fileId ? `https://www.googleapis.com/upload/drive/v3/files/${fileId}?uploadType=multipart` : 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart';
                 const response = await fetch(url, {
-                    method: method,
-                    headers: new Headers({ 'Authorization': 'Bearer ' + accessToken }),
+                    method: fileId ? 'PATCH' : 'POST',
+                    headers: new Headers({ 'Authorization': 'Bearer ' + token.access_token }),
                     body: form
                 });
-
-                if(response.ok) {
-                    Swal.fire('Sucesso!', 'Os seus dados foram guardados no Google Drive.', 'success');
-                } else {
-                    throw new Error("Falha no upload");
-                }
-            } catch (err) {
-                console.error(err);
-                Swal.fire('Erro', 'Não foi possível guardar no Drive.', 'error');
-            } finally {
-                setLoader(false);
-            }
+                if(response.ok && !isAuto) Swal.fire('Sucesso!', 'Dados atualizados no Drive.', 'success');
+            } catch (err) { console.error(err); } finally { if(!isAuto) setLoader(false); }
         };
 
         App.loadFromDrive = async () => {
             if(!gapi.client.getToken()) return App.handleAuthClick();
-            
-            Swal.fire({
-                title: 'Atenção',
-                text: 'Restaurar do Drive vai substituir todos os dados atuais na app. Deseja continuar?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Sim, Restaurar'
-            }).then(async (result) => {
-                if(result.isConfirmed) {
-                    setLoader(true, "A descarregar do Drive...");
-                    try {
-                        const fileId = await findBackupFile();
-                        if (!fileId) {
-                            setLoader(false);
-                            return Swal.fire('Aviso', 'Nenhum backup encontrado no seu Drive.', 'info');
-                        }
-
-                        const response = await gapi.client.drive.files.get({
-                            fileId: fileId,
-                            alt: 'media'
-                        });
-
-                        const data = response.result;
-                        if (data && data.recipes) {
-                            recipes = data.recipes; 
-                            nextId = data.nextId || 0; 
-                            ingredientMemory = data.ingredientMemory || []; 
-                            isDarkMode = data.isDarkMode || false; 
-                            activeRecipeId = null;
-                            
-                            applyThemeToDOM(); 
-                            saveData(); 
-                            App.switchView('receitas');
-                            Swal.fire('Sucesso', 'Dados restaurados com sucesso do Drive!', 'success');
-                        }
-                    } catch (err) {
-                        console.error(err);
-                        Swal.fire('Erro', 'Não foi possível ler o ficheiro do Drive.', 'error');
-                    } finally {
-                        setLoader(false);
+            const { isConfirmed } = await Swal.fire({ title: 'Baixar da Nuvem?', text: 'Seus dados locais serão substituídos pelos do Drive.', icon: 'question', showCancelButton: true });
+            if(isConfirmed) {
+                setLoader(true, "Restaurando...");
+                try {
+                    const fileId = await findBackupFile();
+                    if (!fileId) { setLoader(false); return Swal.fire('Vazio', 'Nenhum backup encontrado no Drive.', 'info'); }
+                    const response = await gapi.client.drive.files.get({ fileId, alt: 'media' });
+                    const data = response.result;
+                    if (data && data.recipes) {
+                        recipes = data.recipes; nextId = data.nextId || 0; ingredientMemory = data.ingredientMemory || []; isDarkMode = data.isDarkMode || false; activeRecipeId = null;
+                        applyThemeToDOM(); localStorage.setItem('cakeRecipesDataV16', JSON.stringify({ recipes, nextId, ingredientMemory, isDarkMode }));
+                        App.switchView('receitas'); Swal.fire('Sincronizado!', 'Os seus dados foram carregados.', 'success');
                     }
-                }
-            });
-        };
-        // ==========================================
-
-
-        // --- UTILITIES E RENDERIZADORES BASE ---
-        const formatCurrency = (value) => `R$ ${value.toFixed(2).replace('.', ',')}`;
-        const parseInputFloat = (id) => { const el = document.getElementById(id); if (!el) return NaN; let val = el.value.trim().replace(',', '.'); return val === '' ? NaN : parseFloat(val); };
-        const getActiveRecipe = () => recipes.find(r => r.id === activeRecipeId);
-        App.getActiveRecipeId = () => activeRecipeId;
-
-        const calculateRecipeFinancials = (recipe) => {
-            const ingredientsCost = (recipe.ingredients || []).reduce((total, ing) => total + (ing.packagePrice / ing.packageQty) * ing.recipeQty, 0);
-            const packagingsCost = (recipe.packagings || []).reduce((total, pkg) => total + (pkg.packagePrice / pkg.packageQty) * pkg.recipeQty, 0);
-            
-            const gasCost = recipe.gasCost !== undefined ? recipe.gasCost : 2.50;
-            const otherCosts = recipe.otherCosts !== undefined ? recipe.otherCosts : 2.50;
-            const profitMargin = recipe.profitMargin !== undefined ? recipe.profitMargin : 100;
-            
-            const yieldQty = recipe.yield !== undefined ? recipe.yield : 1;
-            const pricingMethod = recipe.pricingMethod || 'margin';
-            const multiplier = recipe.multiplier !== undefined ? recipe.multiplier : 3;
-
-            const totalCost = ingredientsCost + packagingsCost + gasCost + otherCosts;
-            let finalPrice = 0;
-
-            if (pricingMethod === 'multiplier') {
-                finalPrice = (ingredientsCost + packagingsCost) * multiplier;
-            } else {
-                finalPrice = totalCost + (totalCost * (profitMargin / 100));
+                } catch { Swal.fire('Erro', 'Falha na conexão com o Drive.', 'error'); } finally { setLoader(false); }
             }
-
-            const profitValue = finalPrice - totalCost;
-            const unitCost = totalCost / (yieldQty > 0 ? yieldQty : 1);
-            const unitPrice = finalPrice / (yieldQty > 0 ? yieldQty : 1);
-
-            return { ingredientsCost, packagingsCost, totalCost, finalPrice, profitValue, unitCost, unitPrice };
         };
 
-        const saveData = () => { localStorage.setItem('cakeRecipesDataV16', JSON.stringify({ recipes, nextId, ingredientMemory, isDarkMode })); };
+        // --- CORE LOGIC ---
+        const formatCurrency = (v) => `R$ ${v.toFixed(2).replace('.', ',')}`;
+        const parseInputFloat = (id) => { const el = document.getElementById(id); if (!el) return NaN; return parseFloat(el.value.trim().replace(',', '.')) || NaN; };
+        const getActiveRecipe = () => recipes.find(r => r.id === activeRecipeId);
+
+        const calculateRecipeFinancials = (r) => {
+            const ingCost = (r.ingredients || []).reduce((t, i) => t + (i.packagePrice / i.packageQty) * i.recipeQty, 0);
+            const pkgCost = (r.packagings || []).reduce((t, p) => t + (p.packagePrice / p.packageQty) * p.recipeQty, 0);
+            const fixed = (r.gasCost ?? 2.5) + (r.otherCosts ?? 2.5);
+            const total = ingCost + pkgCost + fixed;
+            const yieldQty = r.yield || 1;
+            const method = r.pricingMethod || 'margin';
+            const mult = r.multiplier ?? 3;
+            
+            let final = method === 'multiplier' ? (ingCost + pkgCost) * mult : total + (total * ((r.profitMargin || 100) / 100));
+            return { ingCost, pkgCost, fixed, total, final, profit: final - total, unitC: total / yieldQty, unitP: final / yieldQty };
+        };
+
+        const saveData = () => { 
+            localStorage.setItem('cakeRecipesDataV16', JSON.stringify({ recipes, nextId, ingredientMemory, isDarkMode }));
+            if (gapiInited && gapi.client?.getToken()) {
+                if (autoSaveTimer) clearTimeout(autoSaveTimer);
+                autoSaveTimer = setTimeout(() => App.saveToDrive(true), 3000);
+            }
+        };
 
         const loadData = () => {
-            const data = localStorage.getItem('cakeRecipesDataV16') || localStorage.getItem('cakeRecipesDataV14') || localStorage.getItem('cakeRecipesDataV13');
-            if (data) {
-                const p = JSON.parse(data);
+            const d = localStorage.getItem('cakeRecipesDataV16');
+            if (d) {
+                const p = JSON.parse(d);
                 recipes = (p.recipes || []).map(r => ({ 
                     ...r, 
                     ingredients: r.ingredients || [], 
                     packagings: r.packagings || [], 
-                    instructions: r.instructions || '', 
-                    isHidden: !!r.isHidden, 
-                    gasCost: r.gasCost ?? 2.50, 
-                    otherCosts: r.otherCosts ?? 2.50, 
+                    yield: r.yield || 1, 
+                    gasCost: r.gasCost ?? 2.5, 
+                    otherCosts: r.otherCosts ?? 2.5,
                     profitMargin: r.profitMargin ?? 100,
-                    yield: r.yield ?? 1,
                     pricingMethod: r.pricingMethod ?? 'margin',
                     multiplier: r.multiplier ?? 3
                 }));
-                nextId = p.nextId || 0;
-                ingredientMemory = p.ingredientMemory || [];
+                nextId = p.nextId || 0; 
+                ingredientMemory = p.ingredientMemory || []; 
                 isDarkMode = p.isDarkMode || false;
             }
             applyThemeToDOM();
-            saveData();
         };
 
-        App.switchView = (viewId) => {
-            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            const navBtn = document.getElementById(`nav-${viewId}`);
-            if(navBtn) navBtn.classList.add('active');
-
-            ['receitas-list', 'recipe-details', 'banco-content', 'personalizar-content'].forEach(id => {
-                const el = document.getElementById(`view-${id}`);
-                if(el) el.classList.add('hidden');
-            });
-            
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            
-            if(viewId === 'receitas') {
-                if(activeRecipeId !== null) { showView('view-recipe-details'); renderRecipeDetails(); } 
-                else { showView('view-receitas-list'); renderRecipeList(); }
-            } else { 
-                showView(`view-${viewId}-content`); 
-            }
-            
-            if(viewId === 'banco') renderIngredientMemoryTable();
+        App.switchView = (vId) => {
+            document.querySelectorAll('.nav-item').forEach(e => e.classList.remove('active'));
+            document.getElementById(`nav-${vId}`)?.classList.add('active');
+            ['receitas-list', 'recipe-details', 'banco-content', 'personalizar-content'].forEach(id => document.getElementById(`view-${id}`).classList.add('hidden'));
+            if(vId === 'receitas') {
+                if(activeRecipeId !== null) { document.getElementById('view-recipe-details').classList.remove('hidden'); renderRecipeDetails(); }
+                else { document.getElementById('view-receitas-list').classList.remove('hidden'); renderRecipeList(); }
+            } else document.getElementById(`view-${vId}-content`).classList.remove('hidden');
+            if(vId === 'banco') renderIngredientMemoryTable();
         };
-
-        const showView = (id) => { const el = document.getElementById(id); if(el) { el.classList.remove('hidden'); el.classList.remove('animate-view-enter'); void el.offsetWidth; el.classList.add('animate-view-enter'); } };
 
         App.toggleTheme = () => { isDarkMode = !isDarkMode; applyThemeToDOM(); saveData(); };
         const applyThemeToDOM = () => {
             const icons = document.querySelectorAll('.theme-icon-svg');
-            const pathMoon = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>`;
-            const pathSun = `<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>`;
-
-            if (isDarkMode) {
-                document.body.classList.add('dark-mode');
-                icons.forEach(icon => icon.innerHTML = pathSun);
-                const textEl = document.getElementById('theme-text');
-                if(textEl) textEl.textContent = "Modo Claro";
-            } else {
-                document.body.classList.remove('dark-mode');
-                icons.forEach(icon => icon.innerHTML = pathMoon);
-                const textEl = document.getElementById('theme-text');
-                if(textEl) textEl.textContent = "Modo Escuro";
-            }
-            document.documentElement.style.setProperty('--primary', primaryColor);
-            document.documentElement.style.setProperty('--primary-hover', `color-mix(in srgb, ${primaryColor} 80%, black)`);
+            const moon = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>`;
+            const sun = `<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>`;
+            document.body.classList.toggle('dark-mode', isDarkMode);
+            icons.forEach(i => i.innerHTML = isDarkMode ? sun : moon);
+            const textEl = document.getElementById('theme-text');
+            if(textEl) textEl.textContent = isDarkMode ? "Modo Claro" : "Modo Escuro";
         };
 
         const renderRecipeList = () => {
-            const container = document.getElementById('recipe-grid-container');
-            container.innerHTML = `<div class="theme-card border-2 border-dashed flex flex-col items-center justify-center p-6 cursor-pointer hover:-translate-y-1 transition opacity-70 hover:opacity-100 min-h-[180px]" style="border-color: var(--primary)" onclick="App.promptCreateRecipe()">
-                <div class="w-14 h-14 rounded-full theme-primary-bg flex items-center justify-center mb-4 text-white shadow-lg"><span class="text-3xl font-light">+</span></div>
-                <h3 class="font-bold text-lg text-center theme-primary-text">Nova Receita</h3></div>`;
-            recipes.filter(r => !r.isHidden).forEach(recipe => {
-                const fin = calculateRecipeFinancials(recipe);
-                container.innerHTML += `
-                    <div class="recipe-card theme-card p-6 flex flex-col min-h-[180px]" onclick="App.selectRecipe(${recipe.id})">
-                        <div class="absolute top-4 right-4 z-10 delete-card-btn"><button onclick="event.stopPropagation(); App.deleteRecipe(${recipe.id})" class="p-2.5 bg-red-500/10 text-red-500 rounded-full hover:bg-red-500 hover:text-white transition shadow-sm">✖</button></div>
-                        <h3 class="font-bold text-xl pr-8 mb-2 leading-tight line-clamp-2">${recipe.name}</h3>
-                        <p class="text-xs font-semibold opacity-70 mb-auto">${recipe.ingredients.length} Ingredientes • ${recipe.packagings.length} Emb. • Rende ${recipe.yield || 1} un</p>
-                        <div class="mt-4 pt-4 border-t border-opacity-30 border-gray-500 flex justify-between items-end">
-                            <div><p class="text-[10px] uppercase font-bold opacity-60">Custo/Un</p><p class="font-semibold">${formatCurrency(fin.unitCost)}</p></div>
-                            <div class="text-right"><p class="text-[10px] uppercase font-bold opacity-60 text-emerald-500">Venda/Un</p><p class="font-bold text-lg text-emerald-500">${formatCurrency(fin.unitPrice)}</p></div>
-                        </div>
-                    </div>`;
+            const c = document.getElementById('recipe-grid-container');
+            c.innerHTML = `<div class="theme-card border-2 border-dashed border-[var(--primary)] flex flex-col items-center justify-center p-10 cursor-pointer hover:bg-[var(--primary)]/5 transition-all" onclick="App.promptCreateRecipe()">
+                <div class="w-20 h-20 rounded-full bg-[var(--primary)] flex items-center justify-center mb-5 text-white shadow-xl"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4"><path d="M12 5v14M5 12h14"/></svg></div>
+                <h3 class="font-black text-xl uppercase tracking-widest text-[var(--primary)]">Nova Receita</h3></div>`;
+            recipes.forEach(r => {
+                const fin = calculateRecipeFinancials(r);
+                c.innerHTML += `<div class="theme-card recipe-card p-8 cursor-pointer group relative" onclick="App.selectRecipe(${r.id})">
+                    <button onclick="event.stopPropagation(); App.deleteRecipe(${r.id})" class="absolute top-5 right-5 p-3 bg-red-500/10 text-red-500 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity">✖</button>
+                    <h3 class="font-black text-2xl mb-2 line-clamp-1 leading-tight">${r.name}</h3>
+                    <p class="text-[10px] font-black opacity-30 uppercase tracking-[0.2em] mb-8">${r.ingredients.length} Insumos • ${r.yield} Unidades</p>
+                    <div class="flex justify-between items-end border-t border-[var(--border-color)] pt-6">
+                        <div><span class="text-[10px] font-black uppercase opacity-40">Custo/Un</span><div class="font-black text-lg">${formatCurrency(fin.unitC)}</div></div>
+                        <div class="text-right"><span class="text-[10px] font-black uppercase opacity-40 text-emerald-500">Venda/Un</span><div class="font-black text-2xl text-emerald-500 tracking-tighter">${formatCurrency(fin.unitP)}</div></div>
+                    </div>
+                </div>`;
             });
-        };
-
-        App.setPricingMethod = (method, skipUpdate = false) => {
-            const activeRecipe = getActiveRecipe();
-            if (!activeRecipe) return;
-            activeRecipe.pricingMethod = method;
-
-            const btnMargin = document.getElementById('btn-method-margin');
-            const btnMult = document.getElementById('btn-method-multiplier');
-            const divMargin = document.getElementById('div-profit-margin');
-            const divMult = document.getElementById('div-multiplier');
-
-            if (method === 'multiplier') {
-                btnMult.className = "flex-1 py-2 rounded-lg bg-[var(--primary)] text-white font-bold text-xs transition shadow-sm";
-                btnMargin.className = "flex-1 py-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--text-main)] font-bold text-xs transition";
-                divMargin.classList.add('hidden');
-                divMult.classList.remove('hidden');
-            } else {
-                btnMargin.className = "flex-1 py-2 rounded-lg bg-[var(--primary)] text-white font-bold text-xs transition shadow-sm";
-                btnMult.className = "flex-1 py-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--text-main)] font-bold text-xs transition";
-                divMult.classList.add('hidden');
-                divMargin.classList.remove('hidden');
-            }
-
-            if(!skipUpdate) App.updateFinalCalculation();
-        };
-
-        const renderRecipeDetails = () => {
-            const activeRecipe = getActiveRecipe();
-            if (!activeRecipe) return;
-
-            document.getElementById('current-recipe-name').textContent = activeRecipe.name;
-            document.getElementById('recipe-instructions').value = activeRecipe.instructions || '';
-            document.getElementById('gas-cost').value = activeRecipe.gasCost.toFixed(2).replace('.', ',');
-            document.getElementById('other-costs').value = activeRecipe.otherCosts.toFixed(2).replace('.', ',');
-            document.getElementById('profit-margin').value = activeRecipe.profitMargin;
-            document.getElementById('recipe-yield').value = activeRecipe.yield || 1;
-            document.getElementById('recipe-multiplier').value = activeRecipe.multiplier || 3;
-            
-            App.setPricingMethod(activeRecipe.pricingMethod || 'margin', true);
-
-            // Render Ingredientes
-            const tableBody = document.getElementById('recipe-table');
-            if (activeRecipe.ingredients.length === 0) {
-                tableBody.innerHTML = `<tr><td colspan="5" class="text-center py-8 opacity-60 text-sm italic">Nenhum ingrediente adicionado.</td></tr>`;
-            } else {
-                tableBody.innerHTML = '';
-                activeRecipe.ingredients.forEach(ing => {
-                    const cost = (ing.packagePrice / ing.packageQty) * ing.recipeQty;
-                    tableBody.innerHTML += `
-                        <tr class="hover:bg-black/5 group ${ing.packagePrice === 0 ? 'bg-red-500/10' : ''}">
-                            <td class="py-3 px-3 rounded-l-lg editable text-sm font-semibold" contenteditable="true" data-id="${ing.id}" onblur="App.editRecipeIngredient(this, 'name')">${ing.name} ${ing.packagePrice === 0 ? '<br><span class="text-[10px] text-red-500">Defina o preço!</span>' : ''}</td>
-                            <td class="py-3 px-3 text-sm font-medium"><span class="editable" contenteditable="true" data-id="${ing.id}" onblur="App.editRecipeIngredient(this, 'packagePrice')">${ing.packagePrice.toFixed(2).replace('.', ',')}</span> <span class="opacity-60 text-xs">/ <span class="editable" contenteditable="true" data-id="${ing.id}" onblur="App.editRecipeIngredient(this, 'packageQty')">${ing.packageQty}</span>${ing.packageUnit}</span></td>
-                            <td class="py-3 px-3 text-sm font-medium"><span class="editable" contenteditable="true" data-id="${ing.id}" onblur="App.editRecipeIngredient(this, 'recipeQty')">${ing.recipeQty}</span><span class="opacity-60 text-xs"> ${ing.packageUnit}</span></td>
-                            <td class="py-3 px-3 text-sm font-bold text-right">${formatCurrency(cost)}</td>
-                            <td class="py-3 px-2 text-center rounded-r-lg"><button onclick="App.removeIngredientFromRecipe(${ing.id})" class="text-red-500 text-xs font-bold hover:bg-red-500/10 px-3 py-1.5 rounded transition">Excluir</button></td>
-                        </tr>`;
-                });
-            }
-
-            // Render Embalagens
-            const pkgTableBody = document.getElementById('packaging-table');
-            if (!activeRecipe.packagings || activeRecipe.packagings.length === 0) {
-                pkgTableBody.innerHTML = `<tr><td colspan="5" class="text-center py-8 opacity-60 text-sm italic">Nenhuma embalagem adicionada.</td></tr>`;
-            } else {
-                pkgTableBody.innerHTML = '';
-                activeRecipe.packagings.forEach(pkg => {
-                    const cost = (pkg.packagePrice / pkg.packageQty) * pkg.recipeQty;
-                    pkgTableBody.innerHTML += `
-                        <tr class="hover:bg-black/5 group ${pkg.packagePrice === 0 ? 'bg-red-500/10' : ''}">
-                            <td class="py-3 px-3 rounded-l-lg editable text-sm font-semibold" contenteditable="true" data-id="${pkg.id}" onblur="App.editRecipePackaging(this, 'name')">${pkg.name} ${pkg.packagePrice === 0 ? '<br><span class="text-[10px] text-red-500">Defina o preço!</span>' : ''}</td>
-                            <td class="py-3 px-3 text-sm font-medium"><span class="editable" contenteditable="true" data-id="${pkg.id}" onblur="App.editRecipePackaging(this, 'packagePrice')">${pkg.packagePrice.toFixed(2).replace('.', ',')}</span> <span class="opacity-60 text-xs">/ <span class="editable" contenteditable="true" data-id="${pkg.id}" onblur="App.editRecipePackaging(this, 'packageQty')">${pkg.packageQty}</span> un</span></td>
-                            <td class="py-3 px-3 text-sm font-medium"><span class="editable" contenteditable="true" data-id="${pkg.id}" onblur="App.editRecipePackaging(this, 'recipeQty')">${pkg.recipeQty}</span><span class="opacity-60 text-xs"> un</span></td>
-                            <td class="py-3 px-3 text-sm font-bold text-right">${formatCurrency(cost)}</td>
-                            <td class="py-3 px-2 text-center rounded-r-lg"><button onclick="App.removePackagingFromRecipe(${pkg.id})" class="text-red-500 text-xs font-bold hover:bg-red-500/10 px-3 py-1.5 rounded transition">Excluir</button></td>
-                        </tr>`;
-                });
-            }
-
-            App.updateFinalCalculation();
-            renderIngredientMemoryDatalist();
-        };
-
-        App.saveInstructions = () => {
-            const activeRecipe = getActiveRecipe();
-            if(activeRecipe) {
-                activeRecipe.instructions = document.getElementById('recipe-instructions').value;
-                saveData();
-                Swal.fire({toast: true, position: 'top-end', icon: 'success', title: 'Preparo guardado!', showConfirmButton: false, timer: 1500});
-            }
-        };
-
-        App.updateFinalCalculation = () => {
-            const activeRecipe = getActiveRecipe();
-            if (!activeRecipe) return;
-            
-            const gC = parseInputFloat('gas-cost'); 
-            const oC = parseInputFloat('other-costs'); 
-            const pM = parseInputFloat('profit-margin');
-            const yQty = parseInputFloat('recipe-yield');
-            const mult = parseInputFloat('recipe-multiplier');
-
-            if(!isNaN(gC)) activeRecipe.gasCost = gC; 
-            if(!isNaN(oC)) activeRecipe.otherCosts = oC; 
-            if(!isNaN(pM)) activeRecipe.profitMargin = pM;
-            if(!isNaN(yQty) && yQty > 0) activeRecipe.yield = yQty;
-            if(!isNaN(mult) && mult > 0) activeRecipe.multiplier = mult;
-
-            const fin = calculateRecipeFinancials(activeRecipe);
-            
-            document.getElementById('ingredients-cost').textContent = formatCurrency(fin.ingredientsCost);
-            document.getElementById('packagings-cost-summary').textContent = formatCurrency(fin.packagingsCost);
-            document.getElementById('extras-cost-summary').textContent = formatCurrency(activeRecipe.gasCost + activeRecipe.otherCosts);
-            document.getElementById('total-cost').textContent = formatCurrency(fin.totalCost);
-            document.getElementById('unit-cost').textContent = formatCurrency(fin.unitCost);
-            document.getElementById('profit-value').textContent = formatCurrency(fin.profitValue);
-            document.getElementById('final-price').textContent = formatCurrency(fin.finalPrice);
-            document.getElementById('unit-price').textContent = formatCurrency(fin.unitPrice);
-            
-            saveData();
-        };
-
-        App.promptCreateRecipe = async () => {
-            const { value: name } = await Swal.fire({ title: 'Nova Receita', input: 'text', showCancelButton: true, confirmButtonText: 'Criar', cancelButtonText: 'Cancelar' });
-            if (name) { 
-                recipes.push({ 
-                    id: nextId++, 
-                    name: name.trim(), 
-                    ingredients: [], 
-                    packagings: [],
-                    instructions: '', 
-                    isHidden: false, 
-                    gasCost: 2.50, 
-                    otherCosts: 2.50, 
-                    profitMargin: 100,
-                    yield: 1,
-                    pricingMethod: 'margin',
-                    multiplier: 3
-                }); 
-                saveData(); 
-                App.selectRecipe(nextId - 1); 
-            }
         };
 
         App.selectRecipe = (id) => { activeRecipeId = id; App.switchView('receitas'); };
         App.backToRecipes = () => { activeRecipeId = null; App.switchView('receitas'); };
-        App.deleteRecipe = (id) => { 
-            Swal.fire({
-                title: 'Tem a certeza?',
-                text: "Esta receita será apagada.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#ef4444',
-                confirmButtonText: 'Sim, Apagar'
-            }).then((result) => {
-                if(result.isConfirmed) {
-                    recipes = recipes.filter(r => r.id !== id); if(activeRecipeId === id) activeRecipeId = null; saveData(); App.backToRecipes(); 
-                }
-            });
-        };
-
-        // INGREDIENTES 
-        App.addIngredientToRecipe = () => {
-            const activeRecipe = getActiveRecipe();
-            const name = document.getElementById('ing-name').value.trim();
-            const pPrice = parseInputFloat('ing-price'); const pQty = parseInputFloat('ing-pkg-qty'); const rQty = parseInputFloat('ing-recipe-qty');
-            if(!name || isNaN(pPrice) || isNaN(pQty) || isNaN(rQty)) return Swal.fire('Atenção', 'Preencha todos os campos corretamente com números.', 'error');
-            
-            const unit = document.getElementById('ing-pkg-unit').value;
-            activeRecipe.ingredients.push({ id: nextId++, name, packagePrice: pPrice, packageQty: pQty, packageUnit: unit, recipeQty: rQty });
-            
-            const knownIndex = ingredientMemory.findIndex(i => i.name.toLowerCase() === name.toLowerCase());
-            if (knownIndex !== -1) {
-                ingredientMemory[knownIndex].packagePrice = pPrice;
-                ingredientMemory[knownIndex].packageQty = pQty;
-                ingredientMemory[knownIndex].packageUnit = unit;
-            } else if (pPrice > 0) {
-                ingredientMemory.push({ name, packagePrice: pPrice, packageQty: pQty, packageUnit: unit });
-            }
-            
-            saveData(); ['ing-name', 'ing-price', 'ing-pkg-qty', 'ing-recipe-qty'].forEach(id => document.getElementById(id).value = ''); renderRecipeDetails();
-        };
-
-        App.removeIngredientFromRecipe = (id) => { getActiveRecipe().ingredients = getActiveRecipe().ingredients.filter(i => i.id !== id); saveData(); renderRecipeDetails(); };
         
-        App.editRecipeIngredient = (el, field) => {
-            const ing = getActiveRecipe().ingredients.find(i => i.id === parseInt(el.dataset.id));
-            if(!ing) return;
-            const val = el.textContent.trim();
-            if(field === 'name') ing.name = val;
-            else { const n = parseFloat(val.replace(',', '.')); if(!isNaN(n)) ing[field] = n; }
-            saveData(); renderRecipeDetails();
+        App.promptCreateRecipe = async () => {
+            const { value: name } = await Swal.fire({ title: 'Criar Receita', input: 'text', placeholder: 'Ex: Bolo de Chocolate Belga', showCancelButton: true });
+            if (name) { 
+                recipes.push({ id: nextId++, name: name.trim(), ingredients: [], packagings: [], instructions: '', gasCost: 2.5, otherCosts: 2.5, profitMargin: 100, yield: 1, pricingMethod: 'margin', multiplier: 3 }); 
+                saveData(); App.selectRecipe(nextId - 1); 
+            }
         };
 
-        // EMBALAGENS
-        App.addPackagingToRecipe = () => {
-            const activeRecipe = getActiveRecipe();
-            const name = document.getElementById('pkg-name').value.trim();
-            const pPrice = parseInputFloat('pkg-price'); 
-            const pQty = parseInputFloat('pkg-qty'); 
-            const rQty = parseInputFloat('pkg-recipe-qty');
-            
-            if(!name || isNaN(pPrice) || isNaN(pQty) || isNaN(rQty)) return Swal.fire('Atenção', 'Preencha todos os campos da embalagem corretamente com números.', 'error');
-            
-            activeRecipe.packagings = activeRecipe.packagings || [];
-            activeRecipe.packagings.push({ id: nextId++, name, packagePrice: pPrice, packageQty: pQty, recipeQty: rQty });
-            
-            saveData(); 
-            ['pkg-name', 'pkg-price', 'pkg-qty', 'pkg-recipe-qty'].forEach(id => document.getElementById(id).value = ''); 
+        App.renderRecipeDetails = renderRecipeDetails = () => {
+            const r = getActiveRecipe(); if(!r) return;
+            document.getElementById('current-recipe-name').textContent = r.name;
+            document.getElementById('recipe-instructions').value = r.instructions || '';
+            document.getElementById('gas-cost').value = (r.gasCost || 2.5).toFixed(2).replace('.', ',');
+            document.getElementById('other-costs').value = (r.otherCosts || 2.5).toFixed(2).replace('.', ',');
+            document.getElementById('profit-margin').value = r.profitMargin || 100;
+            document.getElementById('recipe-yield').value = r.yield || 1;
+            document.getElementById('recipe-multiplier').value = r.multiplier || 3;
+            App.setPricingMethod(r.pricingMethod || 'margin', true);
+
+            const iT = document.getElementById('recipe-table');
+            iT.innerHTML = r.ingredients.map(i => `<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+                <td><span class="editable font-black text-sm" contenteditable="true" onblur="App.editIng(this, ${i.id}, 'name')">${i.name}</span></td>
+                <td><span class="editable font-bold" contenteditable="true" onblur="App.editIng(this, ${i.id}, 'packagePrice')">${i.packagePrice.toFixed(2).replace('.',',')}</span> <span class="opacity-30 text-[10px]">/${i.packageQty}${i.packageUnit}</span></td>
+                <td><span class="editable font-bold" contenteditable="true" onblur="App.editIng(this, ${i.id}, 'recipeQty')">${i.recipeQty}</span> <span class="opacity-30 text-[10px]">${i.packageUnit}</span></td>
+                <td class="text-right font-black text-slate-700 dark:text-slate-300">${formatCurrency((i.packagePrice / i.packageQty) * i.recipeQty)}</td>
+                <td class="text-center"><button onclick="App.removeIng(${i.id})" class="text-red-500 opacity-0 group-hover:opacity-100 transition-opacity">✖</button></td></tr>`).join('') 
+                || '<tr><td colspan="5" class="text-center py-12 opacity-30 text-xs font-black uppercase tracking-[0.2em]">Sem insumos listados</td></tr>';
+
+            const pT = document.getElementById('packaging-table');
+            pT.innerHTML = (r.packagings || []).map(p => `<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+                <td><span class="editable font-black text-sm" contenteditable="true" onblur="App.editPkg(this, ${p.id}, 'name')">${p.name}</span></td>
+                <td><span class="editable font-bold" contenteditable="true" onblur="App.editPkg(this, ${p.id}, 'packagePrice')">${p.packagePrice.toFixed(2).replace('.',',')}</span> <span class="opacity-30 text-[10px]">/${p.packageQty}un</span></td>
+                <td><span class="editable font-bold" contenteditable="true" onblur="App.editPkg(this, ${p.id}, 'recipeQty')">${p.recipeQty}</span> <span class="opacity-30 text-[10px]">un</span></td>
+                <td class="text-right font-black text-indigo-500">${formatCurrency((p.packagePrice / p.packageQty) * p.recipeQty)}</td>
+                <td class="text-center"><button onclick="App.removePkg(${p.id})" class="text-red-500 opacity-0 group-hover:opacity-100 transition-opacity">✖</button></td></tr>`).join('') 
+                || '<tr><td colspan="5" class="text-center py-12 opacity-30 text-xs font-black uppercase tracking-[0.2em]">Sem embalagens listadas</td></tr>';
+
+            App.updateFinalCalculation();
+        };
+
+        App.updateFinalCalculation = () => {
+            const r = getActiveRecipe(); if(!r) return;
+            const g = parseInputFloat('gas-cost'), o = parseInputFloat('other-costs'), pm = parseInputFloat('profit-margin'), y = parseInputFloat('recipe-yield'), m = parseInputFloat('recipe-multiplier');
+            if(!isNaN(g)) r.gasCost = g; if(!isNaN(o)) r.otherCosts = o; if(!isNaN(pm)) r.profitMargin = pm; if(!isNaN(y) && y > 0) r.yield = y; if(!isNaN(m)) r.multiplier = m;
+            const fin = calculateRecipeFinancials(r);
+            document.getElementById('ingredients-cost').textContent = formatCurrency(fin.ingCost);
+            document.getElementById('packagings-cost-summary').textContent = formatCurrency(fin.pkgCost);
+            document.getElementById('extras-cost-summary').textContent = formatCurrency(fin.fixed);
+            document.getElementById('unit-cost').textContent = formatCurrency(fin.unitC);
+            document.getElementById('unit-price').textContent = formatCurrency(fin.unitP);
+            document.getElementById('profit-value').textContent = formatCurrency(fin.profit);
+            saveData();
+        };
+
+        App.setPricingMethod = (m, skip = false) => {
+            const r = getActiveRecipe(); if(!r) return; r.pricingMethod = m;
+            const bM = document.getElementById('btn-method-margin'), bX = document.getElementById('btn-method-multiplier');
+            bM.className = m === 'margin' ? 'flex-1 py-3 rounded-xl text-xs font-black bg-white dark:bg-slate-700 shadow-lg text-[var(--primary)]' : 'flex-1 py-3 rounded-xl text-xs font-bold opacity-30';
+            bX.className = m === 'multiplier' ? 'flex-1 py-3 rounded-xl text-xs font-black bg-white dark:bg-slate-700 shadow-lg text-[var(--primary)]' : 'flex-1 py-3 rounded-xl text-xs font-bold opacity-30';
+            document.getElementById('div-profit-margin').classList.toggle('hidden', m !== 'margin');
+            document.getElementById('div-multiplier').classList.toggle('hidden', m !== 'multiplier');
+            if(!skip) App.updateFinalCalculation();
+        };
+
+        App.addIngredientToRecipe = () => {
+            const r = getActiveRecipe(), n = document.getElementById('ing-name').value.trim(), p = parseInputFloat('ing-price'), q = parseInputFloat('ing-pkg-qty'), u = document.getElementById('ing-pkg-unit').value, rq = parseInputFloat('ing-recipe-qty');
+            if(!n || isNaN(p) || isNaN(q) || isNaN(rq)) return;
+            r.ingredients.push({ id: nextId++, name: n, packagePrice: p, packageQty: q, packageUnit: u, recipeQty: rq });
+            if(!ingredientMemory.find(i=>i.name.toLowerCase() === n.toLowerCase())) ingredientMemory.push({ name: n, packagePrice: p, packageQty: q, packageUnit: u });
+            ['ing-name', 'ing-price', 'ing-pkg-qty', 'ing-recipe-qty'].forEach(id => document.getElementById(id).value = '');
             renderRecipeDetails();
         };
 
-        App.removePackagingFromRecipe = (id) => { 
-            const recipe = getActiveRecipe();
-            recipe.packagings = recipe.packagings.filter(i => i.id !== id); 
-            saveData(); 
+        App.addPackagingToRecipe = () => {
+            const r = getActiveRecipe(), n = document.getElementById('pkg-name').value.trim(), p = parseInputFloat('pkg-price'), q = parseInputFloat('pkg-qty'), rq = parseInputFloat('pkg-recipe-qty');
+            if(!n || isNaN(p) || isNaN(q) || isNaN(rq)) return;
+            r.packagings.push({ id: nextId++, name: n, packagePrice: p, packageQty: q, recipeQty: rq });
+            ['pkg-name', 'pkg-price', 'pkg-qty', 'pkg-recipe-qty'].forEach(id => document.getElementById(id).value = '');
+            renderRecipeDetails();
+        };
+
+        App.removeIng = (id) => { getActiveRecipe().ingredients = getActiveRecipe().ingredients.filter(i=>i.id!==id); renderRecipeDetails(); };
+        App.removePkg = (id) => { getActiveRecipe().packagings = getActiveRecipe().packagings.filter(p=>p.id!==id); renderRecipeDetails(); };
+        
+        App.editIng = (el, id, field) => { 
+            const i = getActiveRecipe().ingredients.find(i=>i.id===id); 
+            if(field === 'name') i.name = el.textContent.trim(); else i[field] = parseFloat(el.textContent.replace(',','.')) || 0; 
             renderRecipeDetails(); 
         };
-        
-        App.editRecipePackaging = (el, field) => {
-            const pkg = getActiveRecipe().packagings.find(i => i.id === parseInt(el.dataset.id));
-            if(!pkg) return;
-            const val = el.textContent.trim();
-            if(field === 'name') pkg.name = val;
-            else { const n = parseFloat(val.replace(',', '.')); if(!isNaN(n)) pkg[field] = n; }
-            saveData(); renderRecipeDetails();
+        App.editPkg = (el, id, field) => { 
+            const p = getActiveRecipe().packagings.find(p=>p.id===id); 
+            if(field === 'name') p.name = el.textContent.trim(); else p[field] = parseFloat(el.textContent.replace(',','.')) || 0; 
+            renderRecipeDetails(); 
         };
 
-        // BANCO DE INGREDIENTES
         App.addIngredientToMemoryFromForm = () => {
-            const name = document.getElementById('banco-ing-name').value.trim();
-            const price = parseInputFloat('banco-ing-price');
-            const qty = parseInputFloat('banco-ing-qty');
-            const unit = document.getElementById('banco-ing-unit').value;
-
-            if(!name || isNaN(price) || isNaN(qty)) return Swal.fire('Atenção', 'Preencha o nome, preço e quantidade.', 'error');
-
-            const existingIndex = ingredientMemory.findIndex(i => i.name.toLowerCase() === name.toLowerCase());
-            if (existingIndex !== -1) {
-                ingredientMemory[existingIndex].packagePrice = price;
-                ingredientMemory[existingIndex].packageQty = qty;
-                ingredientMemory[existingIndex].packageUnit = unit;
-            } else {
-                ingredientMemory.push({ name, packagePrice: price, packageQty: qty, packageUnit: unit });
-            }
-
-            recipes.forEach(r => r.ingredients.filter(i => i.name.toLowerCase() === name.toLowerCase()).forEach(i => {
-                i.packagePrice = price; i.packageQty = qty; i.packageUnit = unit;
-            }));
-
-            saveData();
+            const n = document.getElementById('banco-ing-name').value.trim(), p = parseInputFloat('banco-ing-price'), q = parseInputFloat('banco-ing-qty'), u = document.getElementById('banco-ing-unit').value;
+            if(!n || isNaN(p) || isNaN(q)) return;
+            const ex = ingredientMemory.find(i=>i.name.toLowerCase() === n.toLowerCase());
+            if(ex) Object.assign(ex, { packagePrice: p, packageQty: q, packageUnit: u }); 
+            else ingredientMemory.push({ name: n, packagePrice: p, packageQty: q, packageUnit: u });
+            recipes.forEach(r => r.ingredients.filter(i=>i.name.toLowerCase()===n.toLowerCase()).forEach(i=>Object.assign(i, {packagePrice: p, packageQty: q, packageUnit: u})));
             ['banco-ing-name', 'banco-ing-price', 'banco-ing-qty'].forEach(id => document.getElementById(id).value = '');
             renderIngredientMemoryTable();
-            Swal.fire({toast: true, position: 'top-end', icon: 'success', title: 'Adicionado ao Banco!', showConfirmButton: false, timer: 1500});
         };
 
         const renderIngredientMemoryTable = () => {
-            const tb = document.getElementById('ingredient-memory-table'); tb.innerHTML = '';
-            if(ingredientMemory.length === 0) {
-                tb.innerHTML = `<tr><td colspan="3" class="py-6 text-center opacity-60">Nenhum ingrediente no banco.</td></tr>`;
-            }
-            ingredientMemory.forEach(ing => {
-                tb.innerHTML += `<tr>
-                    <td class="py-4 px-3 font-semibold text-sm md:text-base">${ing.name}</td>
-                    <td class="py-4 px-3 text-sm md:text-base">R$ <span class="editable font-bold" contenteditable="true" onblur="App.editIngredientInMemory(this, '${ing.name}')">${ing.packagePrice.toFixed(2)}</span> <span class="opacity-60 text-xs">/ ${ing.packageQty}${ing.packageUnit}</span></td>
-                    <td class="py-4 px-2 text-center"><button onclick="ingredientMemory = ingredientMemory.filter(i=>i.name!=='${ing.name}'); saveData(); renderIngredientMemoryTable();" class="text-red-500 text-sm font-bold bg-red-500/10 px-4 py-2 rounded-lg transition">Excluir</button></td>
-                </tr>`;
-            });
+            document.getElementById('ingredient-memory-table').innerHTML = ingredientMemory.map(i => `<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+                <td class="font-black">${i.name}</td>
+                <td class="font-bold text-slate-600 dark:text-slate-400">${formatCurrency(i.packagePrice)} <span class="opacity-40 text-xs">/ ${i.packageQty}${i.packageUnit}</span></td>
+                <td class="text-right"><button onclick="ingredientMemory=ingredientMemory.filter(m=>m.name!=='${i.name}'); renderIngredientMemoryTable(); saveData();" class="text-red-500 font-black uppercase text-[10px] tracking-widest opacity-0 group-hover:opacity-100 transition-opacity px-5 py-2 rounded-xl bg-red-500/10">Remover</button></td></tr>`).join('') 
+                || '<tr><td colspan="3" class="text-center py-16 opacity-30 font-black uppercase tracking-[0.3em] text-xs">Banco de dados vazio</td></tr>';
         };
 
-        App.editIngredientInMemory = (el, name) => {
-            const price = parseFloat(el.textContent.replace(',','.'));
-            if(isNaN(price)) return;
-            ingredientMemory.find(i => i.name === name).packagePrice = price;
-            recipes.forEach(r => r.ingredients.filter(i => i.name === name).forEach(i => i.packagePrice = price));
-            saveData(); renderIngredientMemoryTable();
+        App.handleIngredientNameInput = (v) => {
+            const k = ingredientMemory.find(i => i.name.toLowerCase() === v.toLowerCase());
+            if(k) { document.getElementById('ing-price').value = k.packagePrice.toFixed(2).replace('.',','); document.getElementById('ing-pkg-qty').value = k.packageQty; document.getElementById('ing-pkg-unit').value = k.packageUnit; }
         };
 
-        const renderIngredientMemoryDatalist = () => { document.getElementById('ingredient-list').innerHTML = ingredientMemory.map(i => `<option value="${i.name}">`).join(''); };
-        App.handleIngredientNameInput = (val) => {
-            const known = ingredientMemory.find(i => i.name.toLowerCase() === val.toLowerCase());
-            if(known) { document.getElementById('ing-price').value = known.packagePrice.toFixed(2).replace('.',','); document.getElementById('ing-pkg-qty').value = known.packageQty; document.getElementById('ing-pkg-unit').value = known.packageUnit; }
-        };
-
-        // --- BACKUP E RESET ---
-        App.exportData = () => {
-            const dataStr = JSON.stringify({ recipes, nextId, ingredientMemory, isDarkMode }, null, 2);
-            const dataBlob = new Blob([dataStr], { type: "application/json" });
-            const url = URL.createObjectURL(dataBlob);
-            const link = document.createElement('a');
-            link.href = url; link.download = 'receitas-backup.json';
-            document.body.appendChild(link); link.click(); document.body.removeChild(link); URL.revokeObjectURL(url);
-        };
+        App.saveInstructions = () => { if(getActiveRecipe()) { getActiveRecipe().instructions = document.getElementById('recipe-instructions').value; saveData(); Swal.fire({toast:true, position:'top-end', icon:'success', title:'Preparo Guardado!', showConfirmButton:false, timer:1500}); } };
         
-        App.handleFileSelect = (event) => {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                try {
-                    const data = JSON.parse(e.target.result);
-                    if (data && Array.isArray(data.recipes)) {
-                        Swal.fire({ title: 'Restaurar Backup?', text: "Vai substituir os dados atuais.", icon: 'warning', showCancelButton: true, confirmButtonText: 'Restaurar' })
-                        .then((result) => {
-                            if (result.isConfirmed) {
-                                recipes = data.recipes; nextId = data.nextId || 0; ingredientMemory = data.ingredientMemory || []; isDarkMode = data.isDarkMode || false; activeRecipeId = null;
-                                applyThemeToDOM(); saveData(); App.switchView('receitas');
-                                Swal.fire('Sucesso', 'Backup importado.', 'success');
-                            }
-                        });
-                    } else { Swal.fire('Erro', 'Ficheiro inválido.', 'error'); }
-                } catch (error) { Swal.fire('Erro', 'Falha ao ler o ficheiro.', 'error'); } 
-                finally { event.target.value = null; }
-            };
-            reader.readAsText(file);
+        App.deleteRecipe = async (id) => { 
+            const {isConfirmed} = await Swal.fire({title:'Apagar Receita?', text:'Esta ação removerá todos os dados deste item permanentemente.', icon:'warning', showCancelButton:true, confirmButtonColor:'#ef4444', confirmButtonText:'Sim, Apagar'}); 
+            if(isConfirmed){ recipes=recipes.filter(r=>r.id!==id); activeRecipeId=null; saveData(); App.switchView('receitas'); } 
         };
 
-        App.resetApplication = () => {
-             Swal.fire({
-                title: 'Tem a certeza?', text: "Irá apagar todas as receitas e o banco de ingredientes. Esta ação é irreversível!", icon: 'warning', showCancelButton: true, confirmButtonColor: '#ef4444', confirmButtonText: 'Sim, Apagar Tudo'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    localStorage.removeItem('cakeRecipesDataV16'); recipes = []; activeRecipeId = null; nextId = 0; ingredientMemory = [];
-                    saveData(); App.switchView('receitas');
-                }
-            });
+        App.promptRename = async () => { 
+            const r = getActiveRecipe(); 
+            const {value: n} = await Swal.fire({title:'Renomear Receita', input:'text', inputValue:r.name, showCancelButton:true}); 
+            if(n){ r.name=n.trim(); renderRecipeDetails(); saveData(); } 
         };
 
-        App.promptRename = async () => {
-            const activeRecipe = getActiveRecipe();
-            if (!activeRecipe) return;
-            const { value: newName } = await Swal.fire({
-                title: 'Renomear Receita',
-                input: 'text',
-                inputValue: activeRecipe.name,
-                showCancelButton: true,
-                confirmButtonText: 'Guardar',
-                cancelButtonText: 'Cancelar'
-            });
-            if (newName) { activeRecipe.name = newName.trim(); saveData(); renderRecipeDetails(); }
+        App.resetApplication = async () => { 
+            if((await Swal.fire({title:'Limpar Cache?', text:'Isto apagará o histórico local, mas não afetará o Drive.', icon:'warning', showCancelButton:true})).isConfirmed){ 
+                localStorage.clear(); location.reload(); 
+            } 
         };
 
-        // --- TUTORIAL ---
-        App.startTutorial = () => {
-            const steps = [
-                { title: '👋 Bem-vindo(a)!', text: 'Navegue pelo menu inferior (no telemóvel) ou lateral para controlar os seus custos com facilidade.' },
-                { title: '🍰 1. Receitas', text: 'Crie produtos e adicione ingredientes. O sistema soma os custos automaticamente.' },
-                { title: '📦 2. Embalagens', text: 'Adicione caixas, forminhas e outros acessórios separados dos ingredientes!' },
-                { title: '💰 3. Custos e Lucro', text: 'Dentro da receita, defina os seus gastos extras e a Margem de Lucro ideal.' },
-                { title: '🛒 4. Banco (Estoque)', text: 'O preço de algo mudou? Atualize na aba Estoque e todas as receitas vão recalcular sozinhas!' }
-            ];
-            
-            let currentStep = 0;
-            const showStep = () => {
-                if(currentStep >= steps.length) return;
-                Swal.fire({
-                    title: steps[currentStep].title,
-                    text: steps[currentStep].text,
-                    confirmButtonText: currentStep === steps.length - 1 ? 'Começar! 🚀' : 'Próximo ➔',
-                    showCancelButton: currentStep > 0,
-                    cancelButtonText: 'Voltar',
-                    reverseButtons: true,
-                    backdrop: `rgba(0,0,0,0.6)`
-                }).then((result) => {
-                    if (result.isConfirmed) { currentStep++; showStep(); }
-                    else if (result.dismiss === Swal.DismissReason.cancel) { currentStep--; showStep(); }
-                });
-            }
-            showStep();
-        };
+        App.startTutorial = () => Swal.fire({ title: 'Central de Ajuda', html: '<div class="text-left space-y-4 text-sm"><p><b>1. Receitas:</b> Crie seus produtos clicando em "Nova Receita".</p><p><b>2. Insumos vs Embalagens:</b> Adicione ingredientes e acessórios separadamente para maior precisão.</p><p><b>3. Estoque:</b> Atualize o preço de um insumo uma vez e todas as receitas serão corrigidas.</p><p><b>4. Auto-save:</b> Conecte seu Drive para salvar tudo na nuvem automaticamente.</p></div>', icon: 'info' });
 
         window.onload = () => { 
             loadData(); 
             App.switchView('receitas'); 
-            
-            // Lógica do Ecrã de Carregamento
-            setTimeout(() => {
-                const loader = document.getElementById('loading-screen');
-                if (loader) {
-                    loader.style.opacity = '0'; 
-                    loader.style.pointerEvents = 'none'; 
-                    setTimeout(() => loader.remove(), 700); 
-                }
+            setTimeout(() => { 
+                const l = document.getElementById('loading-screen'); 
+                if(l) { l.style.opacity = '0'; setTimeout(()=>l.remove(), 700); } 
             }, 3000); 
         };
     </script>
