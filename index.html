@@ -448,7 +448,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
             
             if(viewId === 'receitas') {
-                if(activeRecipeId) { showView('view-recipe-details'); renderRecipeDetails(); } 
+                if(activeRecipeId !== null) { showView('view-recipe-details'); renderRecipeDetails(); } 
                 else { showView('view-receitas-list'); renderRecipeList(); }
             } else { 
                 showView(`view-${viewId}-content`); 
