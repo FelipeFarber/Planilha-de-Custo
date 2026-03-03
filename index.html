@@ -72,20 +72,24 @@
 
         .pill-select { appearance: none; border-radius: 0.85rem !important; border: 1.5px solid transparent !important; background-color: var(--form-bg); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23f97316' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 14px; padding-right: 36px; }
 
-        .nav-item { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); color: var(--text-muted); border-radius: 1rem; font-weight: 600; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .nav-item { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); color: var(--text-muted); border-radius: 1.25rem; font-weight: 600; }
         .nav-item:hover { color: var(--text-main); background: color-mix(in srgb, var(--text-main) 6%, transparent); }
-        .nav-item.active { background: var(--primary); color: white; box-shadow: 0 5px 15px -5px color-mix(in srgb, var(--primary) 40%, transparent); }
+        .nav-item.active { background: var(--primary); color: white; box-shadow: 0 10px 20px -5px color-mix(in srgb, var(--primary) 40%, transparent); }
 
-        th { font-size: 0.65rem; font-weight: 800; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; padding: 12px 8px; border-bottom: 2px solid var(--border-color); text-align: left; }
-        td { padding: 12px 8px; border-bottom: 1px solid var(--border-color); vertical-align: middle; font-size: 0.8rem; }
+        .editable { cursor: text; border-radius: 0.5rem; padding: 4px 8px; transition: background 0.2s; border: 1px dashed transparent; }
+        .editable:hover { background: color-mix(in srgb, var(--primary) 12%, transparent); border-color: var(--primary); }
 
-        .summary-box { background: var(--summary-bg); color: var(--summary-text); border-radius: 1.5rem; box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.3); }
+        th { font-size: 0.7rem; font-weight: 800; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; padding: 12px; border-bottom: 2px solid var(--border-color); text-align: left; }
+        td { padding: 12px; border-bottom: 1px solid var(--border-color); vertical-align: middle; font-size: 0.85rem; }
+
+        .summary-box { background: var(--summary-bg); color: var(--summary-text); border-radius: 2.5rem; box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.3); }
 
         .recipe-card { transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); border: 1.5px solid transparent; }
         .recipe-card:hover { border-color: var(--primary); transform: translateY(-8px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); }
 
-        .instruction-box { background-color: var(--form-bg); border-radius: 1.25rem; padding: 1.25rem; font-size: 0.9rem; line-height: 1.7; min-height: 200px; border: 1.5px solid transparent; transition: all 0.2s; width: 100%; }
-        
+        .instruction-box { background-color: var(--form-bg); border-radius: 1.25rem; padding: 1.25rem; font-size: 0.95rem; line-height: 1.7; min-height: 200px; border: 1.5px solid transparent; transition: all 0.2s; width: 100%; }
+        .instruction-box:focus { border-color: var(--primary); background-color: var(--card-bg); outline: none; }
+
         #drive-loader { display: none; }
         #drive-loader.active { display: flex; }
 
@@ -94,147 +98,84 @@
 
         /* Mobile specific fixes */
         @media (max-width: 768px) {
-            .main-container { 
-                padding-top: 80px; 
-                padding-bottom: 100px; 
-            }
-            td, th { padding: 8px 4px; font-size: 0.75rem; }
-            .premium-input { padding: 0.65rem; font-size: 0.85rem; }
-            .pill-select { padding: 0.65rem; font-size: 0.85rem; }
-            
-            /* Ajuste da Sidebar para o topo no mobile - Mais Fina */
-            header {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 65px;
-                flex-direction: row !important;
-                border-radius: 0 !important;
-                padding: 0 1.25rem !important;
-                justify-content: space-between;
-                align-items: center;
-                background: var(--card-bg);
-                backdrop-filter: blur(15px);
-                border-bottom: 1px solid var(--border-color);
-            }
-            header .p-6, header .p-12 { padding: 0 !important; }
-            
-            /* Menu de navegação inferior no mobile - Estilo Dock */
-            nav {
-                position: fixed;
-                bottom: 1rem;
-                left: 1rem;
-                right: 1rem;
-                height: 70px;
-                background: var(--card-bg);
-                backdrop-filter: blur(25px);
-                border-radius: 1.75rem !important;
-                padding: 0.4rem !important;
-                box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-                border: 1px solid var(--border-color);
-                flex-direction: row !important;
-                width: calc(100% - 2rem) !important;
-                justify-content: space-around;
-            }
-            .nav-item { 
-                padding: 0 !important; 
-                height: 100%;
-                width: 60px !important;
-                flex: none !important;
-                border-radius: 1.25rem !important;
-            }
-            .nav-item span { font-size: 0.55rem !important; font-weight: 800; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
-            
-            /* Esconde secção de utilizador antiga e integra no nav */
-            #sidebar-user-section { display: none !important; }
-            #mobile-auth-slot { display: flex !important; }
-
-            /* Ajuste de formulários de inserção */
-            .recipe-form-grid { grid-template-columns: 1fr !important; gap: 0.75rem !important; }
+            .main-container { padding-bottom: 200px; }
+            td, th { padding: 8px; font-size: 0.75rem; }
+            .premium-input { padding: 0.8rem; font-size: 0.85rem; }
+            .pill-select { padding: 0.8rem; font-size: 0.85rem; }
+            .theme-card { border-radius: 1.25rem; padding: 1.25rem !important; }
+            .summary-box { border-radius: 1.5rem; padding: 1.5rem !important; }
         }
-
-        #mobile-auth-slot { display: none; }
     </style>
 </head>
 <body class="h-screen flex flex-col md:flex-row overflow-hidden">
 
     <!-- Loading Screen -->
     <div id="loading-screen" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[var(--bg-color)] transition-opacity duration-700 ease-in-out">
-        <div class="relative mb-6">
-            <img src="assets/logo.png" alt="Logo" onerror="this.src='https://placehold.co/200x200/f97316/white?text=Logo'" class="w-32 h-32 md:w-64 md:h-64 rounded-full object-cover animate-pulse-logo border-4 border-white shadow-2xl bg-white">
+        <div class="relative mb-10">
+            <img src="assets/logo.png" alt="Logo" onerror="this.src='https://placehold.co/200x200/f97316/white?text=Logo'" class="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover animate-pulse-logo border-8 border-white shadow-2xl bg-white">
         </div>
-        <h1 class="font-black text-2xl md:text-5xl text-[var(--primary)] tracking-tighter text-center">Cálculo de Receitas</h1>
-        <p class="mt-2 text-[8px] md:text-sm font-bold tracking-[0.3em] uppercase opacity-40 text-center" style="color: var(--text-muted)">Inteligência na Nuvem</p>
+        <h1 class="font-black text-3xl md:text-5xl text-[var(--primary)] tracking-tighter text-center">Cálculo de Receitas</h1>
+        <p class="mt-4 text-[10px] md:text-sm font-bold tracking-[0.3em] uppercase opacity-40 text-center" style="color: var(--text-muted)">Excelência em Nuvem</p>
     </div>
 
     <!-- Drive Overlay Loader -->
     <div id="drive-loader" class="fixed inset-0 z-[110] flex-col items-center justify-center bg-slate-900/70 backdrop-blur-lg text-white">
-        <div class="w-12 h-12 border-4 border-white/20 border-t-[var(--primary)] rounded-full animate-spin mb-4"></div>
-        <p class="font-black tracking-widest uppercase text-[9px]" id="drive-loader-text">A Sincronizar...</p>
+        <div class="w-14 h-14 border-4 border-white/20 border-t-[var(--primary)] rounded-full animate-spin mb-6"></div>
+        <p class="font-black tracking-widest uppercase text-[10px]" id="drive-loader-text">A Sincronizar...</p>
     </div>
 
-    <!-- Header (Top no Mobile, Sidebar no PC) -->
-    <header class="w-full md:w-80 flex-shrink-0 theme-card rounded-none md:rounded-r-[3rem] flex flex-col border-b md:border-b-0 md:border-r z-40 h-auto md:h-full relative shadow-xl overflow-hidden">
+    <!-- Sidebar / Navigation -->
+    <header class="w-full md:w-80 flex-shrink-0 theme-card rounded-none md:rounded-r-[3rem] flex flex-col border-b md:border-b-0 md:border-r z-40 h-auto md:h-full relative shadow-xl overflow-y-auto">
         
-        <!-- Branding -->
+        <!-- Sidebar Header -->
         <div class="p-6 md:p-12 flex flex-row md:flex-col justify-between md:justify-center items-center gap-4">
-            <div class="flex flex-row md:flex-col items-center gap-3 md:gap-5">
-                <img src="assets/logo.png" alt="Logo" onerror="this.src='https://placehold.co/150x150/f97316/white?text=Logo'" class="w-8 h-8 md:w-28 md:h-28 rounded-lg md:rounded-[2rem] shadow-xl object-cover bg-white p-0.5 border border-slate-50">
+            <div class="flex flex-row md:flex-col items-center gap-4 md:gap-5 text-center">
+                <img src="assets/logo.png" alt="Logo" onerror="this.src='https://placehold.co/150x150/f97316/white?text=Logo'" class="w-12 h-12 md:w-28 md:h-28 rounded-[1.5rem] md:rounded-[2rem] shadow-2xl object-cover bg-white p-1 border-2 border-slate-50">
                 <div class="text-left md:text-center">
-                    <h1 class="font-black text-xs md:text-3xl leading-tight text-[var(--primary)] tracking-tighter uppercase">RECEITAS<br class="hidden md:block"><span class="text-slate-400 dark:text-slate-500 text-[10px] md:text-xl font-extrabold ml-1 md:ml-0">PRO</span></h1>
+                    <h1 class="font-black text-lg md:text-3xl leading-none text-[var(--primary)] tracking-tighter uppercase">RECEITAS<br><span class="text-slate-400 dark:text-slate-500 text-sm md:text-xl font-extrabold">PRO</span></h1>
                 </div>
             </div>
             
-            <button onclick="App.toggleTheme()" class="p-2 md:p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 transition">
-                <svg class="theme-icon-svg w-4 h-4 md:w-5 md:h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></svg>
+            <button onclick="App.toggleTheme()" class="md:hidden p-3 rounded-xl bg-slate-100 dark:bg-slate-800 transition">
+                <svg class="theme-icon-svg w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></svg>
             </button>
         </div>
 
-        <!-- Navigation -->
-        <nav class="md:flex-1 md:px-6 flex flex-col md:bg-transparent p-0 gap-1 md:gap-3">
-            <button onclick="App.switchView('receitas')" id="nav-receitas" class="nav-item active p-3 md:px-7 md:py-4">
+        <!-- Sidebar Menu -->
+        <nav class="fixed bottom-0 left-0 right-0 md:relative md:flex-1 md:px-6 flex flex-row md:flex-col bg-[var(--card-bg)] md:bg-transparent border-t md:border-none z-50 p-2 md:p-0 gap-1 md:gap-3">
+            <button onclick="App.switchView('receitas')" id="nav-receitas" class="nav-item active flex-1 md:flex-none flex flex-col md:flex-row items-center gap-2 md:gap-5 p-2 md:px-7 md:py-4">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-                <span class="md:text-xs">Painel</span>
+                <span class="text-[9px] md:text-xs font-black uppercase tracking-widest text-center">Receitas</span>
             </button>
-            <button onclick="App.switchView('banco')" id="nav-banco" class="nav-item p-3 md:px-7 md:py-4">
+            <button onclick="App.switchView('banco')" id="nav-banco" class="nav-item flex-1 md:flex-none flex flex-col md:flex-row items-center gap-2 md:gap-5 p-2 md:px-7 md:py-4">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
-                <span class="md:text-xs">Estoque</span>
+                <span class="text-[9px] md:text-xs font-black uppercase tracking-widest text-center">Estoque</span>
             </button>
-            <button onclick="App.switchView('personalizar')" id="nav-personalizar" class="nav-item p-3 md:px-7 md:py-4">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33"/></svg>
-                <span class="md:text-xs">Ajustes</span>
-            </button>
-
-            <!-- Mobile Auth Slot -->
-            <button id="mobile-auth-slot" onclick="App.handleProfileClick()" class="nav-item p-3 md:hidden">
-                <div id="mobile-profile-container" class="relative">
-                    <img id="mobile-user-photo" src="" class="hidden w-6 h-6 rounded-full border border-white shadow-sm">
-                    <svg id="mobile-google-icon" viewBox="0 0 48 48" width="20" height="20"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/></svg>
-                </div>
-                <span id="mobile-auth-label">Login</span>
+            <button onclick="App.switchView('personalizar')" id="nav-personalizar" class="nav-item flex-1 md:flex-none flex flex-col md:flex-row items-center gap-2 md:gap-5 p-2 md:px-7 md:py-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09"/></svg>
+                <span class="text-[9px] md:text-xs font-black uppercase tracking-widest text-center">Ajustes</span>
             </button>
 
             <div class="hidden md:block flex-1"></div>
             
-            <!-- Desktop User Section -->
-            <div id="sidebar-user-section" class="hidden md:flex flex-col border-t border-[var(--border-color)] p-6 gap-3">
+            <!-- User Profile Section in Menu -->
+            <div id="sidebar-user-section" class="flex flex-col border-t border-[var(--border-color)] p-4 md:p-6 gap-3 mb-16 md:mb-0">
                 <div id="drive-user-info" class="hidden flex items-center gap-3 mb-2 bg-slate-50 dark:bg-white/5 p-2 rounded-2xl">
-                    <img id="user-photo" src="" class="w-9 h-9 rounded-full border border-[var(--primary)]">
+                    <img id="user-photo" src="" class="w-10 h-10 rounded-full border-2 border-[var(--primary)] shadow-md">
                     <div class="flex-1 overflow-hidden">
-                        <p id="user-name" class="text-[9px] font-black uppercase tracking-wider truncate"></p>
-                        <p id="sync-status" class="text-[7px] font-bold text-emerald-500 uppercase">Sincronizado</p>
+                        <p id="user-name" class="text-[10px] font-black uppercase tracking-wider truncate"></p>
+                        <p id="sync-status" class="text-[8px] font-bold text-emerald-500 uppercase tracking-widest">Sincronizado</p>
                     </div>
                 </div>
                 
-                <button id="btn-menu-drive-auth" onclick="App.handleAuthClick()" class="flex items-center justify-center gap-2 p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-black uppercase text-[9px] tracking-widest shadow-sm">
-                    <svg viewBox="0 0 48 48" width="16" height="16"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/></svg>
-                    <span>Conectar</span>
+                <button id="btn-menu-drive-auth" onclick="App.handleAuthClick()" class="flex items-center justify-center gap-2 p-3 md:p-4 rounded-xl md:rounded-2xl bg-white dark:bg-slate-800 text-slate-800 dark:text-white border border-slate-200 dark:border-slate-700 font-black uppercase text-[9px] md:text-[10px] tracking-widest shadow-sm hover:scale-[1.02] transition">
+                    <svg viewBox="0 0 48 48" width="18" height="18"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/></svg>
+                    Conectar Google
                 </button>
 
                 <div id="drive-connected-actions" class="hidden flex flex-col gap-2">
-                    <button onclick="App.saveToDrive(false)" class="w-full p-3 rounded-xl bg-[var(--primary)] text-white font-black uppercase text-[9px] tracking-widest shadow-lg">Sincronizar</button>
-                    <button onclick="App.handleSignoutClick()" class="w-full p-1.5 text-[8px] font-bold text-red-500 uppercase tracking-widest">Sair</button>
+                    <button onclick="App.saveToDrive(false)" class="w-full p-3 rounded-xl bg-[var(--primary)] text-white font-black uppercase text-[10px] tracking-widest shadow-lg shadow-orange-500/20 hover:scale-[1.02] transition">Sincronizar Agora</button>
+                    <button onclick="App.handleSignoutClick()" class="w-full p-2 text-[9px] font-bold text-red-500 hover:bg-red-500/10 rounded-lg transition uppercase tracking-widest">Sair da Conta</button>
                 </div>
             </div>
         </nav>
@@ -247,29 +188,30 @@
             <!-- VIEW: RECEITAS LIST -->
             <div id="view-receitas-list" class="animate-view-enter space-y-6 md:space-y-10">
                 <header>
-                    <h2 class="text-2xl md:text-6xl font-black tracking-tighter mb-1 md:mb-4 leading-tight">Painel de Receitas</h2>
-                    <p class="text-xs md:text-xl font-medium opacity-50 uppercase tracking-widest">Gestão Profissional de Custos</p>
+                    <h2 class="text-3xl md:text-6xl font-black tracking-tighter mb-2 md:mb-4 leading-tight">Painel de Receitas</h2>
+                    <p class="text-sm md:text-xl font-medium opacity-50">Gestão profissional de custos e lucros.</p>
                 </header>
                 <div id="recipe-grid-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8"></div>
             </div>
 
             <!-- VIEW: RECIPE DETAILS -->
-            <div id="view-recipe-details" class="hidden animate-view-enter space-y-6 md:space-y-10 pb-10">
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div id="view-recipe-details" class="hidden space-y-8 md:space-y-10 pb-10">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
                     <div class="flex-1 w-full">
-                        <button onclick="App.backToRecipes()" class="flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.2em] text-[var(--primary)] mb-2 md:mb-5">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                        <button onclick="App.backToRecipes()" class="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--primary)] mb-3 md:mb-5 hover:translate-x-[-5px] transition-transform">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
                             Voltar
                         </button>
-                        <div class="flex items-center justify-between sm:justify-start gap-3">
-                            <h2 id="current-recipe-name" class="text-xl md:text-5xl font-black tracking-tighter leading-tight truncate max-w-[180px] md:max-w-none">Receita</h2>
-                            <button onclick="App.promptRename()" class="p-2.5 md:p-4 rounded-xl md:rounded-3xl bg-slate-100 dark:bg-slate-800 shadow-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
+                        <div class="flex items-center justify-between sm:justify-start gap-4">
+                            <h2 id="current-recipe-name" class="text-2xl md:text-5xl font-black tracking-tighter leading-tight truncate max-w-[200px] md:max-w-none">Receita</h2>
+                            <button onclick="App.promptRename()" class="p-3 md:p-4 rounded-2xl md:rounded-3xl bg-slate-100 dark:bg-slate-800 hover:scale-110 transition shadow-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
                             </button>
                         </div>
                     </div>
-                    <button onclick="App.deleteRecipe(App.getActiveRecipeId())" class="flex items-center gap-2 px-5 py-2.5 md:py-5 rounded-xl bg-red-500/10 text-red-500 font-black text-[9px] md:text-xs uppercase tracking-widest">
-                        Remover Receita
+                    <button onclick="App.deleteRecipe(App.getActiveRecipeId())" class="flex items-center gap-2 px-6 py-3 md:py-5 rounded-2xl bg-red-500/10 text-red-500 font-black text-[10px] md:text-xs uppercase tracking-widest hover:bg-red-500 hover:text-white transition shadow-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/></svg>
+                        Remover
                     </button>
                 </div>
 
@@ -278,44 +220,44 @@
                     <div class="lg:col-span-2 space-y-6 md:space-y-10">
                         
                         <!-- SECTION: INGREDIENTES -->
-                        <section class="theme-card p-4 md:p-10">
-                            <h3 class="text-base md:text-2xl font-black mb-5 md:mb-8 flex items-center gap-3 uppercase tracking-wider">
-                                <svg class="text-[var(--primary)]" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z"/></svg>
-                                Insumos
+                        <section class="theme-card p-5 md:p-10">
+                            <h3 class="text-lg md:text-2xl font-black mb-6 md:mb-8 flex items-center gap-3">
+                                <svg class="text-[var(--primary)]" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z"/></svg>
+                                Ingredientes
                             </h3>
-                            <div class="recipe-form-grid grid grid-cols-1 md:grid-cols-5 gap-3 mb-6 items-end bg-slate-50 dark:bg-slate-900/40 p-4 rounded-2xl border border-[var(--border-color)]">
+                            <div class="grid grid-cols-1 md:grid-cols-5 gap-3 mb-6 items-end bg-slate-50 dark:bg-slate-900/40 p-4 rounded-3xl border border-[var(--border-color)]">
                                 <div class="md:col-span-2">
-                                    <label class="text-[8px] font-black uppercase block mb-1 opacity-40">Item</label>
+                                    <label class="text-[9px] font-black uppercase block mb-1 opacity-40">Item</label>
                                     <input type="text" id="ing-name" list="ingredient-list" placeholder="Ex: Farinha" class="premium-input p-3 text-xs" oninput="App.handleIngredientNameInput(this.value)">
                                     <datalist id="ingredient-list"></datalist>
                                 </div>
                                 <div class="grid grid-cols-2 gap-2">
                                     <div>
-                                        <label class="text-[8px] font-black uppercase block mb-1 opacity-40">R$ Pct</label>
+                                        <label class="text-[9px] font-black uppercase block mb-1 opacity-40">R$ Pct</label>
                                         <input type="text" inputmode="decimal" id="ing-price" placeholder="0,00" class="premium-input p-3 text-xs">
                                     </div>
                                     <div>
-                                        <label class="text-[8px] font-black uppercase block mb-1 opacity-40">Qtd Pct</label>
+                                        <label class="text-[9px] font-black uppercase block mb-1 opacity-40">Qtd Pct</label>
                                         <div class="flex gap-1">
                                             <input type="text" id="ing-pkg-qty" placeholder="1000" class="premium-input p-3 text-xs">
-                                            <select id="ing-pkg-unit" class="w-14 pill-select p-2 text-[9px] font-bold">
+                                            <select id="ing-pkg-unit" class="w-16 pill-select p-2 text-[10px] font-bold">
                                                 <option value="g">g</option><option value="ml">ml</option><option value="un">un</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="text-[8px] font-black uppercase block mb-1 opacity-40">Uso (Qtd)</label>
+                                    <label class="text-[9px] font-black uppercase block mb-1 opacity-40">Uso</label>
                                     <input type="text" id="ing-recipe-qty" placeholder="Ex: 250" class="premium-input p-3 text-xs">
                                 </div>
-                                <div>
-                                    <button onclick="App.addIngredientToRecipe()" class="w-full h-10 md:h-12 bg-[var(--primary)] text-white rounded-xl shadow-lg hover:scale-105 transition-all font-black text-lg">
+                                <div class="flex justify-center">
+                                    <button onclick="App.addIngredientToRecipe()" class="w-full h-12 bg-[var(--primary)] text-white rounded-2xl shadow-lg hover:scale-105 active:scale-95 transition-all font-black text-xl">
                                         +
                                     </button>
                                 </div>
                             </div>
-                            <div class="overflow-x-auto -mx-4 md:mx-0 px-4 md:px-0">
-                                <table class="w-full border-separate border-spacing-0 min-w-[450px]">
+                            <div class="overflow-x-auto -mx-5 md:mx-0 px-5 md:px-0">
+                                <table class="w-full border-separate border-spacing-0 min-w-[500px]">
                                     <thead><tr><th>Item</th><th>Pacote</th><th>Uso</th><th class="text-right">R$</th><th class="w-10"></th></tr></thead>
                                     <tbody id="recipe-table"></tbody>
                                 </table>
@@ -323,38 +265,38 @@
                         </section>
 
                         <!-- SECTION: EMBALAGENS -->
-                        <section class="theme-card p-4 md:p-10">
-                            <h3 class="text-base md:text-2xl font-black mb-5 md:mb-8 flex items-center gap-3 uppercase tracking-wider">
-                                <svg class="text-indigo-500" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2"/></svg>
+                        <section class="theme-card p-5 md:p-10">
+                            <h3 class="text-lg md:text-2xl font-black mb-6 md:mb-8 flex items-center gap-3">
+                                <svg class="text-indigo-500" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2"/></svg>
                                 Embalagens
                             </h3>
-                            <div class="recipe-form-grid grid grid-cols-1 md:grid-cols-5 gap-3 mb-6 items-end bg-slate-50 dark:bg-slate-900/40 p-4 rounded-2xl border border-[var(--border-color)]">
+                            <div class="grid grid-cols-1 md:grid-cols-5 gap-3 mb-6 items-end bg-slate-50 dark:bg-slate-900/40 p-4 rounded-3xl border border-[var(--border-color)]">
                                 <div class="md:col-span-2">
-                                    <label class="text-[8px] font-black uppercase block mb-1 opacity-40">Descrição</label>
-                                    <input type="text" id="pkg-name" list="packaging-suggestions" placeholder="Ex: Caixa" class="premium-input p-3 text-xs">
+                                    <label class="text-[9px] font-black uppercase block mb-1 opacity-40">Descrição</label>
+                                    <input type="text" id="pkg-name" list="packaging-suggestions" placeholder="Ex: Caixa P" class="premium-input p-3 text-xs">
                                 </div>
                                 <div class="grid grid-cols-2 gap-2">
                                     <div>
-                                        <label class="text-[8px] font-black uppercase block mb-1 opacity-40">R$ Pct</label>
+                                        <label class="text-[9px] font-black uppercase block mb-1 opacity-40">R$ Pct</label>
                                         <input type="text" id="pkg-price" placeholder="0,00" class="premium-input p-3 text-xs">
                                     </div>
                                     <div>
-                                        <label class="text-[8px] font-black uppercase block mb-1 opacity-40">Un. Pct</label>
+                                        <label class="text-[9px] font-black uppercase block mb-1 opacity-40">Unid. Pct</label>
                                         <input type="text" id="pkg-qty" placeholder="50" class="premium-input p-3 text-xs">
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="text-[8px] font-black uppercase block mb-1 opacity-40">Uso (Qtd)</label>
+                                    <label class="text-[9px] font-black uppercase block mb-1 opacity-40">Uso (Qtd)</label>
                                     <input type="text" id="pkg-recipe-qty" placeholder="1" class="premium-input p-3 text-xs">
                                 </div>
-                                <div>
-                                    <button onclick="App.addPackagingToRecipe()" class="w-full h-10 md:h-12 bg-indigo-500 text-white rounded-xl shadow-lg hover:scale-105 transition-all font-black text-lg">
+                                <div class="flex justify-center">
+                                    <button onclick="App.addPackagingToRecipe()" class="w-full h-12 bg-indigo-500 text-white rounded-2xl shadow-xl hover:scale-105 active:scale-95 transition-all font-black text-xl">
                                         +
                                     </button>
                                 </div>
                             </div>
-                            <div class="overflow-x-auto -mx-4 md:mx-0 px-4 md:px-0">
-                                <table class="w-full border-separate border-spacing-0 min-w-[450px]">
+                            <div class="overflow-x-auto -mx-5 md:mx-0 px-5 md:px-0">
+                                <table class="w-full border-separate border-spacing-0 min-w-[500px]">
                                     <thead><tr><th>Item</th><th>Pacote</th><th>Uso</th><th class="text-right">R$</th><th class="w-10"></th></tr></thead>
                                     <tbody id="packaging-table"></tbody>
                                 </table>
@@ -362,68 +304,68 @@
                         </section>
                     </div>
 
-                    <!-- Right Column: Settings -->
+                    <!-- Right Column -->
                     <div class="space-y-6 md:space-y-10">
-                        <section class="theme-card p-5 md:p-8 space-y-5">
-                            <h3 class="text-base md:text-2xl font-black uppercase tracking-widest">Ajustes</h3>
-                            <div class="grid grid-cols-2 gap-3">
+                        <section class="theme-card p-6 md:p-8 flex flex-col">
+                            <div class="flex justify-between items-center mb-6">
+                                <h3 class="text-lg md:text-2xl font-black">Preparo</h3>
+                                <button onclick="App.saveInstructions()" class="text-[9px] font-black uppercase tracking-widest bg-slate-900 text-white dark:bg-white dark:text-slate-900 px-4 py-2 rounded-xl">Salvar</button>
+                            </div>
+                            <textarea id="recipe-instructions" class="instruction-box border-none focus:ring-0 outline-none resize-none" placeholder="O passo a passo aqui..."></textarea>
+                        </section>
+
+                        <section class="theme-card p-6 md:p-8 space-y-6">
+                            <h3 class="text-lg md:text-2xl font-black">Configuração</h3>
+                            <div class="grid grid-cols-2 gap-4">
                                 <div class="space-y-1">
-                                    <label class="text-[8px] font-black uppercase opacity-40">Gás (R$)</label>
-                                    <input type="text" id="gas-cost" onblur="App.updateFinalCalculation()" class="premium-input p-3 font-bold text-xs">
+                                    <label class="text-[9px] font-black uppercase tracking-widest opacity-40">Gás (R$)</label>
+                                    <input type="text" id="gas-cost" onblur="App.updateFinalCalculation()" class="premium-input p-3 font-bold">
                                 </div>
                                 <div class="space-y-1">
-                                    <label class="text-[8px] font-black uppercase opacity-40">Outros (R$)</label>
-                                    <input type="text" id="other-costs" onblur="App.updateFinalCalculation()" class="premium-input p-3 font-bold text-xs">
+                                    <label class="text-[9px] font-black uppercase tracking-widest opacity-40">Outros (R$)</label>
+                                    <input type="text" id="other-costs" onblur="App.updateFinalCalculation()" class="premium-input p-3 font-bold">
                                 </div>
                             </div>
                             <div class="space-y-1">
-                                <label class="text-[8px] font-black uppercase opacity-40 text-center block">Rendimento (Unidades)</label>
-                                <input type="text" id="recipe-yield" onblur="App.updateFinalCalculation()" class="premium-input p-4 text-lg font-black text-[var(--primary)] text-center">
+                                <label class="text-[9px] font-black uppercase tracking-widest opacity-40 text-center block">Rendimento (Unidades)</label>
+                                <input type="text" id="recipe-yield" onblur="App.updateFinalCalculation()" class="premium-input p-4 text-xl font-black text-[var(--primary)] text-center">
                             </div>
                             <div class="pt-4 border-t border-[var(--border-color)] space-y-4">
                                 <div class="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
-                                    <button id="btn-method-margin" onclick="App.setPricingMethod('margin')" class="flex-1 py-2 rounded-lg text-[8px] font-black uppercase">Margem %</button>
-                                    <button id="btn-method-multiplier" onclick="App.setPricingMethod('multiplier')" class="flex-1 py-2 rounded-lg text-[8px] font-black uppercase">Markup x</button>
+                                    <button id="btn-method-margin" onclick="App.setPricingMethod('margin')" class="flex-1 py-2 rounded-lg text-[9px] md:text-xs font-black uppercase">Margem %</button>
+                                    <button id="btn-method-multiplier" onclick="App.setPricingMethod('multiplier')" class="flex-1 py-2 rounded-lg text-[9px] md:text-xs font-black uppercase">Markup x</button>
                                 </div>
                                 <div id="div-profit-margin" class="space-y-1 text-center">
-                                    <label class="text-[8px] font-black uppercase opacity-40">Margem (%)</label>
-                                    <input type="text" id="profit-margin" onblur="App.updateFinalCalculation()" class="premium-input p-4 text-xl font-black bg-emerald-500/10 text-emerald-600 text-center">
+                                    <label class="text-[9px] font-black uppercase opacity-40">Margem (%)</label>
+                                    <input type="text" id="profit-margin" onblur="App.updateFinalCalculation()" class="premium-input p-4 text-2xl font-black bg-emerald-500/10 text-emerald-600 text-center">
                                 </div>
                                 <div id="div-multiplier" class="hidden space-y-1 text-center">
-                                    <label class="text-[8px] font-black uppercase opacity-40">Markup (x)</label>
-                                    <input type="text" id="recipe-multiplier" onblur="App.updateFinalCalculation()" class="premium-input p-4 text-xl font-black bg-blue-500/10 text-blue-600 text-center">
+                                    <label class="text-[9px] font-black uppercase opacity-40">Markup (x)</label>
+                                    <input type="text" id="recipe-multiplier" onblur="App.updateFinalCalculation()" class="premium-input p-4 text-2xl font-black bg-blue-500/10 text-blue-600 text-center">
                                 </div>
                             </div>
-                        </section>
-
-                        <section class="theme-card p-5 md:p-8 flex flex-col">
-                            <div class="flex justify-between items-center mb-5">
-                                <h3 class="text-base md:text-2xl font-black uppercase">Preparo</h3>
-                                <button onclick="App.saveInstructions()" class="text-[8px] font-black uppercase tracking-widest bg-slate-900 text-white dark:bg-white dark:text-slate-900 px-4 py-1.5 rounded-lg shadow-md">Gravar</button>
-                            </div>
-                            <textarea id="recipe-instructions" class="instruction-box border-none focus:ring-0 outline-none resize-none" placeholder="O passo a passo aqui..."></textarea>
                         </section>
                     </div>
                 </div>
 
-                <!-- Footer Summary -->
-                <section class="summary-box p-6 md:p-16 relative overflow-hidden">
+                <!-- Footer Summary Card -->
+                <section class="summary-box p-8 md:p-16 relative overflow-hidden">
                     <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
                         <div class="space-y-4 md:space-y-8 text-white">
-                            <h4 class="text-[9px] font-black uppercase tracking-[0.3em] text-[var(--primary)]">Resumo Total</h4>
+                            <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-[var(--primary)]">Resumo Geral</h4>
                             <div class="space-y-3">
                                 <div class="flex justify-between items-center text-xs md:text-base"><span class="opacity-50">Ingredientes</span><span id="ingredients-cost" class="font-black">R$ 0,00</span></div>
                                 <div class="flex justify-between items-center text-xs md:text-base"><span class="opacity-50">Embalagens</span><span id="packagings-cost-summary" class="font-black text-indigo-300">R$ 0,00</span></div>
                                 <div class="pt-4 border-t border-white/10 flex justify-between items-end">
-                                    <span class="font-black text-base md:text-2xl uppercase tracking-tighter">Custo Un.</span>
+                                    <span class="font-black text-lg md:text-2xl">Custo Un.</span>
                                     <span id="unit-cost" class="font-black text-2xl md:text-4xl text-[var(--primary)]">R$ 0,00</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white/5 backdrop-blur-md p-5 md:p-10 rounded-[1.25rem] md:rounded-[2.5rem] border border-white/10 flex flex-col items-center text-center text-white shadow-2xl">
-                            <span class="text-[8px] md:text-xs font-black uppercase tracking-[0.3em] opacity-40 mb-1 md:mb-2">Sugestão de Venda</span>
+                        <div class="bg-white/5 backdrop-blur-md p-6 md:p-10 rounded-[1.5rem] md:rounded-[2.5rem] border border-white/10 flex flex-col items-center text-center text-white shadow-2xl">
+                            <span class="text-[9px] md:text-xs font-black uppercase tracking-[0.3em] opacity-40 mb-2">Sugestão de Venda</span>
                             <div id="unit-price" class="text-4xl md:text-8xl font-black tracking-tighter text-emerald-400 mb-2">R$ 0,00</div>
-                            <span class="px-4 py-1.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[7px] md:text-[9px] font-black uppercase tracking-widest">Lucro: <span id="profit-value">R$ 0,00</span></span>
+                            <span class="px-4 py-1.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[8px] md:text-[10px] font-black uppercase tracking-widest">Lucro Lote: <span id="profit-value">R$ 0,00</span></span>
                         </div>
                     </div>
                 </section>
@@ -432,36 +374,36 @@
             <!-- VIEW: BANCO DE PREÇOS -->
             <div id="view-banco-content" class="hidden animate-view-enter space-y-6 md:space-y-10">
                 <header>
-                    <h2 class="text-2xl md:text-6xl font-black tracking-tighter mb-2 leading-tight">Estoque Global</h2>
-                    <p class="text-[10px] font-medium opacity-50 uppercase tracking-widest">Preços atualizados em tempo real.</p>
+                    <h2 class="text-3xl md:text-6xl font-black tracking-tighter mb-2">Estoque Global</h2>
+                    <p class="text-sm font-medium opacity-50">Preços unificados para todas as receitas.</p>
                 </header>
-                <section class="theme-card p-5 md:p-10">
-                    <div class="grid grid-cols-1 md:grid-cols-5 gap-3 mb-8 items-end bg-slate-50 dark:bg-slate-900/40 p-5 rounded-2xl border border-[var(--border-color)]">
+                <section class="theme-card p-6 md:p-10">
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8 items-end bg-slate-50 dark:bg-slate-900/40 p-5 rounded-[2rem] border border-[var(--border-color)]">
                         <div class="md:col-span-2">
-                            <label class="text-[8px] font-black uppercase block mb-1 opacity-40">Nome</label>
-                            <input type="text" id="banco-ing-name" placeholder="Chocolate, Farinha..." class="premium-input p-4 font-bold text-xs">
+                            <label class="text-[9px] font-black uppercase block mb-2 opacity-40">Nome Insumo</label>
+                            <input type="text" id="banco-ing-name" placeholder="Chocolate, Farinha..." class="premium-input p-4 font-bold text-sm">
                         </div>
                         <div>
-                            <label class="text-[8px] font-black uppercase block mb-1 opacity-40">Preço Pct</label>
-                            <input type="text" id="banco-ing-price" placeholder="0,00" class="premium-input p-4 font-bold text-xs">
+                            <label class="text-[9px] font-black uppercase block mb-2 opacity-40">Preço Pct</label>
+                            <input type="text" id="banco-ing-price" placeholder="0,00" class="premium-input p-4 font-bold text-sm">
                         </div>
                         <div class="flex gap-2">
                             <div class="flex-1">
-                                <label class="text-[8px] font-black uppercase block mb-1 opacity-40">Qtd</label>
-                                <input type="text" id="banco-ing-qty" placeholder="1000" class="premium-input p-4 font-bold text-xs">
+                                <label class="text-[9px] font-black uppercase block mb-2 opacity-40">Qtd</label>
+                                <input type="text" id="banco-ing-qty" placeholder="1000" class="premium-input p-4 font-bold text-sm">
                             </div>
-                            <div class="w-16">
-                                <label class="text-[8px] font-black uppercase block mb-1 opacity-40">Un</label>
-                                <select id="banco-ing-unit" class="w-full pill-select p-4 font-black text-xs">
+                            <div class="w-20">
+                                <label class="text-[9px] font-black uppercase block mb-2 opacity-40">Un</label>
+                                <select id="banco-ing-unit" class="w-full pill-select p-4 font-black text-sm">
                                     <option value="g">g</option><option value="ml">ml</option><option value="un">un</option>
                                 </select>
                             </div>
                         </div>
-                        <button onclick="App.addIngredientToMemoryFromForm()" class="w-full py-4 bg-[var(--primary)] text-white font-black rounded-xl shadow-xl hover:scale-[1.03] transition text-[9px] uppercase tracking-widest">Gravar</button>
+                        <button onclick="App.addIngredientToMemoryFromForm()" class="w-full py-4 bg-[var(--primary)] text-white font-black rounded-2xl shadow-xl hover:scale-[1.03] transition text-[10px] uppercase tracking-widest">Atualizar</button>
                     </div>
                     <div class="overflow-x-auto">
-                        <table class="w-full border-separate border-spacing-0 min-w-[350px]">
-                            <thead><tr><th>Insumo</th><th>Custo Pacote</th><th class="w-16"></th></tr></thead>
+                        <table class="w-full border-separate border-spacing-0 min-w-[400px]">
+                            <thead><tr><th>Insumo</th><th>Custo Pacote</th><th class="w-20"></th></tr></thead>
                             <tbody id="ingredient-memory-table"></tbody>
                         </table>
                     </div>
@@ -471,13 +413,13 @@
             <!-- VIEW: AJUSTES -->
             <div id="view-personalizar-content" class="hidden animate-view-enter space-y-6 md:space-y-10">
                 <header>
-                    <h2 class="text-2xl md:text-6xl font-black tracking-tighter">Sistema</h2>
+                    <h2 class="text-3xl md:text-6xl font-black tracking-tighter">Manutenção</h2>
                 </header>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <section class="theme-card p-6 md:p-14 border border-red-500/10">
-                        <h3 class="text-lg md:text-3xl font-black mb-3">Eliminar Tudo</h3>
-                        <p class="text-[10px] font-medium opacity-50 mb-8 leading-relaxed">Apaga todas as receitas do navegador atual. Esta ação não pode ser desfeita.</p>
-                        <button onclick="App.resetApplication()" class="w-full py-4 rounded-xl bg-red-500/10 text-red-500 border border-red-500/20 font-black uppercase text-[9px] tracking-widest">Resetar Aplicação</button>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+                    <section class="theme-card p-6 md:p-14 border-2 border-red-500/20">
+                        <h3 class="text-xl md:text-3xl font-black mb-4">Resetar Dados</h3>
+                        <p class="text-xs md:text-sm font-medium opacity-50 mb-8 leading-relaxed">Apaga o histórico do navegador. Use se quiser recomeçar do zero localmente.</p>
+                        <button onclick="App.resetApplication()" class="w-full py-4 md:py-6 rounded-[2rem] bg-red-500/10 text-red-500 border border-red-500/20 font-black uppercase text-[10px] tracking-widest hover:bg-red-500 hover:text-white transition shadow-sm">Limpar Banco Local</button>
                     </section>
                 </div>
             </div>
@@ -524,6 +466,7 @@
             App.checkAutoLogin();
         };
 
+        // Check for previous session and SILENTLY LOAD
         App.checkAutoLogin = () => {
             const savedToken = localStorage.getItem('gdrive_token');
             if (savedToken && gapiInited) {
@@ -532,6 +475,7 @@
                     gapi.client.setToken(tokenObj);
                     App.showDriveControls(true);
                     App.fetchUserInfo();
+                    // SILENT LOAD FROM CLOUD ON STARTUP
                     App.loadFromDrive(true, true); 
                 }
             }
@@ -544,40 +488,11 @@
                 });
                 const user = await response.json();
                 if (user && user.name) {
-                    // Update Desktop
                     document.getElementById('drive-user-info').classList.remove('hidden');
                     document.getElementById('user-name').textContent = user.name;
                     document.getElementById('user-photo').src = user.picture;
-                    
-                    // Update Mobile
-                    document.getElementById('mobile-user-photo').src = user.picture;
-                    document.getElementById('mobile-user-photo').classList.remove('hidden');
-                    document.getElementById('mobile-google-icon').classList.add('hidden');
-                    document.getElementById('mobile-auth-label').textContent = 'Perfil';
                 }
             } catch (e) { console.error("Error fetching user info", e); }
-        };
-
-        App.handleProfileClick = () => {
-            const token = gapi.client.getToken();
-            if (token) {
-                // If logged in on mobile, show quick sync/logout menu
-                Swal.fire({
-                    title: 'Gestão de Conta',
-                    text: 'Deseja sincronizar os dados ou sair?',
-                    icon: 'info',
-                    showCancelButton: true,
-                    confirmButtonText: 'Sincronizar',
-                    cancelButtonText: 'Sair da Conta',
-                    confirmButtonColor: '#f97316',
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.isConfirmed) App.saveToDrive(false);
-                    else if (result.dismiss === Swal.DismissReason.cancel) App.handleSignoutClick();
-                });
-            } else {
-                App.handleAuthClick();
-            }
         };
 
         App.handleAuthClick = () => {
@@ -586,9 +501,10 @@
                 const token = gapi.client.getToken();
                 token.expires_at = Date.now() + (resp.expires_in * 1000);
                 localStorage.setItem('gdrive_token', JSON.stringify(token));
+                
                 App.showDriveControls(true);
                 App.fetchUserInfo();
-                App.loadFromDrive(true, true);
+                App.loadFromDrive(true, true); // Sync right after login
             };
             tokenClient.requestAccessToken({prompt: gapi.client.getToken() === null ? 'consent' : ''});
         };
@@ -601,13 +517,7 @@
                 localStorage.removeItem('gdrive_token');
                 App.showDriveControls(false);
                 document.getElementById('drive-user-info').classList.add('hidden');
-                
-                // Reset mobile UI
-                document.getElementById('mobile-user-photo').classList.add('hidden');
-                document.getElementById('mobile-google-icon').classList.remove('hidden');
-                document.getElementById('mobile-auth-label').textContent = 'Login';
-                
-                Swal.fire({toast:true, position:'top-end', icon:'info', title:'Sessão Encerrada', showConfirmButton:false, timer:2000});
+                Swal.fire('Até breve!', 'Desconectado com sucesso.', 'info');
             }
         };
 
@@ -630,7 +540,10 @@
         App.saveToDrive = async (isAuto = false) => {
             const token = gapi.client.getToken();
             if(!token) return;
+            const loader = document.getElementById('drive-loader');
             const status = document.getElementById('sync-status');
+
+            if(!isAuto && loader) { loader.classList.add('active'); document.getElementById('drive-loader-text').innerText = "Salvando..."; }
             if(status) { status.innerText = "A salvar..."; status.classList.replace('text-emerald-500', 'text-amber-500'); }
             
             try {
@@ -648,17 +561,26 @@
                     body: form
                 });
                 if(response.ok) {
+                    if(!isAuto) Swal.fire('Guardado!', 'Sincronizado com a Cloud.', 'success');
                     if(status) { status.innerText = "Sincronizado"; status.classList.replace('text-amber-500', 'text-emerald-500'); }
-                    if(!isAuto) Swal.fire({toast:true, position:'top-end', icon:'success', title:'Nuvem Sincronizada', showConfirmButton:false, timer:2000});
                 }
-            } catch (err) { console.error(err); }
+            } catch (err) { console.error(err); } finally { if(!isAuto && loader) loader.classList.remove('active'); }
         };
 
         App.loadFromDrive = async (isSilent = false, overwrite = false) => {
-            if(!gapi.client.getToken()) return;
+            if(!gapi.client.getToken()) return isSilent ? null : App.handleAuthClick();
+            
+            if(!isSilent) {
+                const { isConfirmed } = await Swal.fire({ title: 'Baixar da Nuvem?', text: 'Isso substituirá suas receitas atuais.', icon: 'question', showCancelButton: true });
+                if(!isConfirmed) return;
+            }
+
+            const loader = document.getElementById('drive-loader');
+            if(loader) { loader.classList.add('active'); document.getElementById('drive-loader-text').innerText = "Baixando..."; }
+
             try {
                 const fileId = await findBackupFile();
-                if (!fileId) return;
+                if (!fileId) { if(loader) loader.classList.remove('active'); return; }
                 const response = await gapi.client.drive.files.get({ fileId, alt: 'media' });
                 const data = response.result;
                 if (data && data.recipes) {
@@ -671,8 +593,9 @@
                         App.switchView('receitas');
                         renderRecipeList();
                     }
+                    if(!isSilent) Swal.fire('Sucesso', 'Dados sincronizados da Nuvem.', 'success');
                 }
-            } catch (e) { console.error(e); }
+            } catch (e) { console.error(e); } finally { if(loader) loader.classList.remove('active'); }
         };
 
         // --- CORE LOGIC ---
@@ -700,6 +623,7 @@
             localStorage.setItem('cakeRecipesDataV16', JSON.stringify({ recipes, nextId, ingredientMemory, isDarkMode }));
             if (gapiInited && gapi.client?.getToken()) {
                 if (autoSaveTimer) clearTimeout(autoSaveTimer);
+                // Aggressive auto-save: 3 seconds after change
                 autoSaveTimer = setTimeout(() => App.saveToDrive(true), 3000); 
             }
         };
@@ -748,14 +672,14 @@
             const c = document.getElementById('recipe-grid-container');
             if(!c) return;
             c.innerHTML = `<div class="theme-card border-2 border-dashed border-[var(--primary)] flex flex-col items-center justify-center p-8 cursor-pointer hover:bg-[var(--primary)]/5 transition-all" onclick="App.promptCreateRecipe()">
-                <div class="w-12 h-12 rounded-full bg-[var(--primary)] flex items-center justify-center mb-3 text-white shadow-xl font-black text-xl">+</div>
-                <h3 class="font-black text-[10px] uppercase tracking-widest text-[var(--primary)]">Nova Receita</h3></div>`;
+                <div class="w-14 h-14 rounded-full bg-[var(--primary)] flex items-center justify-center mb-4 text-white shadow-xl font-black text-2xl">+</div>
+                <h3 class="font-black text-xs md:text-sm uppercase tracking-widest text-[var(--primary)]">Nova Receita</h3></div>`;
             recipes.forEach(r => {
                 const fin = calculateRecipeFinancials(r);
                 c.innerHTML += `<div class="theme-card recipe-card p-6 cursor-pointer group relative" onclick="App.selectRecipe(${r.id})">
                     <button onclick="event.stopPropagation(); App.deleteRecipe(${r.id})" class="absolute top-3 right-3 p-2 bg-red-500/10 text-red-500 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity">✖</button>
-                    <h3 class="font-black text-lg mb-1 line-clamp-1">${r.name}</h3>
-                    <p class="text-[8px] font-black opacity-30 uppercase tracking-[0.2em] mb-4">${r.ingredients.length} Itens • ${r.yield} Un</p>
+                    <h3 class="font-black text-lg md:text-xl mb-1 line-clamp-1">${r.name}</h3>
+                    <p class="text-[8px] md:text-[9px] font-black opacity-30 uppercase tracking-[0.2em] mb-6">${r.ingredients.length} Itens • ${r.yield} Un</p>
                     <div class="flex justify-between items-end border-t border-[var(--border-color)] pt-4">
                         <div class="text-left"><span class="text-[8px] font-black opacity-40">Custo</span><div class="font-black text-xs">${formatCurrency(fin.unitC)}</div></div>
                         <div class="text-right"><span class="text-[8px] font-black text-emerald-500">Venda</span><div class="font-black text-lg text-emerald-500">${formatCurrency(fin.unitP)}</div></div>
@@ -787,22 +711,22 @@
             App.setPricingMethod(r.pricingMethod || 'margin', true);
 
             const iT = document.getElementById('recipe-table');
-            iT.innerHTML = r.ingredients.map(i => `<tr>
+            iT.innerHTML = r.ingredients.map(i => `<tr class="group">
                 <td class="font-black">${i.name}</td>
-                <td class="opacity-50 text-[9px]">${i.packagePrice.toFixed(2)}/${i.packageQty}${i.packageUnit}</td>
+                <td class="opacity-50 text-[10px]">${i.packagePrice.toFixed(2)}/${i.packageQty}${i.packageUnit}</td>
                 <td class="font-bold">${i.recipeQty}${i.packageUnit}</td>
                 <td class="text-right font-black">${formatCurrency((i.packagePrice / i.packageQty) * i.recipeQty)}</td>
                 <td class="text-center"><button onclick="App.removeIng(${i.id})" class="text-red-500">✖</button></td></tr>`).join('') 
-                || '<tr><td colspan="5" class="text-center py-8 opacity-20 text-[9px] font-black uppercase tracking-widest">Sem Ingredientes</td></tr>';
+                || '<tr><td colspan="5" class="text-center py-8 opacity-20 text-[10px] font-black uppercase tracking-widest">Sem Ingredientes</td></tr>';
 
             const pT = document.getElementById('packaging-table');
-            pT.innerHTML = (r.packagings || []).map(p => `<tr>
+            pT.innerHTML = (r.packagings || []).map(p => `<tr class="group">
                 <td class="font-black">${p.name}</td>
-                <td class="opacity-50 text-[9px]">${p.packagePrice.toFixed(2)}/${p.packageQty}un</td>
+                <td class="opacity-50 text-[10px]">${p.packagePrice.toFixed(2)}/${p.packageQty}un</td>
                 <td class="font-bold">${p.recipeQty}un</td>
                 <td class="text-right font-black text-indigo-500">${formatCurrency((p.packagePrice / p.packageQty) * p.recipeQty)}</td>
                 <td class="text-center"><button onclick="App.removePkg(${p.id})" class="text-red-500">✖</button></td></tr>`).join('') 
-                || '<tr><td colspan="5" class="text-center py-8 opacity-20 text-[9px] font-black uppercase tracking-widest">Sem Embalagens</td></tr>';
+                || '<tr><td colspan="5" class="text-center py-8 opacity-20 text-[10px] font-black uppercase tracking-widest">Sem Embalagens</td></tr>';
 
             App.updateFinalCalculation();
         };
@@ -824,8 +748,8 @@
             const r = getActiveRecipe(); if(!r) return; r.pricingMethod = m;
             const bM = document.getElementById('btn-method-margin'), bX = document.getElementById('btn-method-multiplier');
             if(bM && bX) {
-                bM.className = m === 'margin' ? 'flex-1 py-2 rounded-lg text-[8px] font-black bg-white dark:bg-slate-700 shadow-md text-[var(--primary)]' : 'flex-1 py-2 rounded-lg text-[8px] font-bold opacity-30';
-                bX.className = m === 'multiplier' ? 'flex-1 py-2 rounded-lg text-[8px] font-black bg-white dark:bg-slate-700 shadow-md text-[var(--primary)]' : 'flex-1 py-2 rounded-lg text-[8px] font-bold opacity-30';
+                bM.className = m === 'margin' ? 'flex-1 py-2 rounded-lg text-[9px] font-black bg-white dark:bg-slate-700 shadow-md text-[var(--primary)]' : 'flex-1 py-2 rounded-lg text-[9px] font-bold opacity-30';
+                bX.className = m === 'multiplier' ? 'flex-1 py-2 rounded-lg text-[9px] font-black bg-white dark:bg-slate-700 shadow-md text-[var(--primary)]' : 'flex-1 py-2 rounded-lg text-[9px] font-bold opacity-30';
                 document.getElementById('div-profit-margin').classList.toggle('hidden', m !== 'margin');
                 document.getElementById('div-multiplier').classList.toggle('hidden', m !== 'multiplier');
             }
@@ -835,7 +759,11 @@
         App.addIngredientToRecipe = () => {
             const r = getActiveRecipe(), n = document.getElementById('ing-name').value.trim();
             const p = parseInputFloat('ing-price'), q = parseInputFloat('ing-pkg-qty'), u = document.getElementById('ing-pkg-unit').value, rq = parseInputFloat('ing-recipe-qty');
-            if(!n || isNaN(p) || isNaN(q) || isNaN(rq)) return;
+
+            if(!n || isNaN(p) || isNaN(q) || isNaN(rq)) {
+                Swal.fire({toast:true, position:'bottom', icon:'error', title:'Campos incompletos', showConfirmButton:false, timer:2000});
+                return;
+            }
             r.ingredients.push({ id: nextId++, name: n, packagePrice: p, packageQty: q, packageUnit: u, recipeQty: rq });
             if(!ingredientMemory.find(i=>i.name.toLowerCase() === n.toLowerCase())) ingredientMemory.push({ name: n, packagePrice: p, packageQty: q, packageUnit: u });
             ['ing-name', 'ing-price', 'ing-pkg-qty', 'ing-recipe-qty'].forEach(id => document.getElementById(id).value = '');
@@ -866,9 +794,9 @@
         const renderIngredientMemoryTable = () => {
             document.getElementById('ingredient-memory-table').innerHTML = ingredientMemory.map(i => `<tr>
                 <td class="font-black">${i.name}</td>
-                <td class="font-bold text-slate-500 text-[10px]">${formatCurrency(i.packagePrice)} / ${i.packageQty}${i.packageUnit}</td>
-                <td class="text-right"><button onclick="ingredientMemory=ingredientMemory.filter(m=>m.name!=='${i.name}'); renderIngredientMemoryTable(); saveData();" class="text-red-500 font-black uppercase text-[8px]">Eliminar</button></td></tr>`).join('') 
-                || '<tr><td colspan="3" class="text-center py-10 opacity-30 uppercase text-[10px]">Vazio</td></tr>';
+                <td class="font-bold text-slate-500 text-xs">${formatCurrency(i.packagePrice)} / ${i.packageQty}${i.packageUnit}</td>
+                <td class="text-right"><button onclick="ingredientMemory=ingredientMemory.filter(m=>m.name!=='${i.name}'); renderIngredientMemoryTable(); saveData();" class="text-red-500 font-black uppercase text-[9px]">Eliminar</button></td></tr>`).join('') 
+                || '<tr><td colspan="3" class="text-center py-10 opacity-30 uppercase text-xs">Vazio</td></tr>';
         };
 
         App.handleIngredientNameInput = (v) => {
@@ -879,7 +807,7 @@
         App.saveInstructions = () => { if(getActiveRecipe()) { getActiveRecipe().instructions = document.getElementById('recipe-instructions').value; saveData(); Swal.fire({toast:true, position:'top-end', icon:'success', title:'Guardado!', showConfirmButton:false, timer:1500}); } };
         App.deleteRecipe = async (id) => { const {isConfirmed} = await Swal.fire({title:'Apagar?', icon:'warning', showCancelButton:true}); if(isConfirmed){ recipes=recipes.filter(r=>r.id!==id); activeRecipeId=null; saveData(); App.switchView('receitas'); } };
         App.promptRename = async () => { const r = getActiveRecipe(); const {value: n} = await Swal.fire({title:'Nome', input:'text', inputValue:r.name, showCancelButton:true}); if(n){ r.name=n.trim(); renderRecipeDetails(); saveData(); } };
-        App.resetApplication = async () => { if((await Swal.fire({title:'Limpar Tudo?', icon:'warning', showCancelButton:true})).isConfirmed){ localStorage.clear(); location.reload(); } };
+        App.resetApplication = async () => { if((await Swal.fire({title:'Limpar Local?', text: 'Não afeta o Google Drive.', icon:'warning', showCancelButton:true})).isConfirmed){ localStorage.clear(); location.reload(); } };
 
         window.onload = () => { 
             loadData(); 
