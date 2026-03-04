@@ -8,24 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
-    <script>
-        // Inicialização robusta no Topo para evitar ReferenceError
-        window.App = {
-            gapiLoaded: () => {
-                if (window.gapi) {
-                    gapi.load('client', window.initializeGapiClient);
-                }
-            },
-            gisLoaded: () => {
-                if (window.initializeGisClient) window.initializeGisClient();
-            }
-        };
-    </script>
-
-    <!-- Google API Scripts -->
-    <script async defer src="https://apis.google.com/js/api.js" onload="App.gapiLoaded()"></script>
-    <script async defer src="https://accounts.google.com/gsi/client" onload="App.gisLoaded()"></script>
-
     <style>
         :root {
             --bg-color: #f8fafc;      
@@ -41,14 +23,14 @@
         }
 
         body.dark-mode {
-            --bg-color: #0b1120; /* Fundo mais escuro e elegante */
+            --bg-color: #0b1120; 
             --card-bg: rgba(15, 23, 42, 0.98); 
-            --text-main: #f8fafc; /* Texto bem claro para contraste */
+            --text-main: #f8fafc; 
             --text-muted: #94a3b8;    
             --primary: #f97316;       
             --primary-hover: #fb923c; 
             --border-color: rgba(255, 255, 255, 0.1); 
-            --form-bg: #1e293b; /* Fundo sólido para Inputs ficarem visíveis */
+            --form-bg: #1e293b; 
             --summary-bg: #000000;
             --summary-text: #ffffff;
         }
@@ -113,13 +95,10 @@
             background-repeat: no-repeat; 
             background-position: right 12px center; 
             background-size: 14px; 
-            padding-right: 32px; /* Garante que o ícone não fique por cima do texto */
+            padding-right: 32px; 
         }
 
-        .pill-select:focus {
-            border-color: var(--primary) !important;
-            outline: none;
-        }
+        .pill-select:focus { border-color: var(--primary) !important; outline: none; }
 
         .nav-item { 
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
@@ -133,16 +112,8 @@
             cursor: pointer; 
         }
         
-        .nav-item:hover { 
-            color: var(--text-main); 
-            background: color-mix(in srgb, var(--text-main) 6%, transparent); 
-        }
-        
-        .nav-item.active { 
-            background: var(--primary); 
-            color: white; 
-            box-shadow: 0 5px 15px -5px color-mix(in srgb, var(--primary) 40%, transparent); 
-        }
+        .nav-item:hover { color: var(--text-main); background: color-mix(in srgb, var(--text-main) 6%, transparent); }
+        .nav-item.active { background: var(--primary); color: white; box-shadow: 0 5px 15px -5px color-mix(in srgb, var(--primary) 40%, transparent); }
 
         th { font-size: 0.65rem; font-weight: 800; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; padding: 12px 8px; border-bottom: 2px solid var(--border-color); text-align: left; }
         td { padding: 12px 8px; border-bottom: 1px solid var(--border-color); vertical-align: middle; font-size: 0.8rem; }
@@ -166,32 +137,32 @@
         body.dark-mode .swal2-input { background: var(--form-bg); color: var(--text-main); border: 1px solid var(--border-color); }
         body.dark-mode .swal2-validation-message { background: var(--form-bg); color: var(--text-main); }
 
-        /* Fixes robustos para Dispositivos Móveis */
+        /* Fixes robustos para Dispositivos Móveis e 100dvh para evitar cortes */
         @media (max-width: 768px) {
             .main-container { 
-                padding-top: 85px; /* Espaço para o cabeçalho fixo */
-                padding-bottom: 150px; /* ESPAÇO AUMENTADO: Garante que o menu inferior não sobreponha os itens */
+                padding-top: 90px !important; /* Espaço exato para o cabeçalho fixo */
+                padding-bottom: 120px !important; /* Espaço exato para garantir que nada fica atrás da barra inferior */
             }
             td, th { padding: 8px 4px; font-size: 0.75rem; }
             .premium-input, .pill-select { padding: 0.75rem; font-size: 0.9rem; }
             
-            /* Ajuste o grid de formulário no mobile para dar espaço */
             .recipe-form-grid { 
                 grid-template-columns: 1fr !important; 
                 gap: 1rem !important; 
             }
             
-            /* Quando o teclado abre, a barra do fundo some para não comer espaço da tela */
+            /* Esconde a barra inferior se o teclado abrir */
             body:has(input:focus, textarea:focus) .mobile-dock { 
                 display: none !important; 
             }
             body:has(input:focus, textarea:focus) .main-container { 
-                padding-bottom: 30px; 
+                padding-bottom: 30px !important; 
             }
         }
     </style>
 </head>
-<body class="h-screen flex flex-col md:flex-row overflow-hidden">
+<!-- Utilizar h-[100dvh] resolve o problema da barra de navegação do telemóvel cortar a parte inferior do ecrã -->
+<body class="h-[100dvh] flex flex-col md:flex-row overflow-hidden">
 
     <!-- Loading Screen -->
     <div id="loading-screen" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[var(--bg-color)] transition-opacity duration-700 ease-in-out">
@@ -297,7 +268,7 @@
         <div class="max-w-7xl mx-auto space-y-8 md:space-y-12">
 
             <!-- VIEW: RECEITAS LIST -->
-            <div id="view-receitas-list" class="animate-view-enter space-y-6 md:space-y-10 pb-24 md:pb-0">
+            <div id="view-receitas-list" class="animate-view-enter space-y-6 md:space-y-10">
                 <header>
                     <h2 class="text-3xl md:text-6xl font-black tracking-tighter mb-1 md:mb-4 leading-tight text-[var(--text-main)]">Painel de Receitas</h2>
                     <p class="text-[10px] md:text-xl font-medium opacity-50 uppercase tracking-widest text-[var(--text-muted)]">Gestão Profissional de Custos</p>
@@ -306,10 +277,9 @@
             </div>
 
             <!-- VIEW: RECIPE DETAILS -->
-            <div id="view-recipe-details" class="hidden animate-view-enter space-y-6 md:space-y-10 pb-24 md:pb-10">
+            <div id="view-recipe-details" class="hidden animate-view-enter space-y-6 md:space-y-10">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     <div class="flex-1 w-full">
-                        <!-- BOTÃO DE VOLTAR - ATUALIZADO PARA SER BEM VISÍVEL NO MOBILE -->
                         <button onclick="App.backToRecipes()" class="inline-flex items-center gap-2 px-4 py-2 bg-[var(--primary)] text-white rounded-xl text-[10px] md:text-xs font-black uppercase tracking-[0.2em] mb-4 md:mb-5 shadow-md hover:bg-[var(--primary-hover)] transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
                             Voltar ao Painel
@@ -541,7 +511,7 @@
             </div>
 
             <!-- VIEW: ESTOQUE GLOBAL (BANCO DE PREÇOS) -->
-            <div id="view-banco-content" class="hidden animate-view-enter space-y-6 md:space-y-10 pb-24 md:pb-0">
+            <div id="view-banco-content" class="hidden animate-view-enter space-y-6 md:space-y-10">
                 <header>
                     <h2 class="text-3xl md:text-6xl font-black tracking-tighter mb-2 leading-tight text-[var(--text-main)]">Estoque Global</h2>
                     <p class="text-[10px] md:text-sm font-medium opacity-50 uppercase tracking-widest text-[var(--text-muted)]">Onde os seus preços ficam gravados.</p>
@@ -567,7 +537,7 @@
                                     <label class="text-[9px] font-black uppercase block mb-1.5 opacity-60 text-[var(--text-main)]">Qtd da Embalagem</label>
                                     <input type="text" inputmode="decimal" id="banco-ing-qty" placeholder="1000" class="premium-input p-3.5 font-bold text-sm text-center border border-[var(--border-color)]">
                                 </div>
-                                <div class="w-24"> <!-- LARGURA AUMENTADA PARA A CAIXA DE UNIDADE DO ESTOQUE -->
+                                <div class="w-24">
                                     <label class="text-[9px] font-black uppercase block mb-1.5 opacity-60 text-[var(--text-main)]">Un</label>
                                     <select id="banco-ing-unit" class="w-full pill-select p-3.5 font-black text-sm border border-[var(--border-color)]">
                                         <option value="g">g</option>
@@ -603,7 +573,7 @@
             </div>
 
             <!-- VIEW: AJUSTES E CONFIGURAÇÕES DO SISTEMA -->
-            <div id="view-personalizar-content" class="hidden animate-view-enter space-y-6 md:space-y-10 pb-24 md:pb-0">
+            <div id="view-personalizar-content" class="hidden animate-view-enter space-y-6 md:space-y-10">
                 <header>
                     <h2 class="text-3xl md:text-6xl font-black tracking-tighter text-[var(--text-main)]">Ajustes</h2>
                     <p class="text-[10px] md:text-sm font-medium opacity-50 uppercase tracking-widest text-[var(--text-muted)] mt-2">Configurações globais da sua plataforma.</p>
@@ -638,45 +608,8 @@
         let isDarkMode = false;
         let autoSaveTimer = null;
 
-        // --- Funções de Inicialização Global (APIs Google) ---
-        window.initializeGapiClient = async function() {
-            try {
-                await gapi.client.init({ apiKey: API_KEY, discoveryDocs: [DISCOVERY_DOC] });
-                gapiInited = true;
-                App.checkAutoLogin();
-            } catch (err) { 
-                console.error("GAPI Init Error", err); 
-            }
-        };
-
-        window.initializeGisClient = function() {
-            tokenClient = google.accounts.oauth2.initTokenClient({
-                client_id: CLIENT_ID, 
-                scope: SCOPES, 
-                callback: '', 
-            });
-            gisInited = true;
-            App.checkAutoLogin();
-        };
-
-        // --- Funções Auxiliares (Expandidas para Clareza) ---
-        const formatCurrency = (value) => {
-            return `R$ ${value.toFixed(2).replace('.', ',')}`;
-        };
-
-        const parseInputFloat = (id) => { 
-            const element = document.getElementById(id); 
-            if (!element) return NaN; 
-            const stringValue = element.value.trim().replace(',', '.');
-            return parseFloat(stringValue) || NaN; 
-        };
-
-        const getActiveRecipe = () => {
-            return recipes.find(recipe => recipe.id === activeRecipeId);
-        };
-
         // --- Objeto App Centralizado ---
-        Object.assign(App, {
+        window.App = {
             
             // Verifica Login Automático
             checkAutoLogin: () => {
@@ -700,11 +633,9 @@
                     });
                     const user = await response.json();
                     if (user && user.name) {
-                        // Desktop Update
                         document.getElementById('drive-user-info').classList.remove('hidden');
                         document.getElementById('user-name').textContent = user.name;
                         document.getElementById('user-photo').src = user.picture;
-                        // Mobile Update
                         document.getElementById('mobile-user-photo').src = user.picture;
                         document.getElementById('mobile-user-photo').classList.remove('hidden');
                         document.getElementById('mobile-google-icon').classList.add('hidden');
@@ -715,9 +646,13 @@
                 }
             },
 
-            // Botão de Login Mobile
+            // Botão de Login Mobile (Com Proteção contra Race Condition)
             handleProfileClick: () => {
-                const token = gapi.client.getToken();
+                if (!gapiInited || !gisInited) {
+                    return Swal.fire({ toast: true, position: 'top', icon: 'warning', title: 'O Google ainda está a carregar. Aguarde 1 segundo.', showConfirmButton: false, timer: 2500 });
+                }
+
+                const token = (gapi.client && gapi.client.getToken) ? gapi.client.getToken() : null;
                 if (token) {
                     Swal.fire({ 
                         title: 'Nuvem Conectada', 
@@ -738,15 +673,18 @@
                 }
             },
 
-            // Dispara tela de Login Google
+            // Dispara tela de Login Google (Com Proteção)
             handleAuthClick: () => {
+                if (!gisInited || !tokenClient) {
+                    return Swal.fire({ toast: true, position: 'top', icon: 'error', title: 'O sistema de Login não carregou.', showConfirmButton: false, timer: 2500 });
+                }
+
                 tokenClient.callback = async (response) => {
                     if (response.error) {
                         console.error("OAuth Error:", response.error);
                         return;
                     }
                     const token = gapi.client.getToken();
-                    // Define o tempo de expiração do Token
                     token.expires_at = Date.now() + (response.expires_in * 1000);
                     localStorage.setItem('gdrive_token', JSON.stringify(token));
                     
@@ -754,13 +692,14 @@
                     App.fetchUserInfo();
                     App.loadFromDrive(true, true);
                 };
-                // Força tela de login caso não exista token válido
-                tokenClient.requestAccessToken({ prompt: gapi.client.getToken() === null ? 'consent' : '' });
+                
+                const hasToken = gapi.client && gapi.client.getToken && gapi.client.getToken() !== null;
+                tokenClient.requestAccessToken({ prompt: hasToken ? '' : 'consent' });
             },
 
             // LogOut
             handleSignoutClick: () => {
-                const token = gapi.client.getToken();
+                const token = (gapi.client && gapi.client.getToken) ? gapi.client.getToken() : null;
                 if (token) {
                     google.accounts.oauth2.revoke(token.access_token);
                     gapi.client.setToken('');
@@ -784,7 +723,8 @@
 
             // Salvar no Google Drive
             saveToDrive: async (isAuto = false) => {
-                const token = gapi.client.getToken();
+                if(!gapiInited) return;
+                const token = (gapi.client && gapi.client.getToken) ? gapi.client.getToken() : null;
                 if(!token) return;
                 
                 const status = document.getElementById('sync-status');
@@ -796,7 +736,6 @@
                 try {
                     const dataString = JSON.stringify({ recipes, nextId, ingredientMemory, isDarkMode });
                     
-                    // Busca se já existe um arquivo de Backup
                     const responseList = await gapi.client.drive.files.list({ 
                         q: `name='${BACKUP_FILENAME}' and trashed=false`, 
                         fields: 'files(id)' 
@@ -830,7 +769,10 @@
 
             // Carregar do Google Drive
             loadFromDrive: async (isSilent = false, overwrite = false) => {
-                if(!gapi.client || !gapi.client.getToken()) return;
+                if(!gapiInited) return;
+                const token = (gapi.client && gapi.client.getToken) ? gapi.client.getToken() : null;
+                if(!token) return;
+
                 try {
                     const responseList = await gapi.client.drive.files.list({ 
                         q: `name='${BACKUP_FILENAME}' and trashed=false`, 
@@ -838,7 +780,7 @@
                     });
                     
                     const fileId = responseList.result.files?.[0]?.id || null;
-                    if (!fileId) return; // Nenhum backup encontrado
+                    if (!fileId) return;
                     
                     const response = await gapi.client.drive.files.get({ fileId, alt: 'media' });
                     const data = response.result;
@@ -863,7 +805,6 @@
 
             // Sistema de Troca de Telas (Views)
             switchView: (viewId) => {
-                // Remove classe "active" de todos os botões e adiciona apenas no atual (Desktop e Mobile)
                 document.querySelectorAll('.nav-item').forEach(e => e.classList.remove('active'));
                 
                 const desktopBtn = document.getElementById(`nav-${viewId}-desktop`);
@@ -871,13 +812,11 @@
                 if(desktopBtn) desktopBtn.classList.add('active');
                 if(mobileBtn) mobileBtn.classList.add('active');
 
-                // Ocultar todas as telas
                 ['receitas-list', 'recipe-details', 'banco-content', 'personalizar-content'].forEach(id => {
                     const element = document.getElementById(`view-${id}`);
                     if(element) element.classList.add('hidden');
                 });
 
-                // Mostrar a tela solicitada
                 if (viewId === 'receitas') {
                     if (activeRecipeId !== null) { 
                         document.getElementById('view-recipe-details').classList.remove('hidden'); 
@@ -891,20 +830,17 @@
                     if(targetView) targetView.classList.remove('hidden');
                 }
                 
-                // Se for o Banco (Estoque), forçar renderização da tabela
                 if (viewId === 'banco') {
                     renderIngredientMemoryTable();
                 }
             },
 
-            // Botão Modo Escuro
             toggleTheme: () => { 
                 isDarkMode = !isDarkMode; 
                 applyThemeToDOM(); 
                 saveData(); 
             },
 
-            // Criar Receita Modal
             promptCreateRecipe: async () => {
                 const { value: recipeName } = await Swal.fire({ 
                     title: 'Nova Receita', 
@@ -944,7 +880,6 @@
                 App.switchView('receitas'); 
             },
 
-            // Alternar Entre Margem em % ou Multiplicador (Markup)
             setPricingMethod: (methodName, isSkippingUpdate = false) => {
                 const recipe = getActiveRecipe(); 
                 if(!recipe) return; 
@@ -968,7 +903,6 @@
                 if(!isSkippingUpdate) App.updateFinalCalculation();
             },
 
-            // Função Central de Atualização de Cálculos Finais (Painel da Direita)
             updateFinalCalculation: () => {
                 const recipe = getActiveRecipe(); 
                 if(!recipe) return;
@@ -979,7 +913,6 @@
                 const yieldInput = parseInputFloat('recipe-yield');
                 const multiplierInput = parseInputFloat('recipe-multiplier');
 
-                // Atualizar objeto se os inputs forem numéricos e válidos
                 if(!isNaN(gasInput)) recipe.gasCost = gasInput; 
                 if(!isNaN(otherInput)) recipe.otherCosts = otherInput; 
                 if(!isNaN(marginInput)) recipe.profitMargin = marginInput; 
@@ -988,7 +921,6 @@
 
                 const financials = calculateRecipeFinancials(recipe);
 
-                // Preencher a tabela de totais (Visual Final)
                 document.getElementById('ingredients-cost').textContent = formatCurrency(financials.ingCost);
                 document.getElementById('packagings-cost-summary').textContent = formatCurrency(financials.pkgCost);
                 document.getElementById('fixed-cost-summary').textContent = formatCurrency(financials.fixed);
@@ -999,47 +931,32 @@
                 saveData();
             },
 
-            // Adicionar Insumo Pelo Formulário da Receita
             addIngredientToRecipe: () => {
                 const recipe = getActiveRecipe();
-                
                 const nameStr = document.getElementById('ing-name').value.trim();
                 const priceNum = parseInputFloat('ing-price');
                 const pkgQtyNum = parseInputFloat('ing-pkg-qty');
                 const unitStr = document.getElementById('ing-pkg-unit').value;
                 const recipeQtyNum = parseInputFloat('ing-recipe-qty');
 
-                // Validação de Preenchimento
                 if(!nameStr || isNaN(priceNum) || isNaN(pkgQtyNum) || isNaN(recipeQtyNum)) {
                     Swal.fire({ toast: true, position: 'top', icon: 'warning', title: 'Preencha todos os campos do Insumo corretamente.', showConfirmButton: false, timer: 3000 });
                     return;
                 }
 
-                recipe.ingredients.push({ 
-                    id: nextId++, 
-                    name: nameStr, 
-                    packagePrice: priceNum, 
-                    packageQty: pkgQtyNum, 
-                    packageUnit: unitStr, 
-                    recipeQty: recipeQtyNum 
-                });
+                recipe.ingredients.push({ id: nextId++, name: nameStr, packagePrice: priceNum, packageQty: pkgQtyNum, packageUnit: unitStr, recipeQty: recipeQtyNum });
 
-                // Tenta adicionar também no Banco de Preços/Estoque caso não exista
                 const existingInMemory = ingredientMemory.find(i => i.name.toLowerCase() === nameStr.toLowerCase());
                 if(!existingInMemory) {
                     ingredientMemory.push({ name: nameStr, packagePrice: priceNum, packageQty: pkgQtyNum, packageUnit: unitStr });
                 }
 
-                // Limpa os campos visuais
                 ['ing-name', 'ing-price', 'ing-pkg-qty', 'ing-recipe-qty'].forEach(id => document.getElementById(id).value = '');
-                
                 renderRecipeDetails();
             },
 
-            // Adicionar Embalagem
             addPackagingToRecipe: () => {
                 const recipe = getActiveRecipe();
-                
                 const nameStr = document.getElementById('pkg-name').value.trim();
                 const priceNum = parseInputFloat('pkg-price');
                 const qtyNum = parseInputFloat('pkg-qty');
@@ -1051,14 +968,7 @@
                 }
 
                 if(!recipe.packagings) recipe.packagings = [];
-                
-                recipe.packagings.push({ 
-                    id: nextId++, 
-                    name: nameStr, 
-                    packagePrice: priceNum, 
-                    packageQty: qtyNum, 
-                    recipeQty: recipeQtyNum 
-                });
+                recipe.packagings.push({ id: nextId++, name: nameStr, packagePrice: priceNum, packageQty: qtyNum, recipeQty: recipeQtyNum });
 
                 ['pkg-name', 'pkg-price', 'pkg-qty', 'pkg-recipe-qty'].forEach(id => document.getElementById(id).value = '');
                 renderRecipeDetails();
@@ -1076,7 +986,6 @@
                 renderRecipeDetails(); 
             },
 
-            // Adicionar/Atualizar Insumo Direto Pelo Banco de Preços (Estoque)
             addIngredientToMemoryFromForm: () => {
                 const nameStr = document.getElementById('banco-ing-name').value.trim();
                 const priceNum = parseInputFloat('banco-ing-price');
@@ -1103,7 +1012,6 @@
                 saveData();
             },
 
-            // Auto-Preenchimento ao digitar o Nome do Insumo na Receita
             handleIngredientNameInput: (inputValue) => {
                 const knownIngredient = ingredientMemory.find(i => i.name.toLowerCase() === inputValue.toLowerCase());
                 if (knownIngredient) { 
@@ -1172,9 +1080,37 @@
                     location.reload(); 
                 } 
             }
-        });
+        };
+
+        // --- Inicialização Automática Google ---
+        window.initializeGapiClient = async function() {
+            try {
+                await gapi.client.init({ apiKey: API_KEY, discoveryDocs: [DISCOVERY_DOC] });
+                gapiInited = true;
+                App.checkAutoLogin();
+            } catch (err) { console.error("GAPI Init Error", err); }
+        };
+
+        window.initializeGisClient = function() {
+            tokenClient = google.accounts.oauth2.initTokenClient({
+                client_id: CLIENT_ID, scope: SCOPES, callback: '', 
+            });
+            gisInited = true;
+            App.checkAutoLogin();
+        };
+
+        window.gapiLoaded = function() { if (window.gapi) gapi.load('client', initializeGapiClient); };
+        window.gisLoaded = function() { initializeGisClient(); };
 
         // --- Funções Matemáticas Essenciais ---
+        const formatCurrency = (value) => `R$ ${value.toFixed(2).replace('.', ',')}`;
+        const parseInputFloat = (id) => { 
+            const element = document.getElementById(id); 
+            if (!element) return NaN; 
+            return parseFloat(element.value.trim().replace(',', '.')) || NaN; 
+        };
+        const getActiveRecipe = () => recipes.find(recipe => recipe.id === activeRecipeId);
+
         function calculateRecipeFinancials(r) {
             const ingCost = (r.ingredients || []).reduce((total, i) => total + (i.packagePrice / i.packageQty) * i.recipeQty, 0);
             const pkgCost = (r.packagings || []).reduce((total, p) => total + (p.packagePrice / p.packageQty) * p.recipeQty, 0);
@@ -1187,29 +1123,19 @@
             
             let finalPrice;
             if (pricingMethod === 'multiplier') {
-                finalPrice = (ingCost + pkgCost) * multiplier; // Regra comum do Markup x3 sobre materiais
+                finalPrice = (ingCost + pkgCost) * multiplier;
             } else {
-                finalPrice = totalCost + (totalCost * ((r.profitMargin || 100) / 100)); // Margem em Porcentagem
+                finalPrice = totalCost + (totalCost * ((r.profitMargin || 100) / 100));
             }
 
-            return { 
-                ingCost: ingCost, 
-                pkgCost: pkgCost, 
-                fixed: fixed, 
-                total: totalCost, 
-                final: finalPrice, 
-                profit: finalPrice - totalCost, 
-                unitC: totalCost / yieldQty, 
-                unitP: finalPrice / yieldQty 
-            };
+            return { ingCost: ingCost, pkgCost: pkgCost, fixed: fixed, total: totalCost, final: finalPrice, profit: finalPrice - totalCost, unitC: totalCost / yieldQty, unitP: finalPrice / yieldQty };
         }
 
         function saveData() { 
             const dataToSave = { recipes, nextId, ingredientMemory, isDarkMode };
             localStorage.setItem('cakeRecipesDataV16', JSON.stringify(dataToSave));
             
-            // Dispara salvamento em nuvem caso conectado
-            if (gapiInited && gapi.client && gapi.client.getToken()) {
+            if (gapiInited && gapi.client && gapi.client.getToken) {
                 if (autoSaveTimer) clearTimeout(autoSaveTimer);
                 autoSaveTimer = setTimeout(() => App.saveToDrive(true), 3000); 
             }
@@ -1219,19 +1145,7 @@
             const storedData = localStorage.getItem('cakeRecipesDataV16');
             if (storedData) {
                 const parsed = JSON.parse(storedData);
-                
-                recipes = (parsed.recipes || []).map(r => ({ 
-                    ...r, 
-                    ingredients: r.ingredients || [], 
-                    packagings: r.packagings || [], 
-                    yield: r.yield || 1, 
-                    gasCost: r.gasCost ?? 2.5, 
-                    otherCosts: r.otherCosts ?? 2.5, 
-                    profitMargin: r.profitMargin ?? 100, 
-                    pricingMethod: r.pricingMethod ?? 'margin', 
-                    multiplier: r.multiplier ?? 3
-                }));
-                
+                recipes = (parsed.recipes || []).map(r => ({ ...r, ingredients: r.ingredients || [], packagings: r.packagings || [], yield: r.yield || 1, gasCost: r.gasCost ?? 2.5, otherCosts: r.otherCosts ?? 2.5, profitMargin: r.profitMargin ?? 100, pricingMethod: r.pricingMethod ?? 'margin', multiplier: r.multiplier ?? 3 }));
                 nextId = parsed.nextId || 0; 
                 ingredientMemory = parsed.ingredientMemory || []; 
                 isDarkMode = parsed.isDarkMode || false;
@@ -1241,22 +1155,17 @@
 
         function applyThemeToDOM() {
             const icons = document.querySelectorAll('.theme-icon-svg');
-            // Ícones de Lua (Tema Claro) e Sol (Tema Escuro)
             const moonSVG = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>`;
             const sunSVG = `<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>`;
             
             document.body.classList.toggle('dark-mode', isDarkMode);
-            icons.forEach(icon => {
-                icon.innerHTML = isDarkMode ? sunSVG : moonSVG;
-            });
+            icons.forEach(icon => { icon.innerHTML = isDarkMode ? sunSVG : moonSVG; });
         }
 
-        // --- Funções de Renderização Visual (Telas e Tabelas) ---
         function renderRecipeList() {
             const container = document.getElementById('recipe-grid-container'); 
             if(!container) return;
             
-            // Renderiza o botão principal de criação
             container.innerHTML = `
                 <div class="theme-card border-2 border-dashed border-[var(--primary)] flex flex-col items-center justify-center p-10 cursor-pointer hover:bg-[var(--primary)]/5 transition-all group" onclick="App.promptCreateRecipe()">
                     <div class="w-16 h-16 rounded-full bg-[var(--primary)] flex items-center justify-center mb-4 text-white shadow-xl font-black text-3xl group-hover:scale-110 transition-transform">+</div>
@@ -1264,7 +1173,6 @@
                 </div>
             `;
             
-            // Renderiza a lista de cartões das receitas existentes
             recipes.forEach(r => {
                 const fin = calculateRecipeFinancials(r);
                 container.innerHTML += `
@@ -1304,7 +1212,6 @@
             
             App.setPricingMethod(r.pricingMethod || 'margin', true);
 
-            // Tabela de Insumos da Receita
             const recipeTable = document.getElementById('recipe-table');
             if (r.ingredients.length > 0) {
                 recipeTable.innerHTML = r.ingredients.map(i => `
@@ -1314,7 +1221,7 @@
                         <td class="font-black text-sm text-[var(--text-main)]">${i.recipeQty}${i.packageUnit}</td>
                         <td class="text-right font-black text-sm text-[var(--text-main)]">${formatCurrency((i.packagePrice / i.packageQty) * i.recipeQty)}</td>
                         <td class="text-center">
-                            <button onclick="App.removeIng(${i.id})" class="text-red-500 hover:text-red-700 bg-red-500/10 hover:bg-red-500/20 px-2 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-all font-black text-[10px] uppercase">Exc</button>
+                            <button onclick="App.removeIng(${i.id})" class="text-red-500 hover:text-red-700 bg-red-500/10 hover:bg-red-500/20 px-2 py-1.5 rounded-lg opacity-0 md:group-hover:opacity-100 transition-all font-black text-[10px] uppercase">Exc</button>
                         </td>
                     </tr>
                 `).join('');
@@ -1322,7 +1229,6 @@
                 recipeTable.innerHTML = '<tr><td colspan="5" class="text-center py-8 opacity-40 text-[10px] font-black uppercase tracking-widest text-[var(--text-main)]">Nenhum Insumo Adicionado</td></tr>';
             }
 
-            // Tabela de Embalagens da Receita
             const packagingTable = document.getElementById('packaging-table');
             if (r.packagings && r.packagings.length > 0) {
                 packagingTable.innerHTML = r.packagings.map(p => `
@@ -1332,7 +1238,7 @@
                         <td class="font-black text-sm text-[var(--text-main)]">${p.recipeQty}un</td>
                         <td class="text-right font-black text-sm text-indigo-500">${formatCurrency((p.packagePrice / p.packageQty) * p.recipeQty)}</td>
                         <td class="text-center">
-                            <button onclick="App.removePkg(${p.id})" class="text-red-500 hover:text-red-700 bg-red-500/10 hover:bg-red-500/20 px-2 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-all font-black text-[10px] uppercase">Exc</button>
+                            <button onclick="App.removePkg(${p.id})" class="text-red-500 hover:text-red-700 bg-red-500/10 hover:bg-red-500/20 px-2 py-1.5 rounded-lg opacity-0 md:group-hover:opacity-100 transition-all font-black text-[10px] uppercase">Exc</button>
                         </td>
                     </tr>
                 `).join('');
@@ -1365,7 +1271,6 @@
             loadData(); 
             App.switchView('receitas'); 
             
-            // Remove a tela de carregamento suavemente após 2 segundos
             setTimeout(() => { 
                 const loader = document.getElementById('loading-screen'); 
                 if (loader) { 
@@ -1375,5 +1280,9 @@
             }, 2000); 
         };
     </script>
+    
+    <!-- Scripts da API do Google Movidos para o Fim Absoluto para evitar falhas -->
+    <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+    <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
 </body>
 </html>
